@@ -1,6 +1,6 @@
 <template>
     <div class="m-header">
-      <div class="left iconfont icon-liebiao"></div>
+      <div class="left iconfont icon-liebiao" @click="handleIconClick"></div>
       <div class="center">
         <router-link tag="a" to="/me">我的</router-link>
         <router-link tag="a" to="/" exact>发现</router-link>
@@ -13,12 +13,30 @@
 
 <script>
 export default {
-
+  methods: {
+    handleIconClick() {
+     /* if (this.moving) return;*/
+      this.$emit('icon-click');
+    },
+  }
 }
 </script>
 
 <style lang="stylus" scoped>
   @import "~common/stylus/variable"
+  .night{
+    .left{
+      color: #fff!important
+    }
+    .right{
+      color: #fff!important
+    }
+    .center{
+      .router-link-active{
+        color: #fff!important
+      }
+    }
+  }
   .m-header{
     width: 100%
     height: 80px

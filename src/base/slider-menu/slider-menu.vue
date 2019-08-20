@@ -1,8 +1,7 @@
 <template>
   <div id="lao" class="warp">
-    <slider3d :piclist="sliderImg"></slider3d>
     <!--导航-->
-    <div class="navList">
+    <div class="navList" :class="modeType ? '' : 'night'">
       <ul>
         <li  v-for="(item, index) in title" :key="index"  @click="liseGo(index)">
           <span class="tag" :class="{myColor:index==isActive}">
@@ -11,8 +10,9 @@
         </li>
       </ul>
     </div>
+    <slider3d :piclist="sliderImg" @getImgIndex="getImgIndex"></slider3d>
     <!--内容-->
-    <div class="mainContent">
+    <div class="mainContent" :class="modeType ? '' : 'night'">
       <div class="swiper-container">
         <div class="swiper-wrapper">
           <div class="swiper-slide" v-for="(item, index) in title" :key="index">
@@ -29,6 +29,7 @@
   import Songs from 'base/songs/songs'
   import Slider3d from 'base/slider/slider3d'
   import {getHotlist, getSonglist} from 'api/api'
+  import {mapGetters, mapMutations} from 'vuex'
   export default {
     name: 'slider-menu',
     data() {
@@ -45,12 +46,18 @@
         loadingMore:false,
         isScroll:true,
         offset:0,
-        limit:20
+        limit:20,
+        imgIndex:''
       }
     },
     components: {
       Songs,
       Slider3d
+    },
+    computed: {
+      ...mapGetters([
+        'modeType'
+      ])
     },
     created() {
       this._getTitle()
@@ -61,6 +68,13 @@
       document.addEventListener('scroll',this.scrollMoreData,false)
     },
     methods: {
+      getImgIndex(index) {
+        this.imgIndex = index
+        console.log(this.imgIndex)
+      },
+      ...mapMutations({
+        setModeType: 'SET_MODE_TYPE'
+      }),
       liseGo(index) {
         this.isActive = index;
         this.mySwiper.slideTo(index, 500, false); //切换到第index个slide，速度为0.5秒
@@ -166,6 +180,11 @@
     background:#fff
     .navList{
       overflow:hidden
+      margin-bottom:40px
+      &.night{
+        background: none!important
+        color: #fff!important
+      }
       ul{
         display: -webkit-box
         overflow-x scroll
@@ -188,5 +207,8 @@
     }
 
 
+  }
+  .mainContent{
+    margin-top:50px
   }
 </style>

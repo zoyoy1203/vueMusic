@@ -5,7 +5,7 @@
         @touchmove.prevent="middleTouchMove"
         @touchend="middleTouchEnd"
     >
-      <li v-for="(item,index) in piclist" :key="index" :style="config[index]"  @click="goSonglistDetail(item)">
+      <li v-for="(item,index) in piclist" :key="index" :style="config[index]"  @click="goSonglistDetail(item)" >
         <div class="img">
           <img :src="item.coverImgUrl">
         </div>
@@ -55,7 +55,9 @@
           }
         ],
         previous: 0,
-        now: Date.now()
+        now: Date.now(),
+        tag:1,
+        index:1
       };
     },
     props:{
@@ -85,7 +87,7 @@
    /*     console.log(this.touch.startX)*/
       },
       middleTouchMove(e) {
-        console.log('remove')
+     /*   console.log('remove')*/
         if (!this.touch.initiated) {
           return
         }
@@ -95,24 +97,29 @@
         if (Math.abs(deltaY) > Math.abs(deltaX)) {
           return
         }
-        console.log(deltaX)
+      /*  console.log(deltaX)*/
         if(deltaX>0){
           this.now = Date.now();
           if (this.now - this.previous > 1000) {
             this.config.push(this.config.shift());
             this.previous = this.now;
+            this.tag -=1
           }
+
         }else{
           this.now = Date.now();
           if (this.now - this.previous > 1000) {
             this.config.unshift(this.config.pop());
             this.previous = this.now;
+            this.tag +=1
           }
+
         }
+
 
       },
       middleTouchEnd() {
-
+        this.$emit("getImgIndex",this.index)
 
       },
       //实现点击按钮切换的动画，设置时间参数防止多次点击
@@ -129,6 +136,25 @@
           this.config.unshift(this.config.pop());
           this.previous = this.now;
         }
+      }
+    },
+    watch: {
+      tag(val){
+        if(val < 0){
+          while (val < 0){
+            val += 3
+          }
+          this.index = val
+        }else if(val >2){
+          while (val > 2){
+            val -= 3
+          }
+          this.index = val
+        }else{
+          this.index = val
+        }
+     /*  console.log(this.index)*/
+
       }
     }
   }

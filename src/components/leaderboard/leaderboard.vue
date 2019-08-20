@@ -1,6 +1,6 @@
 <template>
-    <div class="leaderboard">
-      <back-head title="排行榜" ico_color="#000" ico_display="none"></back-head>
+    <div class="leaderboard" :class="modeType ? '' : 'night'">
+      <back-head title="排行榜" ico_color="hFontColor" ico_display="none"></back-head>
       <div class="container">
 
         <div class="c1">
@@ -42,10 +42,12 @@
   import BackHead from 'base/back-head/back-head'
   import Songs from 'base/songs/songs'
   import {getToplist} from 'api/api'
+  import {mapGetters, mapMutations} from 'vuex'
   export default {
     name: 'leaderboard',
     data() {
       return {
+        hFontColor:'black',
         toplist:[],
         list1:[],//官方榜
         list2:[],//推荐榜
@@ -107,10 +109,18 @@
       BackHead,
       Songs
     },
+    computed: {
+      ...mapGetters([
+        'modeType'
+      ])
+    },
     created () {
       this._getToplistDetail()
     },
     methods: {
+      ...mapMutations({
+        setModeType: 'SET_MODE_TYPE'
+      }),
       goSonglistDetail(id) {
         this.$router.push({
           path: '/songlistdetail',

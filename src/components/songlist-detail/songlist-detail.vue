@@ -47,7 +47,7 @@
         </div>
       </div>
 
-      <div class="container_list">
+      <div class="container_list" :class="modeType ? '' : 'night'">
         <div class="list_title">
           <div class="list_title_icon iconfont icon-bofang"></div>
           <div class="list_title_t">播放全部  <span>(20首)</span></div>
@@ -71,6 +71,7 @@
 </template>
 <script>
 import {getSonglistDetail, getSongDetail,getToplistDetail,getRecommendSongs} from 'api/api'
+import {mapGetters, mapMutations} from 'vuex'
 import {playlistMixin} from 'common/js/mixin'
 import {mapActions} from 'vuex'
 import util from 'api/util'
@@ -93,9 +94,13 @@ export default {
   components: {
     BackHead
   },
+  computed: {
+    ...mapGetters([
+      'modeType'
+    ])
+  },
   created () {
     this._getSonglist()
-
   },
   mounted () {
 /*    this.drawCanvas()*/
@@ -104,6 +109,9 @@ export default {
     })*/
   },
   methods: {
+    ...mapMutations({
+      setModeType: 'SET_MODE_TYPE'
+    }),
 /*    handlePlaylist(playlist) {
       const bottom = playlist.length > 0 ? '60px' : ''
       this.$refs.list.$el.style.bottom = bottom

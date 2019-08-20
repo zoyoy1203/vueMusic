@@ -80,7 +80,7 @@
       </div>
     </transition>
     <transition name="mini">
-      <div class="mini-player" v-show="!fullScreen" @click="open">
+      <div class="mini-player" v-show="!fullScreen" @click="open" :class="modeType ? '' : 'night'">
         <div class="icon">
           <img :class="cdCls" width="40" height="40" :src="currentSong.al.picUrl">
         </div>
@@ -165,7 +165,8 @@
       ...mapGetters([
         'currentIndex',
         'fullScreen',
-        'playing'
+        'playing',
+        'modeType'
       ])
     },
     methods: {
@@ -431,7 +432,8 @@
         setPlayingState: 'SET_PLAYING_STATE',
         setCurrentIndex: 'SET_CURRENT_INDEX',
         setPlayMode: 'SET_PLAY_MODE',
-        setPlayList: 'SET_PLAYLIST'
+        setPlayList: 'SET_PLAYLIST',
+        setModeType: 'SET_MODE_TYPE'
       }),
       ...mapActions([
         'savePlayHistory'
@@ -479,6 +481,16 @@
 
 <style lang="stylus" scoped>
   @import "~common/stylus/variable"
+  .night{
+    .text{
+      color: #fff!important
+    }
+    .control {
+      .iconfont{
+        color: #fff!important
+      }
+    }
+  }
 .player{
   .normal_player{
     position: fixed

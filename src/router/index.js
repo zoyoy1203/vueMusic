@@ -28,7 +28,7 @@ export default new Router({
       name: 'songlist',
       component: resolve => require(['@/components/songlist/songlist'], resolve),
       meta: {
-        keepAlive: true
+        keepAlive: false
       }
     },
     {
@@ -66,7 +66,7 @@ export default new Router({
     {
       path:'/sliderleft',
       name:'sliderleft',
-      component: resolve => require(['@/base/slider-left/slider-left'], resolve),
+      component: resolve => require(['@/base/drawer-layout/drawer-layout'], resolve),
       meta: {
         keepAlive:false
       }

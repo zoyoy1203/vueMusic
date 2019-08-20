@@ -29,6 +29,9 @@ const matutaions = {
   [types.SET_TOP_LIST](state, topList) {
     state.topList = topList
   },
+  [types.SET_MODE_TYPE](state, flag) {
+    state.modeType = flag
+  },
   [types.SET_SEARCH_HISTORY](state, history) {
     state.searchHistory = history
   },

@@ -20,6 +20,8 @@ const state = {
   //歌单
   disc: {},
   topList: {},
+  //夜间日间背景模式
+  modeType:true,
   searchHistory: loadSearch(),
   playHistory: loadPlay(),
   favoriteList: loadFavorite()
