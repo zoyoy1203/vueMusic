@@ -9,6 +9,14 @@ export default new Router({
   routes: [
     {
       path: '/',
+      name: 'hone',
+      component: resolve => require(['@/components/login/home'], resolve),
+      meta: {
+        keepAlive: false
+      },
+    },
+    {
+      path: '/found',
       name: 'found',
       component: resolve => require(['@/components/found/found'], resolve),
       meta: {

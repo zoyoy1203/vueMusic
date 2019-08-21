@@ -1,16 +1,16 @@
 <template>
-  <div>
-    <m-header></m-header>
-  </div>
+  <slider-left>
+
+  </slider-left>
 </template>
 
 <script>
-  import MHeader from 'components/m-header/m-header'
+  import SliderLeft from 'components/slider-left/slider-left'
   export default {
     name: 'me',
     components: {
-      'm-header':MHeader
-    }
+      SliderLeft
+    },
   }
 </script>
 

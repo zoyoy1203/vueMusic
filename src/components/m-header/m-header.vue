@@ -3,7 +3,7 @@
       <div class="left iconfont icon-liebiao" @click="handleIconClick"></div>
       <div class="center">
         <router-link tag="a" to="/me">我的</router-link>
-        <router-link tag="a" to="/" exact>发现</router-link>
+        <router-link tag="a" to="/found" exact>发现</router-link>
         <router-link tag="a" to="/cloud">云村</router-link>
         <router-link tag="a" to="/video">视屏</router-link>
       </div>
@@ -40,7 +40,6 @@ export default {
   .m-header{
     width: 100%
     height: 80px
-    border-bottom: 1px solid #ccc
     .left{
       float:left
       width:115px

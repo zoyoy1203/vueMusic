@@ -1,116 +1,6 @@
 <template>
-  <drawer-layout
-    ref="drawerLayout"
-    @mask-click="handleMaskClick"
-  >
-    <div slot="drawer" class="drawer" :class="modeType ? '' : 'night'">
-      <div class="user" :class="modeType ? '' : 'night'">
-        <div class="nologin">
-          <p>登录网易云音乐</p>
-          <p>手机电脑多端同步，尽享海量高品质音乐</p>
-          <button :class="modeType ? '' : 'night'">立即登录</button>
-        </div>
-        <div class="login" style="display: none;">
-
-        </div>
-      </div>
-      <div class="content">
-        <div class="usernav">
-          <ul>
-            <li class="nav ">
-              <div class="icon iconfont icon-xiaoxi1"></div>
-              <div class="text">我的消息</div>
-            </li>
-            <li class="nav ">
-              <div class="icon iconfont icon-haoyou"></div>
-              <div class="text">我的好友</div>
-            </li>
-            <li class="nav ">
-              <div class="icon iconfont icon-huanfu"></div>
-              <div class="text">个性换肤</div>
-            </li>
-            <li class="nav ">
-              <div class="icon iconfont icon-huatong"></div>
-              <div class="text">听歌识曲</div>
-            </li>
-          </ul>
-        </div>
-        <div class="line"></div>
-        <div class="list">
-          <ul>
-            <li class="item">
-              <span class="icon iconfont icon-huopiaotongxing"></span>
-              <span class="text">演出</span>
-              <span class="text_r">雅尼音乐会</span>
-            </li>
-            <li class="item">
-              <span class="icon iconfont icon-icon01"></span>
-              <span class="text">商城</span>
-              <span class="text_r">真无线 59元</span>
-            </li>
-            <li class="item">
-              <span class="icon iconfont icon-fujin"></span>
-              <span class="text">附近的人</span>
-            </li>
-            <li class="item">
-              <span class="icon iconfont icon-icon--"></span>
-              <span class="text">口袋铃声</span>
-            </li>
-            <li class="item">
-              <span class="icon iconfont icon-icon3"></span>
-              <span class="text">我的订单</span>
-            </li>
-          </ul>
-          <div class="line"></div>
-          <ul>
-            <li class="item">
-              <span class="icon iconfont icon-time"></span>
-              <span class="text">定时停止播放</span>
-            </li>
-            <li class="item">
-              <span class="icon iconfont icon-saoma"></span>
-              <span class="text">扫一扫</span>
-            </li>
-            <li class="item">
-              <span class="icon iconfont icon-paidui"></span>
-              <span class="text">音乐闹钟</span>
-            </li>
-            <li class="item">
-              <span class="icon iconfont icon-liuliang"></span>
-              <span class="text">在线听歌免流量</span>
-            </li>
-            <li class="item">
-              <span class="icon iconfont icon-youxi"></span>
-              <span class="text">游戏推荐</span>
-            </li>
-            <li class="item">
-              <span class="icon iconfont icon-wodeyouhuijuan"></span>
-              <span class="text">优惠券</span>
-            </li>
-            <li class="item">
-              <span class="icon iconfont icon-zhibo"></span>
-              <span class="text">我要直播</span>
-            </li>
-          </ul>
-        </div>
-      </div>
-      <div class="footer" :class="modeType ? '' : 'night'">
-        <div class="item" @click="modeClick">
-          <span class="icon iconfont " :class="modeType ? 'icon-yejianmoshi' : 'icon-rijianmoshi'"></span>
-          <span>夜间模式</span>
-        </div>
-        <div class="item">
-          <span class="icon iconfont icon-shezhi"></span>
-          <span>设置</span>
-        </div>
-        <div class="item">
-          <span class="icon iconfont icon-tuichu"></span>
-          <span>退出</span>
-        </div>
-      </div>
-    </div>
-    <div slot="content">
-      <m-header  @icon-click="handleIconClick" :class="modeType ? '' : 'night'"></m-header>
+  <slider-left>
+    <div slot="mainContainer">
       <div class="recommend" ref="recommend">
         <scroll ref="scroll" class="recommend-content" :class="modeType ? '' : 'night'">
           <div>
@@ -174,18 +64,16 @@
         <router-view></router-view>
       </div>
     </div>
-  </drawer-layout>
-
+  </slider-left>
 </template>
 
 <script type="text/ecmascript-6">
   import {mapGetters, mapMutations} from 'vuex'
-  import MHeader from 'components/m-header/m-header'
   import Slider from 'base/slider/slider'
   import Scroll from 'base/scroll/scroll'
   import Loading from 'base/loading/loading'
   import Songs from 'base/songs/songs'
-  import DrawerLayout from 'base/drawer-layout/drawer-layout'
+  import SliderLeft from 'components/slider-left/slider-left'
   import { getBanner, getNewDisc,getRecommendSonglist} from 'api/api'
 
   export default {
@@ -197,12 +85,11 @@
       }
     },
     components: {
-      'm-header':MHeader,
       Slider,
       Scroll,
       Loading,
       Songs,
-      DrawerLayout
+      SliderLeft
     },
     computed: {
       ...mapGetters([
