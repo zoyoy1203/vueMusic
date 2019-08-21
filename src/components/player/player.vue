@@ -148,7 +148,7 @@
     },
     computed: {
       cdCls() {
-        return this.playing ? 'play' : 'play pause'
+        return this.playing ? 'play' : 'pause'
       },
       playIcon() {
         return this.playing ? 'icon-zanting' : 'icon-bofang'
@@ -787,6 +787,14 @@
 
   }
 
-
 }
+  @keyframes rotate{
+    0%{
+      transform: rotate(0)
+    }
+    100%{
+     transform: rotate(360deg)
+    }
+  }
+
 </style>
