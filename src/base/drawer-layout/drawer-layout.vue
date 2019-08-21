@@ -181,6 +181,9 @@
         canMove = undefined;
         metric.nowX = metric.startX = supportsTouch ? event.changedTouches[0].clientX : event.clientX;
         metric.nowY = metric.startY = supportsTouch ? event.changedTouches[0].clientY : event.clientY;
+        if(metric.nowX>50){
+          return
+        }
         t2 = +new Date();
         startPos = this.pos;
         document.addEventListener(handledEvents.move, drag, supportsTouch && supportsPassive ? { passive: true } : false);

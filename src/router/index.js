@@ -94,6 +94,14 @@ export default new Router({
       meta: {
         keepAlive:false
       }
+    },
+    {
+      path:'/sliderbar',
+      name:'sliderbar',
+      component: resolve => require(['@/base/slider/slider-bar'], resolve),
+      meta: {
+        keepAlive:false
+      }
     }
   ]
 })

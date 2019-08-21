@@ -127,3 +127,11 @@ export function  getUserMore(){
     url: '/api/user/subcount'
   })
 }
+
+//获取每日推荐歌单
+export function  getDailySonglist(){
+  return fetch({
+    url: '/api/recommend/resource'
+  })
+}
+
