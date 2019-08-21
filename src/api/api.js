@@ -106,3 +106,24 @@ export function  getRecommendSongs(){
     url: '/api/personalized/newsong',
   })
 }
+
+//手机登录
+export function  phoneLogin(phone,password){
+  return fetch({
+    url: '/api/login/cellphone?phone=' + phone + '&password=' + password,
+  })
+}
+
+//获取用户详情
+export function  getUserDetail(uid){
+  return fetch({
+    url: '/api/user/detail?uid='+uid
+  })
+}
+
+//获取用户信息 , 歌单，收藏，mv, dj 数量
+export function  getUserMore(){
+  return fetch({
+    url: '/api/user/subcount'
+  })
+}

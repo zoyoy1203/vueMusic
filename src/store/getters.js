@@ -1,5 +1,9 @@
 
 //getters是对state做一些映射----基础的代理
+export const phone = state => state.phone
+
+export const userId = state => state.userId
+
 export const singer = state => state.singer
 
 export const playing = state => state.playing

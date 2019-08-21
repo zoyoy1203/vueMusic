@@ -48,7 +48,7 @@
     z-index:100
     .left{
       display: inline-block
-      width:240px
+      width:auto
       heihgt: auto
       float: left
       margin: 20px

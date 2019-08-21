@@ -1,0 +1,108 @@
+<template>
+  <div class="phone_login">
+    <back-head title="手机号登录" ico_display="none" ico_color="#000"></back-head>
+    <div class="container">
+      <input class="password"  v-model="password" type="password" placeholder="请输入密码">
+      <button @click="getLogin">登录</button>
+      <div class="message" v-if="message">
+        用户名或者密码错误
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+  import BackHead from 'base/back-head/back-head'
+  import { phoneLogin} from 'api/api'
+  import {mapGetters, mapMutations} from 'vuex'
+  export default {
+    name: 'password',
+    data() {
+      return {
+        password:"",
+        message:false
+      }
+    },
+    components: {
+      BackHead
+    },
+    created() {
+    },
+    computed: {
+      ...mapGetters([
+        'phone',
+        'userId'
+      ])
+    },
+    methods: {
+      getLogin() {
+        var phone = this.$route.params.number
+        console.log(phone)
+        phoneLogin(phone,this.password).then(res => {
+          var uid = res.data.bindings[0].id
+          this.setPhone(phone)
+          this.setUserId(uid)
+          this.$router.push({
+            path:'/found'
+          })
+        }).catch(err => {
+          console.log(err)
+          this.message = true
+          setTimeout(() => {
+            this.message = false
+          },3000);
+        })
+      },
+      ...mapMutations({
+        setPhone: 'SET_PHONE',
+        setUserId: 'SET_USER_ID'
+      }),
+    }
+  }
+</script>
+
+<style lang="stylus" scoped>
+  @import "~common/stylus/variable"
+  .phone_login{
+    width: 100%
+    height:auto
+    .container{
+      width: 90%
+      height:auto
+      margin: 0 auto
+      input{
+        width: 100%
+        height: 60px
+        margin-top:100px
+        border-bottom:1px solid #000
+        :focus{
+          border:none!important
+        }
+      }
+      button{
+        width: 100%
+        height:80px
+        margin-top: 80px
+        line-height :80px
+        text-align :center
+        color: $color-font1
+        background: $color-icon
+        border:none
+        border-radius :40px
+        font-size:$font-size-medium-x
+      }
+      .message{
+        position: absolute
+        bottom: 300px
+        width:300px
+        margin: 0 200px
+        height:50px
+        line-height :50px
+        text-align center
+        font-size:$font-size-medium
+        background: rgba(0,0,0,0.7)
+        color: $color-font1
+      }
+    }
+  }
+</style>

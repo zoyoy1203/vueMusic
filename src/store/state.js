@@ -3,6 +3,11 @@ import {loadSearch, loadPlay, loadFavorite} from 'common/js/cache'
 
 //状态
 const state = {
+  //手机号
+  phone: "",
+  //用户id
+  userId:"",
+
   //歌手
   singer: {},
   //播放状态：播放，暂停

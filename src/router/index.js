@@ -16,6 +16,22 @@ export default new Router({
       },
     },
     {
+      path: '/phone',
+      name: 'phone',
+      component: resolve => require(['@/components/login/phone'], resolve),
+      meta: {
+        keepAlive: false
+      },
+    },
+    {
+      path: '/password',
+      name: 'password',
+      component: resolve => require(['@/components/login/password'], resolve),
+      meta: {
+        keepAlive: false
+      },
+    },
+    {
       path: '/found',
       name: 'found',
       component: resolve => require(['@/components/found/found'], resolve),

@@ -2,22 +2,26 @@
     <div class="home">
       <div class="home_container">
         <div class="logo">
-          <span class="icon iconfont icon-bofang"></span>
+          <span class="icon iconfont icon-huabankaobei-"></span>
         </div>
-        <button class="phone">
+        <button class="phone" @click="getPhone">
           手机号登录
         </button>
         <router-link tag="button" to="/found" class="go">
           立即体验
         </router-link>
         <div class="more">
-          <span class="icon iconfont icon-diantai"></span>
-          <span class="icon i_c iconfont icon-diantai"></span>
-          <span class="icon i_c iconfont icon-diantai"></span>
-          <span class="icon iconfont icon-diantai"></span>
+          <span class="icon iconfont icon-weixin"></span>
+          <span class="icon i_c iconfont icon-qq"></span>
+          <span class="icon i_c iconfont icon-weibo"></span>
+          <span class="icon iconfont icon-youxiang"></span>
+          <div class="message" v-if="message">
+            请勾选同意《用户协议》和《隐私政策》
+          </div>
         </div>
         <div class="text">
-          <span class="icon iconfont icon-diantai"></span>
+          <span class="icon iconfont icon-fuxuankuang" v-if="flag" @click="flag=!flag"></span>
+          <span class="icon iconfont icon--fuxuankuang" v-else  @click="flag=!flag"></span>
           <span>同意</span>
         《用户协议》和《隐私政策》
         </div>
@@ -28,7 +32,29 @@
 
 <script>
   export default {
-    name: 'home'
+    name: 'home',
+    data() {
+      return {
+        flag:true,
+        message:false
+      }
+    },
+    methods: {
+      getPhone() {
+        if(this.flag){
+          this.message = true
+          setTimeout(() => {
+            this.message = false
+          },3000);
+
+        }else{
+          this.$router.push({
+            path:'/phone'
+          })
+        }
+
+      }
+    }
   }
 </script>
 
@@ -87,20 +113,28 @@
       .icon{
         box-sizing :border-box
         display: inline-block
-        width: 60px
-        height:60px
-        border-radius:30px
         text-align :center
-        padding-top:10px
-        border: 1px solid #fff
         color: $color-icon1
-        font-size:$icon-size-medium-x
+        font-size:$icon-size-large-x
+      }
+      .message{
+        position: absolute
+        width: 80%
+        height:50px
+        line-height :50px
+        text-align center
+        font-size:$font-size-medium
+        background: rgba(0,0,0,0.7)
+        color: $color-font1
       }
     }
     .text{
       text-align :center
       color: $color-font1
       font-size:$font-size-small
+      .icon{
+        font-size:$icon-size-medium
+      }
     }
   }
 

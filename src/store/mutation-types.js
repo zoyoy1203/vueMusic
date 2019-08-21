@@ -1,5 +1,9 @@
 
 //存储mutation相关的状态常量
+export const SET_PHONE = 'SET_PHONE'
+
+export const SET_USER_ID = 'SET_USER_ID'
+
 export const SET_SINGER = 'SET_SINGER'
 
 export const SET_PLAYING_STATE = 'SET_PLAYING_STATE'

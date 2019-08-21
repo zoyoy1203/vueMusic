@@ -2,6 +2,12 @@ import * as types from './mutation-types'
 
 //更改 Vuex 的 store 中的状态的唯一方法是提交 mutation
 const matutaions = {
+  [types.SET_PHONE](state,phone){
+    state.phone = phone
+  },
+  [types.SET_USER_ID](state,userId){
+    state.userId = userId
+  },
   [types.SET_SINGER](state, singer) {
     state.singer = singer
   },

@@ -120,6 +120,7 @@
   import DrawerLayout from 'base/drawer-layout/drawer-layout'
   import MHeader from 'components/m-header/m-header'
   import {mapGetters, mapMutations} from 'vuex'
+  import {getUserDetail, getUserMore} from 'api/api'
   export default {
     name: 'slider-left',
     components: {
@@ -128,10 +129,31 @@
     },
     computed: {
       ...mapGetters([
-        'modeType'
+        'modeType',
+        'userId'
       ])
     },
+    created() {
+      this._getUserDetail()
+      this._getUserMore()
+    },
     methods: {
+      _getUserMore(){
+        getUserMore().then(res => {
+          console.log(res)
+        }).catch(err => {
+          console.log(err)
+        })
+      },
+      _getUserDetail(){
+        var uid = this.userId
+        console.log(this.userId)
+        getUserDetail(uid).then(res => {
+          console.log(res)
+        }).catch(err => {
+          console.log(err)
+        })
+      },
       modeClick () {
         this.setModeType(!this.modeType)
       },
@@ -147,7 +169,7 @@
         this.$refs.drawerLayout.toggle(false)
       },
       ...mapMutations({
-        setModeType: 'SET_MODE_TYPE'
+        setModeType: 'SET_MODE_TYPE',
       })
     }
   }
