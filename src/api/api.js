@@ -128,6 +128,13 @@ export function  getUserMore(){
   })
 }
 
+//登录状态
+export function  getUserStatus(){
+  return fetch({
+    url: '/api/login/status'
+  })
+}
+
 //获取每日推荐歌单
 export function  getDailySonglist(){
   return fetch({

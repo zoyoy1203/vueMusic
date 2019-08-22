@@ -4,6 +4,12 @@ export const phone = state => state.phone
 
 export const userId = state => state.userId
 
+export const username = state => state.username
+
+export const avatarUrl = state => state.avatarUrl
+
+export const isLogin = state => state.isLogin
+
 export const singer = state => state.singer
 
 export const playing = state => state.playing

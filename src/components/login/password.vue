@@ -13,7 +13,7 @@
 
 <script>
   import BackHead from 'base/back-head/back-head'
-  import { phoneLogin} from 'api/api'
+  import { phoneLogin, getUserStatus} from 'api/api'
   import {mapGetters, mapMutations} from 'vuex'
   export default {
     name: 'password',
@@ -31,22 +31,35 @@
     computed: {
       ...mapGetters([
         'phone',
-        'userId'
+        'userId',
+        'username',
+        'avatarUrl',
+        'isLogin'
       ])
     },
     methods: {
+      _getUserStatus() {
+        getUserStatus().then(res => {
+          var profile = res.data.profile
+          this.setUserId(profile.userId)
+          this.setUsername(profile.nickname)
+          this.setAvatarUrl(profile.avatarUrl)
+        }).catch(err => {
+          console.log(err)
+        })
+      },
       getLogin() {
         var phone = this.$route.params.number
         console.log(phone)
         phoneLogin(phone,this.password).then(res => {
-          var uid = res.data.bindings[0].id
           this.setPhone(phone)
-          this.setUserId(uid)
+          this.setIsLogin(true)
           this.$router.push({
             path:'/found'
           })
         }).catch(err => {
           console.log(err)
+          this.setIsLogin(false)
           this.message = true
           setTimeout(() => {
             this.message = false
@@ -55,8 +68,15 @@
       },
       ...mapMutations({
         setPhone: 'SET_PHONE',
-        setUserId: 'SET_USER_ID'
+        setUserId: 'SET_USER_ID',
+        setUsername: 'SET_USERNAME',
+        setAvatarUrl: 'SET_AVATAR_URL',
+        setIsLogin: 'SET_IS_LOGIN'
       }),
+    },
+    beforeDestroy() {
+      console.log("销毁之前")
+      this._getUserStatus()
     }
   }
 </script>

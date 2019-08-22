@@ -9,7 +9,7 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'hone',
+      name: 'home',
       component: resolve => require(['@/components/login/home'], resolve),
       meta: {
         keepAlive: false

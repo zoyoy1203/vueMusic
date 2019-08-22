@@ -8,6 +8,15 @@ const matutaions = {
   [types.SET_USER_ID](state,userId){
     state.userId = userId
   },
+  [types.SET_USERNAME](state,username){
+    state.username = username
+  },
+  [types.SET_AVATAR_URL](state,avatarUrl){
+    state.avatarUrl = avatarUrl
+  },
+  [types.SET_IS_LOGIN](state,isLogin){
+    state.isLogin = isLogin
+  },
   [types.SET_SINGER](state, singer) {
     state.singer = singer
   },

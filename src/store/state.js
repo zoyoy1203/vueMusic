@@ -7,6 +7,12 @@ const state = {
   phone: "",
   //用户id
   userId:"",
+  //用户名
+  username:"",
+  //头像
+  avatarUrl:"",
+  //是否登录
+  isLogin:false,
 
   //歌手
   singer: {},

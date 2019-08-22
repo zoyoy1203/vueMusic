@@ -5,13 +5,20 @@
   >
     <div slot="drawer" class="drawer" :class="modeType ? '' : 'night'">
       <div class="user" :class="modeType ? '' : 'night'">
-        <div class="nologin">
+        <div class="nologin" v-if="!isLogin">
           <p>登录网易云音乐</p>
           <p>手机电脑多端同步，尽享海量高品质音乐</p>
           <router-link tag="button" to="/" :class="modeType ? '' : 'night'">立即登录</router-link>
         </div>
-        <div class="login" style="display: none;">
-
+        <div class="login" v-if="isLogin">
+          <div class="avatar">
+            <img :src="avatarUrl" alt="">
+          </div>
+          <div class="info">
+            <div class="username">{{username}}</div>
+            <div class="info_l">Lv.1</div>
+            <div class="info_r">签到</div>
+          </div>
         </div>
       </div>
       <div class="content">
@@ -120,9 +127,14 @@
   import DrawerLayout from 'base/drawer-layout/drawer-layout'
   import MHeader from 'components/m-header/m-header'
   import {mapGetters, mapMutations} from 'vuex'
-  import {getUserDetail, getUserMore} from 'api/api'
+  import {getUserDetail} from 'api/api'
   export default {
     name: 'slider-left',
+    data() {
+      return{
+
+      }
+    },
     components: {
       DrawerLayout,
       'm-header':MHeader,
@@ -130,30 +142,15 @@
     computed: {
       ...mapGetters([
         'modeType',
-        'userId'
+        'userId',
+        'username',
+        'avatarUrl',
+        'isLogin'
       ])
     },
     created() {
-      this._getUserDetail()
-      this._getUserMore()
     },
     methods: {
-      _getUserMore(){
-        getUserMore().then(res => {
-          console.log(res)
-        }).catch(err => {
-          console.log(err)
-        })
-      },
-      _getUserDetail(){
-        var uid = this.userId
-        console.log(this.userId)
-        getUserDetail(uid).then(res => {
-          console.log(res)
-        }).catch(err => {
-          console.log(err)
-        })
-      },
       modeClick () {
         this.setModeType(!this.modeType)
       },
@@ -192,8 +189,12 @@
       background:	#545454!important
     }
     .user{
+      width: 100%
+      height:400px
       background:	#F7F7F7
       .nologin{
+        width: 100%
+        height: 100%
         text-align :center
         padding-top:80px
         p{
@@ -208,6 +209,53 @@
           border:1px solid #ccc
           padding: 6px 40px
           border-radius :20px
+        }
+      }
+      .login{
+        width: 100%
+        height: 100%
+        .avatar{
+          position: relative
+          top: 0
+          left: 0
+          height:300px
+          img{
+            position: absolute
+            bottom: 20px
+            left: 20px
+            width:150px
+            height:150px
+            border-radius :75px
+
+          }
+        }
+
+        .info{
+          box-sizing :border-box
+          width: 100%
+          height:100px
+          padding:30px 20px
+          .username{
+            float: left
+          }
+          .info_l{
+            float: left;
+            height: 30px
+            line-height :30px
+            border-radius:15px
+            background: #ccc
+            padding: 2px 9px
+            margin-left: 20px
+            font-size:$font-size-small-s
+          }
+          .info_r{
+            float: right;
+            border-radius :25px
+            border:1px solid #ccc
+            padding: 9px 15px
+            margin-top: -6px
+            font-size:$font-size-small
+          }
         }
       }
     }

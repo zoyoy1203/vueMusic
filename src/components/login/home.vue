@@ -61,9 +61,8 @@
 <style lang="stylus" scoped>
   @import "~common/stylus/variable"
 .home{
-  display: inline-block
   width: 100%
-  height:1334px
+  height:100vh
   background: $color-background-home
   .home_container{
     width: 80%
@@ -71,7 +70,7 @@
     margin:0 auto
     .logo{
       width: 100%
-      height:800px
+      height:750px
       text-align :center
       .icon{
         display:inline-block
@@ -132,6 +131,7 @@
       text-align :center
       color: $color-font1
       font-size:$font-size-small
+      margin-bottom:auto
       .icon{
         font-size:$icon-size-medium
       }
