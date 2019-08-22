@@ -108,7 +108,7 @@
         </div>
         <div class="item">
           <span class="icon iconfont icon-shezhi"></span>
-          <span>设置</span>
+          <router-link tag="span" to="/setting">设置</router-link>
         </div>
         <div class="item">
           <span class="icon iconfont icon-tuichu"></span>

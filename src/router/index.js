@@ -102,6 +102,14 @@ export default new Router({
       meta: {
         keepAlive:false
       }
+    },
+    {
+      path:'/setting',
+      name:'setting',
+      component: resolve => require(['@/components/setting/setting'], resolve),
+      meta: {
+        keepAlive:false
+      }
     }
   ]
 })
