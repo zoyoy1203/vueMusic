@@ -3,7 +3,7 @@
    <div class="background">
      <img :src="background" alt="">
    </div>
-   <back-head title="歌单广场" ico_display="none" ico_color="#000"></back-head>
+   <back-head title="歌单广场" ico_display="none" :ico_color="modeType ? '#000' : '#fff'" style="border:none"></back-head>
    <div class="songlist_container">
      <div id="lao" class="warp">
        <!--导航-->
@@ -213,7 +213,7 @@
       position: relative
       &.night{
         background: none!important
-        color: #fff!important
+        color: #ccc!important
       }
       ul{
         display: -webkit-box

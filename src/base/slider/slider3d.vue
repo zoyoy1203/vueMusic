@@ -9,7 +9,7 @@
         <div class="img">
           <img :src="item.coverImgUrl">
         </div>
-        <div class="text" v-html="item.name">
+        <div class="text" v-html="item.name" :class="modeType ? '' : 'night'">
         </div>
       </li>
     </ul>
@@ -17,8 +17,14 @@
 </template>
 
 <script>
+  import {mapGetters, mapMutations} from 'vuex'
   export default {
     name: 'slider3d',
+    computed: {
+      ...mapGetters([
+        'modeType'
+      ])
+    },
     data() {
       return {
         //文件图片配置
@@ -197,6 +203,10 @@
           -webkit-line-clamp: 2;
           -webkit-box-orient: vertical;
           font-size:$font-size-medium
+          &.night{
+            box-shadow :none
+            border:none
+          }
         }
       }
     }

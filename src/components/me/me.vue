@@ -9,15 +9,15 @@
             <div class="list">
               <ul>
                 <li class="item">
-                  <span class="icon iconfont icon-diantai"></span>
+                  <span class="icon iconfont icon-yinyue"></span>
                   <div class="text">本地音乐 <span>(137)</span></div>
                 </li>
                 <li class="item">
-                  <span class="icon iconfont icon-diantai"></span>
+                  <span class="icon iconfont icon-zuijinbofang"></span>
                   <div class="text">最近播放 <span>(37)</span></div>
                 </li>
                 <li class="item">
-                  <span class="icon iconfont icon-diantai"></span>
+                  <span class="icon iconfont icon-iconset0425"></span>
                   <div class="text">下载管理 <span>(137)</span></div>
                 </li>
                 <li class="item">
@@ -25,7 +25,7 @@
                   <div class="text">我的电台 <span>(137)</span></div>
                 </li>
                 <li class="item">
-                  <span class="icon iconfont icon-diantai"></span>
+                  <span class="icon iconfont icon-yixianshi-"></span>
                   <div class="text">我的收藏 <span>(137)</span></div>
                 </li>
               </ul>
@@ -43,9 +43,9 @@
             <div class="line"></div>
             <div class="recommend-list">
               <div class="list-title">
-                <span class="icon i_l iconfont icon-cheliang"></span>
+                <span class="icon i_l iconfont icon-shixin"></span>
                 <span>推荐歌单</span>
-                <span class="icon i_r iconfont icon-cheliang"></span>
+                <span class="icon i_r iconfont icon-cross"></span>
               </div>
               <songs :songlist="songlist" img="picUrl"></songs>
             </div>
@@ -187,6 +187,7 @@
             &.i_r{
               float: right
               margin-right:20px
+              font-size:$font-size-medium-x
             }
           }
         }

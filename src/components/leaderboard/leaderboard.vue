@@ -192,7 +192,7 @@
         .text{
           box-sizing:border-box
           float: left;
-          width:500px
+          width:450px
           height: 100%
           padding-left:20px
           ul{

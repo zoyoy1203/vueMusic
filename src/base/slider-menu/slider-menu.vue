@@ -184,6 +184,7 @@
       &.night{
         background: none!important
         color: #fff!important
+        border:none
       }
       ul{
         display: -webkit-box

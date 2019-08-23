@@ -16,7 +16,7 @@
           </div>
           <div class="info">
             <div class="username">{{username}}</div>
-            <div class="info_l">Lv.1</div>
+            <div class="info_l" :class="modeType ? '' : 'night'">Lv.1</div>
             <div class="info_r">签到</div>
           </div>
         </div>
@@ -247,6 +247,9 @@
             padding: 2px 9px
             margin-left: 20px
             font-size:$font-size-small-s
+            &.night{
+              background: $color-font4!important
+            }
           }
           .info_r{
             float: right;
