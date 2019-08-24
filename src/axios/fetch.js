@@ -7,7 +7,8 @@ const ENV = process.env.NODE_ENV
 const service = axios.create({
   // baseURL:"http://novel.juhe.im/",代理服务器请求接口地址
   timeout: 10000,
-  method: 'get'
+  method: 'get',
+  withCredentials:true
 })
 
 

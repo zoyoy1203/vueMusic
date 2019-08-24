@@ -155,7 +155,7 @@ export default {
         console.log('recommend')
         getRecommendSongs().then((res) => {
           console.log(res)
-          this.songlist = res.data.playlist
+          this.songlist = res.data.result
           let songid = ""
           this.songlist.tracks.forEach(function (item,index) {
             songid +=item.id+","
