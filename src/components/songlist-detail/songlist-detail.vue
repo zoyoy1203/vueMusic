@@ -2,10 +2,11 @@
   <div class="songlist_detail">
     <back-head title="歌单"></back-head>
     <!--
+    :style="{'background':titleContent ? 'url('+songlist.coverImgUrl+')' : 'url('+ require('../../common/img/bg.jpg') +')'}"
     :style="{'background': 'url('+songlist.coverImgUrl+')'}"
     :style="{background: backgroundColor}"
     -->
-    <div class="background_color" :style="{'background':titleContent ? 'url('+songlist.coverImgUrl+')' : 'url('+ require('../../common/img/bg.jpg') +')'}"></div>
+    <div class="background_color" :style="{'background': 'url('+songlist.coverImgUrl+')'}"></div>
     <div class="container">
 
       <div class="container_title" v-if="titleContent">
