@@ -5,10 +5,10 @@
     :style="{'background': 'url('+songlist.coverImgUrl+')'}"
     :style="{background: backgroundColor}"
     -->
-    <div class="background_color" :style="{'background': 'url('+songlist.coverImgUrl+')'}"></div>
+    <div class="background_color" :style="{'background':titleContent ? 'url('+songlist.coverImgUrl+')' : 'url('+ require('../../common/img/bg.jpg') +')'}"></div>
     <div class="container">
 
-      <div class="container_title">
+      <div class="container_title" v-if="titleContent">
         <div class="c_t_detail">
           <div class="img gradient-wrap" >
             <img ref="img" :src="songlist.coverImgUrl"  >
@@ -44,6 +44,11 @@
               <div class="text">多选</div>
             </li>
           </ul>
+        </div>
+      </div>
+      <div class="container_title1"v-else>
+        <div class="text">
+          根据你的音乐口味，为你推荐好音乐，好朋友
         </div>
       </div>
 
@@ -88,7 +93,8 @@ export default {
       ids:"",
       songlistDetail:[],
       songDetailS:"",
-      leaderboardFlag:false
+      leaderboardFlag:false,
+      titleContent:true
     }
   },
   components: {
@@ -138,6 +144,7 @@ export default {
         /!*this.leaderboardFlag = true*!/
       }*/
       if(this.$route.params.flag === "leaderboard"){
+        this.titleContent=true
         const id = this.$route.params.id
         getToplistDetail(id).then((res) => {
           console.log(res)
@@ -153,11 +160,12 @@ export default {
         })
       }else if (this.$route.params.flag === "recommend"){
         console.log('recommend')
+        this.titleContent=false
         getRecommendSongs().then((res) => {
           console.log(res)
           this.songlist = res.data.result
           let songid = ""
-          this.songlist.tracks.forEach(function (item,index) {
+          this.songlist.forEach(function (item,index) {
             songid +=item.id+","
           })
           this.ids = songid.slice(0,songid.length-1)
@@ -166,10 +174,12 @@ export default {
           console.log(err)
         })
       }else{
+        this.titleContent=true
         const id = this.$route.params.id
         getSonglistDetail(id).then((res) => {
           console.log(res)
           this.songlist = res.data.playlist
+          console.log(this.songlist)
           let songid = ""
           this.songlist.tracks.forEach(function (item,index) {
             songid +=item.id+","
@@ -263,6 +273,19 @@ export default {
     top: 80px
     width: 100%
     color: $color-font1
+    .container_title1{
+      position: relative
+      filter:none
+      width: 100%
+      height:300px
+      .text{
+        position: absolute
+        bottom: 50px
+        left: 20px
+        font-size:$font-size-small
+        color: $color-font1
+      }
+    }
     .container_title{
       filter:none
       width: 100%
@@ -297,6 +320,8 @@ export default {
             font-size:40px
           }
           .text_d{
+            height: 120px
+            line-height:40px
             margin-top: 50px
             margin-right: 50px
             display: -webkit-box;
