@@ -5,7 +5,8 @@ import fetch from '@/axios/fetch'
 
 */
 // 获取轮播图
-let apiUrl = process.env.API_HOST
+/*let apiUrl = process.env.API_HOST*/
+let apiUrl = '/api'
 
 export function getBanner(){
   return fetch({
@@ -166,3 +167,38 @@ export function  getDailySonglist(){
   })
 }
 
+//获取视频标签列表
+export function  getVideoList(){
+  return fetch({
+    url: apiUrl +  '/video/group/list'
+  })
+}
+
+//获取视频标签下的视频
+export function  getVideos(ids){
+  return fetch({
+    url: apiUrl +  '/video/group?id=' + ids
+  })
+}
+
+//视频播放地址
+export function  getVideo(id){
+  return fetch({
+    url: apiUrl +  '/video/url?id=' + id
+  })
+}
+
+
+//相关视频
+export function  getAboutVideo(id){
+  return fetch({
+    url: apiUrl +  '/related/allvideo?id=' + id
+  })
+}
+
+//视频详情
+export function  getVideoDetail(id){
+  return fetch({
+    url: apiUrl +  '/video/detail?id=' + id
+  })
+}

@@ -6,6 +6,10 @@ import axios from 'axios'
 import VueLazyload from 'vue-lazyload'
 import store from './store'
 import VueAwesomeSwiper from 'vue-awesome-swiper'
+import Video from 'video.js'
+import 'video.js/dist/video-js.css'
+
+Vue.prototype.$video = Video
 
 // require styles
 import 'swiper/dist/css/swiper.css'
