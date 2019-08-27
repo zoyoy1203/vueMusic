@@ -13,35 +13,35 @@
 </template>
 
 <script>
-  import {getVideo} from 'api/api'
+  import {getVideoList, getVideos, getVideo} from 'api/api'
+  /* eslint-disable */
   export default {
-    name: 'video',
+    name: "test",
     data() {
-      return{
-        vid:null,
+      return {
         videoUrl:null,
-      }
-    },
-    created() {
-      this._getVideo()
+      };
     },
     mounted() {
+      this.initVideo();
+    },
+    created() {
 
     },
     methods: {
-      _getVideo() {
-        this.vid = this.$route.params.vid
-        getVideo(this.vid).then(res => {
+      _getVideo(id) {
+        getVideo(id).then(res => {
           console.log(res)
           this.videoUrl = res.data.urls[0].url
-          console.log( this.videoUrl)
-          this.initVideo();
+          console.log( res.data.urls[0].url)
+
           /*   this.initVideo()*/
         }).catch(err => {
           console.log(err)
         })
       },
       initVideo() {
+        this._getVideo('89ADDE33C0AAE8EC14B99F6750DB954D')
         //初始化视频方法
         var myPlayer = this.$video(document.getElementById('myVideo'), {
           //确定播放器是否具有用户可以与之交互的控件。没有控件，启动视频播放的唯一方法是使用autoplay属性或通过Player API。
@@ -51,18 +51,18 @@
           //建议浏览器是否应在<video>加载元素后立即开始下载视频数据。
           preload: "auto",
           //设置视频播放器的显示宽度（以像素为单位）
-          width: "1334px",
+          width: "800px",
           //设置视频播放器的显示高度（以像素为单位）
-          height: "600px"
+          height: "400px"
         });
         console.log(this.videoUrl)
         console.log("111111111111111111")
+        myPlayer.src(this.videoUrl); /*动态设置video.js播放的地址。*/
         myPlayer.autoplay();
       }
     }
-  }
+  };
 </script>
 
 <style scoped>
-
 </style>

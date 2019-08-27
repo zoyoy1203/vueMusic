@@ -5,7 +5,7 @@
         <router-link tag="a" to="/me">我的</router-link>
         <router-link tag="a" to="/found" exact>发现</router-link>
         <router-link tag="a" to="/cloud">云村</router-link>
-        <router-link tag="a" to="/video">视屏</router-link>
+        <router-link tag="a" to="/videolist">视屏</router-link>
       </div>
       <div class="right iconfont icon-sousuo"></div>
     </div>
