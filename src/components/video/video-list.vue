@@ -11,6 +11,20 @@
       </ul>
     </div>
     <!--内容-->
+<!--    <div class="test_two_box" v-if="videoUrl != null" >
+      <video
+        id="myVideo"
+        class="video-js"
+        autoplay='false'
+        controls='true'
+        data-setup='{}'
+      >
+        <source
+          :src="videoUrl"
+          type="video/mp4"
+        >
+      </video>
+    </div>-->
 
     <div class="mainContent" :class="modeType ? '' : 'night'">
       <div class="swiper-container">
@@ -21,12 +35,26 @@
               <div class="line"></div>
               <div class="content1">
                 <div class="coverImg">
-                  <img :src="item.data.coverUrl" alt="" @click="goVideo(item.data.vid)">
+                  <img :src="item.data.coverUrl" alt="" v-if="index != videoIndex" @click="playVideo(index,item.data.vid)">
+                  <div class="test_two_box" v-if="index === videoIndex && videoUrl != null" >
+                    <video
+                      id="myVideo"
+                      class="video-js"
+                      autoplay='false'
+                      controls='true'
+                      data-setup='{}'
+                    >
+                      <source
+                        :src="videoUrl"
+                        type="video/mp4"
+                      >
+                    </video>
+                  </div>
                 </div>
                 <div class="desc" v-if="item.data.description">
                   {{item.data.description}}
                 </div>
-                <div class="content_b">
+                <div class="content_b" @click="goVideo(item.data.vid)">
                   <img :src="item.data.creator.avatarUrl" alt="">
                   <span class="name">{{item.data.creator.nickname}}</span>
                 </div>
@@ -89,6 +117,11 @@
            vid:vid
           }
         })
+      },
+      playVideo(index,vid){
+        this.videoIndex = index
+        this._getVideo(vid)
+
       },
       _getVideo(vid) {
         getVideo(vid).then(res => {
