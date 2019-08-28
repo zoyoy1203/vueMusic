@@ -68,7 +68,7 @@
         <div class="line"></div>
         <div class="comment">
           <div class="title">精彩评论</div>
-          <div class="item" v-for="(item,index) in videoComment.hotComments">
+          <div class="item" v-for="(item,index) in videoHotComment">
             <div class="img">
               <img :src="item.user.avatarUrl" alt="">
             </div>
@@ -95,7 +95,7 @@
         </div>
         <div class="comment">
           <div class="title">最新评论</div>
-          <div class="item" v-for="(item,index) in videoComment.comments">
+          <div class="item" v-for="(item,index) in videoComment">
             <div class="img">
               <img :src="item.user.avatarUrl" alt="">
             </div>
@@ -132,9 +132,13 @@
         vid:null,
         videoUrl:null,
         videoDetail:null,
-        videoComment:null,
+        videoHotComment:[],
+        videoComment:[],
         videoAbout:null,
         tagFlag:false,
+        offset:0,
+        limit:20,
+        isScroll:true,
       }
     },
     components:{
@@ -143,13 +147,27 @@
     created() {
       this.vid = this.$route.params.vid
       this._getVideo(this.vid)
-      this._getVideoComment(this.vid)
+      this._getVideoComment(this.vid,this.offset,this.limit)
       this._getAboutVideo(this.vid)
     },
     mounted() {
       this._getVideoDetail(this.vid)
+      document.addEventListener('scroll',this.scrollMoreData,false)
     },
     methods: {
+      scrollMoreData() {
+        const scrollTopHeight = document.documentElement.scrollTop || document.body.scrollTop //滚动高度
+        const clientHeight = document.documentElement.clientHeight || window.screen.availHeight //屏幕可用工作区高度
+        const offsetHeight = document.documentElement.offsetHeight || document.body.offsetHeight //网页可见区域高(包括边线的宽)
+        // console.log(scrollTopHeight, clientHeight, scrollTopHeight + clientHeight + 50, offsetHeight)
+        if ((scrollTopHeight + clientHeight) + 50 >= offsetHeight && this.isScroll) {
+          this.isScroll = false
+        /*  this.loadingMore = true*/
+          this.offset +=20
+          console.log('请求刷新------------')
+          this._getVideoComment(this.vid,this.offset,this.limit)
+        }
+      },
       _getAboutVideo(vid){
         getAboutVideo(vid).then(res => {
           console.log(res)
@@ -158,10 +176,18 @@
           console.log(err)
         })
       },
-      _getVideoComment(vid){
-        getVideoComment(vid).then(res => {
+      _getVideoComment(vid,offset,limit){
+        var that = this
+        getVideoComment(vid,offset,limit).then(res => {
           console.log(res)
-          this.videoComment = res.data
+          this.videoHotComment = res.data.hotComments
+          let list = res.data.comments
+          /*   console.log(list)*/
+          list.forEach(function (item) {
+            that.videoComment.push(item)
+          })
+          this.isScroll = true
+          console.log(this.videoComment)
         }).catch(err => {
           console.log(err)
         })

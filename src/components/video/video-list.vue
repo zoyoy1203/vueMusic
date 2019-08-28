@@ -1,14 +1,13 @@
 <template>
   <slider-left>
-    <div id="lao" slot="mainContainer">
+    <div  slot="mainContainer">
       <div class="main_container">
-
         <div class="navList" :class="modeType ? '' : 'night'">
           <ul>
             <li  v-for="(item, index) in title" :key="index"  @click="liseGo(index)">
-          <span class="tag" :class="{myColor:index==isActive}">
-            {{item.name}}
-          </span>
+        <span class="tag" :class="{myColor:index==isActive}">
+          {{item.name}}
+        </span>
             </li>
           </ul>
         </div>
@@ -55,7 +54,6 @@
             </div>
           </div>
         </div>
-
       </div>
     </div>
   </slider-left>
@@ -86,7 +84,7 @@
     },
     components: {
       Songs,
-      SliderLeft
+      SliderLeft,
     },
     computed: {
       ...mapGetters([
@@ -222,22 +220,17 @@
 
 <style lang="stylus" scoped>
   @import "~common/stylus/variable"
-  *{
-    padding:0
-    margin:0
-    font-size:36px
-  }
   .main_container{
     position:fixed
     width: 100%
-    top: 88px
+    top: 80px
     bottom: 0
+    overflow-y:scroll
     .navList{
-     /* position: absolute
-      left: 0
-      top: 90px*/
+      /*    position: absolute
+          left: 0
+          top: 90px*/
       overflow:hidden
-      margin-bottom:40px
       &.night{
         background: none!important
         color: #fff!important
@@ -265,7 +258,7 @@
     }
 
     .mainContent{
-      /* margin-top:80px*/
+      margin-top:40px
       .videos{
         width:100%
         height:auto
@@ -338,6 +331,8 @@
 
       }
     }
+
+
   }
 
 </style>

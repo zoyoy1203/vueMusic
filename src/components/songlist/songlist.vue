@@ -159,7 +159,7 @@
         // console.log(scrollTopHeight, clientHeight, scrollTopHeight + clientHeight + 50, offsetHeight)
         if ((scrollTopHeight + clientHeight) + 50 >= offsetHeight && this.isScroll) {
           this.isScroll = false
-          this.loadingMore = true
+      /*    this.loadingMore = true*/
           this.offset +=20
           console.log('请求刷新------------')
           this._getSonglist(this.isActive,this.offset,this.limit)

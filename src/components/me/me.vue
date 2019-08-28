@@ -116,8 +116,7 @@
     top: 88px
     bottom: 0
     .container{
-      height:100%
-      overflow: hidden
+
       .list{
         width: 100%
         height:auto

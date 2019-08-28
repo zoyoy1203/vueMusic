@@ -204,8 +204,8 @@ export function  getVideoDetail(id){
 }
 
 //视频评论
-export function  getVideoComment(id){
+export function  getVideoComment(id,offset,limit){
   return fetch({
-    url: apiUrl +  '/comment/video?id=' + id
+    url: apiUrl +  '/comment/video?id=' + id + '&offset=' + offset + '&limit=' + limit
   })
 }
