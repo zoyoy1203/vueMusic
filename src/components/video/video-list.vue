@@ -31,12 +31,12 @@
         <div class="swiper-wrapper">
           <div class="swiper-slide" v-for="(item, index) in title" :key="index">
 
-            <div class="videos" v-for="(item, index) in videolist">
+            <div class="videos" v-for="(video, i) in videolist" v-if="index === isActive">
               <div class="line"></div>
               <div class="content1">
                 <div class="coverImg">
-                  <img :src="item.data.coverUrl" alt="" v-if="index != videoIndex" @click="playVideo(index,item.data.vid)">
-                  <div class="test_two_box" v-if="index === videoIndex && videoUrl != null" >
+                  <img :src="video.data.coverUrl" alt="" v-if="i != videoIndex" @click="playVideo(i,video.data.vid)">
+                  <div class="video" v-if="i === videoIndex && videoUrl != null" >
                     <video
                       id="myVideo"
                       class="video-js"
@@ -51,12 +51,12 @@
                     </video>
                   </div>
                 </div>
-                <div class="desc" v-if="item.data.description">
-                  {{item.data.description}}
+                <div class="desc" v-if="video.data.description">
+                  {{video.data.description}}
                 </div>
-                <div class="content_b" @click="goVideo(item.data.vid)">
-                  <img :src="item.data.creator.avatarUrl" alt="">
-                  <span class="name">{{item.data.creator.nickname}}</span>
+                <div class="content_b" @click="goVideo(video.data.vid)">
+                  <img :src="video.data.creator.avatarUrl" alt="">
+                  <span class="name">{{video.data.creator.nickname}}</span>
                 </div>
               </div>
 
@@ -119,15 +119,14 @@
         })
       },
       playVideo(index,vid){
-        this.videoIndex = index
-        this._getVideo(vid)
-
+        this._getVideo(index,vid)
       },
-      _getVideo(vid) {
+      _getVideo(index,vid) {
         getVideo(vid).then(res => {
           console.log(res)
           this.videoUrl = res.data.urls[0].url
           console.log( this.videoUrl)
+          this.videoIndex = index
 
           /*   this.initVideo()*/
         }).catch(err => {
@@ -164,6 +163,12 @@
         getVideoList().then((res) => {
           console.log(res)
           this.title = res.data.data
+        /*  let idss = ""
+          this.title.forEach(function (item,index) {
+            idss +=item.id+","
+          })
+          this.ids = idss.slice(0,idss.length-1)
+          console.log(this.ids)*/
           this._getVideolist(this.title[0].id)
 
         }).catch(err => {
@@ -206,6 +211,10 @@
     watch: {
       isActive(index){
         this.videolist = []
+
+     /*   var video = this.$video("myVideo")
+        video.dispose()*/
+        this.videoIndex = null
         this._getVideolist(this.title[this.isActive].id)
       }
     },
@@ -275,8 +284,15 @@
           margin: 15px auto
           img{
             width: 100%
-            height:100%
+            height:auto
             border-radius :20px
+          }
+          .video{
+            width: 100%
+            margin:40px auto
+            video{
+              width: 100%
+            }
           }
         }
         .desc{
@@ -301,9 +317,6 @@
             height:80px
             border-radius :40px
             vertical-align :middle
-          }
-          .video{
-
           }
           .name{
             vertical-align :middle
