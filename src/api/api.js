@@ -202,3 +202,10 @@ export function  getVideoDetail(id){
     url: apiUrl +  '/video/detail?id=' + id
   })
 }
+
+//视频评论
+export function  getVideoComment(id){
+  return fetch({
+    url: apiUrl +  '/comment/video?id=' + id
+  })
+}

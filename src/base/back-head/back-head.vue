@@ -2,7 +2,7 @@
   <div class="header" :style="{color:ico_color}">
     <div class="left">
       <span class="iconfont icon-prev" @click="prev"></span>
-      <span class="">{{title}}</span>
+      <span class="title">{{title}}</span>
     </div>
     <div class="right" :style="{display:ico_display}">
       <span class="iconfont icon-sousuo"></span>
@@ -48,10 +48,17 @@
     z-index:100
     .left{
       display: inline-block
-      width:auto
+      width: auto
       heihgt: auto
       float: left
       margin: 20px
+      .title{
+        display: inline-block
+        width:500px
+        text-overflow :ellipsis
+        white-space :nowrap
+        overflow :hidden
+      }
       span{
         font-size:40px
         margin-right:20px

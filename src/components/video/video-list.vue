@@ -1,5 +1,6 @@
 <template>
   <div id="lao" class="warp">
+    <back-head title="视频" ico_color="#000" ico_display="none"></back-head>
     <!--导航-->
     <div class="navList" :class="modeType ? '' : 'night'">
       <ul>
@@ -70,6 +71,7 @@
 </template>
 
 <script>
+  import BackHead from 'base/back-head/back-head'
   import Swiper from 'swiper'
   import Songs from 'base/songs/songs'
   import {getVideoList, getVideos, getVideo} from 'api/api'
@@ -93,6 +95,7 @@
     },
     components: {
       Songs,
+      BackHead
     },
     computed: {
       ...mapGetters([
@@ -237,6 +240,9 @@
     height: 100%
     background:#fff
     .navList{
+      position: absolute
+      left: 0
+      top: 90px
       overflow:hidden
       margin-bottom:40px
       &.night{
@@ -268,7 +274,7 @@
 
   }
   .mainContent{
-    margin-top:50px
+    margin-top:100px
     .videos{
       width:100%
       height:auto
