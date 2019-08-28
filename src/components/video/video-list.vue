@@ -1,77 +1,68 @@
 <template>
-  <div id="lao" class="warp">
-    <back-head title="视频" ico_color="#000" ico_display="none"></back-head>
-    <!--导航-->
-    <div class="navList" :class="modeType ? '' : 'night'">
-      <ul>
-        <li  v-for="(item, index) in title" :key="index"  @click="liseGo(index)">
+  <slider-left>
+    <div id="lao" slot="mainContainer">
+      <div class="main_container">
+
+        <div class="navList" :class="modeType ? '' : 'night'">
+          <ul>
+            <li  v-for="(item, index) in title" :key="index"  @click="liseGo(index)">
           <span class="tag" :class="{myColor:index==isActive}">
             {{item.name}}
           </span>
-        </li>
-      </ul>
-    </div>
-    <!--内容-->
-<!--    <div class="test_two_box" v-if="videoUrl != null" >
-      <video
-        id="myVideo"
-        class="video-js"
-        autoplay='false'
-        controls='true'
-        data-setup='{}'
-      >
-        <source
-          :src="videoUrl"
-          type="video/mp4"
-        >
-      </video>
-    </div>-->
+            </li>
+          </ul>
+        </div>
+        <div class="mainContent" :class="modeType ? '' : 'night'">
+          <div class="swiper-container">
+            <div class="swiper-wrapper">
+              <div class="swiper-slide" v-for="(item, index) in title" :key="index">
 
-    <div class="mainContent" :class="modeType ? '' : 'night'">
-      <div class="swiper-container">
-        <div class="swiper-wrapper">
-          <div class="swiper-slide" v-for="(item, index) in title" :key="index">
-
-            <div class="videos" v-for="(video, i) in videolist" v-if="index === isActive">
-              <div class="line"></div>
-              <div class="content1">
-                <div class="coverImg">
-                  <img :src="video.data.coverUrl" alt="" v-if="i != videoIndex" @click="playVideo(i,video.data.vid)">
-                  <div class="video" v-if="i === videoIndex && videoUrl != null" >
-                    <video
-                      id="myVideo"
-                      class="video-js"
-                      autoplay='false'
-                      controls='true'
-                      data-setup='{}'
-                    >
-                      <source
-                        :src="videoUrl"
-                        type="video/mp4"
-                      >
-                    </video>
+                <div class="videos" v-for="(video, i) in videolist" v-if="index === isActive">
+                  <div class="line"></div>
+                  <div class="content1">
+                    <div class="coverImg">
+                      <img :src="video.data.coverUrl" alt="" v-if="i != videoIndex" @click="playVideo(i,video.data.vid)">
+                      <div class="video" v-if="i === videoIndex && videoUrl != null" >
+                        <video
+                          id="myVideo"
+                          class="video-js"
+                          autoplay='false'
+                          controls='true'
+                          data-setup='{}'
+                        >
+                          <source
+                            :src="videoUrl"
+                            type="video/mp4"
+                          >
+                        </video>
+                      </div>
+                    </div>
+                    <div class="desc" v-if="video.data.description">
+                      {{video.data.description}}
+                    </div>
+                    <div class="content_b">
+                      <img :src="video.data.creator.avatarUrl" alt="">
+                      <span class="name">{{video.data.creator.nickname}}</span>
+                      <div class="icon iconfont icon-more-vertical"></div>
+                      <div class="icon iconfont icon-xiaoxi" @click="goVideo(video.data.vid)"><span>{{video.data.commentCount}}</span></div>
+                      <div class="icon iconfont icon-dianzan"><span>{{video.data.praisedCount}}</span></div>
+                    </div>
                   </div>
+
                 </div>
-                <div class="desc" v-if="video.data.description">
-                  {{video.data.description}}
-                </div>
-                <div class="content_b" @click="goVideo(video.data.vid)">
-                  <img :src="video.data.creator.avatarUrl" alt="">
-                  <span class="name">{{video.data.creator.nickname}}</span>
-                </div>
+
               </div>
-
             </div>
-
           </div>
         </div>
+
       </div>
     </div>
-  </div>
+  </slider-left>
 </template>
 
 <script>
-  import BackHead from 'base/back-head/back-head'
+  import SliderLeft from 'components/slider-left/slider-left'
   import Swiper from 'swiper'
   import Songs from 'base/songs/songs'
   import {getVideoList, getVideos, getVideo} from 'api/api'
@@ -95,7 +86,7 @@
     },
     components: {
       Songs,
-      BackHead
+      SliderLeft
     },
     computed: {
       ...mapGetters([
@@ -153,6 +144,7 @@
         // swiper-container  class名称
         this.mySwiper = new Swiper('.swiper-container', {
           autoplay: false, //可选选项，自动滑动
+         /* resistanceRatio: 0,*/
           on: {
             slideChangeTransitionEnd: function() {
               // this指向的是当前的swiper实例，that指向的是vue实例
@@ -235,14 +227,15 @@
     margin:0
     font-size:36px
   }
-  .warp{
+  .main_container{
+    position:fixed
     width: 100%
-    height: 100%
-    background:#fff
+    top: 88px
+    bottom: 0
     .navList{
-      position: absolute
+     /* position: absolute
       left: 0
-      top: 90px
+      top: 90px*/
       overflow:hidden
       margin-bottom:40px
       &.night{
@@ -271,66 +264,80 @@
       }
     }
 
-
-  }
-  .mainContent{
-    margin-top:100px
-    .videos{
-      width:100%
-      height:auto
-      .line{
-        width: 100%
-        height:15px
-        background :$color-line1
-      }
-      .content1{
-        .coverImg{
-          width:90%
-          height:auto
-          margin: 15px auto
-          img{
-            width: 100%
+    .mainContent{
+      /* margin-top:80px*/
+      .videos{
+        width:100%
+        height:auto
+        .line{
+          width: 100%
+          height:15px
+          background :$color-line1
+        }
+        .content1{
+          .coverImg{
+            width:90%
             height:auto
-            border-radius :20px
-          }
-          .video{
-            width: 100%
-            margin:40px auto
-            video{
+            margin: 15px auto
+            img{
               width: 100%
+              height:auto
+              border-radius :20px
+            }
+            .video{
+              width: 100%
+              margin:40px auto
+              video{
+                width: 100%
+              }
+            }
+          }
+          .desc{
+            display: -webkit-box
+            -webkit-box-orient: vertical
+            -webkit-line-clamp: 3
+            overflow: hidden
+            text-overflow :ellipsis
+            width: 90%
+            height :87px
+            line-height :30px
+            margin:0 auto 10px auto
+            font-size:$font-size-medium
+          }
+          .content_b{
+            width: 90%
+            height:100px
+            margin: 0 auto
+            border-top: 1px solid #ccc
+            img{
+              width:60px
+              height:60px
+              border-radius :30px
+              vertical-align :middle
+            }
+            .name{
+              height: 100px
+              line-height:100px
+              vertical-align :middle
+              font-size:$font-size-medium-x
+            }
+            .icon{
+              float: right
+              height:100px
+              line-height:100px
+              font-size:$font-size-medium-x
+              span{
+                position: relative
+                top:-20px
+                left:-10px
+                font-size:$font-size-small-s
+              }
             }
           }
         }
-        .desc{
-          display: -webkit-box
-          -webkit-box-orient: vertical
-          -webkit-line-clamp: 3
-          overflow: hidden
-          text-overflow :ellipsis
-          width: 90%
-          height :87px
-          line-height :30px
-          margin:0 auto 10px auto
-          font-size:$font-size-medium
-        }
-        .content_b{
-          width: 90%
-          height:100px
-          margin: 0 auto
-          border-top: 1px solid #ccc
-          img{
-            width:80px
-            height:80px
-            border-radius :40px
-            vertical-align :middle
-          }
-          .name{
-            vertical-align :middle
-            font-size:$font-size-medium-x
-          }
-        }
-      }
 
+      }
     }
   }
+
 </style>

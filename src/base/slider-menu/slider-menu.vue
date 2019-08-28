@@ -16,7 +16,7 @@
       <div class="swiper-container">
         <div class="swiper-wrapper">
           <div class="swiper-slide" v-for="(item, index) in title" :key="index">
-            <songs :songlist="songlist" img="coverImgUrl"></songs>
+              <songs :songlist="songlist" img="coverImgUrl" ></songs>
           </div>
         </div>
       </div>
