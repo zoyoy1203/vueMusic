@@ -54,7 +54,7 @@
       margin: 20px
       .title{
         display: inline-block
-        width:500px
+        width:450px
         text-overflow :ellipsis
         white-space :nowrap
         overflow :hidden
@@ -66,7 +66,7 @@
     }
     .right{
       display: inline-block
-      width:240px
+      width:130px
       heihgt:auto
       float: right
       margin: 20px

@@ -126,6 +126,14 @@ export default new Router({
       meta: {
         keepAlive:false
       }
+    },
+    {
+      path:'/reply',
+      name:'reply',
+      component: resolve => require(['@/components/reply/reply'], resolve),
+      meta: {
+        keepAlive:false
+      }
     }
   ]
 })

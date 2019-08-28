@@ -86,7 +86,7 @@
               <div class="text_c">
                 {{item.content}}
               </div>
-              <p class="reply">回复</p>
+              <p class="reply" @click="goReply(item)" v-if="item.beReplied.length>0">回复</p>
             </div>
           </div>
           <div class="more_hot_comment">
@@ -113,7 +113,7 @@
               <div class="text_c">
                 {{item.content}}
               </div>
-              <p class="reply">回复</p>
+              <span class="reply" @click="goReply(item)">回复</span>
             </div>
           </div>
         </div>
@@ -155,6 +155,15 @@
       document.addEventListener('scroll',this.scrollMoreData,false)
     },
     methods: {
+      goReply(item) {
+        this.$router.push({
+          path:'/reply',
+          name:'reply',
+          params:{
+            comment:item
+          }
+        })
+      },
       scrollMoreData() {
         const scrollTopHeight = document.documentElement.scrollTop || document.body.scrollTop //滚动高度
         const clientHeight = document.documentElement.clientHeight || window.screen.availHeight //屏幕可用工作区高度
