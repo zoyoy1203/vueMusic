@@ -76,7 +76,7 @@
               <div class="text_t">
                 <div class="text_t_l">
                   <p class="username">{{item.user.nickname}}</p>
-                  <p>{{item.time}}</p>
+                  <p>{{item.time | formatDate}}</p>
                 </div>
                 <div class="text_t_r">
                   <span>{{item.likedCount}}</span>
@@ -103,7 +103,7 @@
               <div class="text_t">
                 <div class="text_t_l">
                   <p class="username">{{item.user.nickname}}</p>
-                  <p>{{item.time}}</p>
+                  <p>{{item.time | formatDate}}</p>
                 </div>
                 <div class="text_t_r">
                   <span>{{item.likedCount}}</span>
@@ -123,6 +123,7 @@
 </template>
 
 <script>
+  import {formatDate} from 'common/js/date'
   import {mapGetters,mapMutations} from 'vuex'
   import BackHead from 'base/back-head/back-head'
   import {getVideo,  getVideoDetail, getVideoComment,getAboutVideo} from 'api/api'
@@ -249,6 +250,12 @@
         setVideoId: 'SET_VIDEO_ID'
       }),
 
+    },
+    filters: {
+      formatDate(time) {
+        var date = new Date(time);
+        return formatDate(date, 'yyyy-MM-dd hh:mm');
+      }
     }
   }
 </script>

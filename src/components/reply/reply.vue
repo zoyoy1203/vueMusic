@@ -9,7 +9,7 @@
         <div class="text_t">
           <div class="text_t_l">
             <p class="username">{{comment.user.nickname}}</p>
-            <p>{{comment.time}}</p>
+            <p>{{comment.time | formatDate}}</p>
           </div>
           <div class="text_t_r">
             <span>{{comment.likedCount}}</span>
@@ -32,7 +32,7 @@
           <div class="text_t">
             <div class="text_t_l">
               <p class="username">{{item.user.nickname}}</p>
-              <p>{{item.time}}</p>
+          <!--    <p>{{item.time }}</p>-->
             </div>
             <div class="text_t_r">
               <span>{{item.likedCount}}</span>
@@ -50,6 +50,7 @@
 </template>
 
 <script>
+  import {formatDate} from 'common/js/date'
   import BackHead from 'base/back-head/back-head'
   export default {
     name: 'reply',
@@ -63,9 +64,16 @@
     },
     created() {
       this.comment = this.$route.params.comment
+      console.log(this.comment)
     },
     methods: {
 
+    },
+    filters: {
+      formatDate(time) {
+        var date = new Date(time);
+        return formatDate(date, 'yyyy-MM-dd hh:mm');
+      }
     }
   }
 </script>
