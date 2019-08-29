@@ -14,6 +14,9 @@ const state = {
   //是否登录
   isLogin:false,
 
+  //视屏id
+  videoId:null,
+
   //歌手
   singer: {},
   //播放状态：播放，暂停

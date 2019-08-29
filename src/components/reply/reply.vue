@@ -42,7 +42,7 @@
           <div class="text_c">
             {{item.content}}
           </div>
-          <span class="reply" @click="goReply(item)">回复</span>
+      <!--    <span class="reply" @click="goReply(item)">回复</span>-->
         </div>
       </div>
     </div>
@@ -203,6 +203,7 @@
             line-height:40px
             margin-top: 10px
             font-size:$font-size-small
+            color:$color-font5
           }
         }
       }

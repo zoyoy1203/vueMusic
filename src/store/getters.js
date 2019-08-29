@@ -10,6 +10,8 @@ export const avatarUrl = state => state.avatarUrl
 
 export const isLogin = state => state.isLogin
 
+export const videoId = state => state.videoId
+
 export const singer = state => state.singer
 
 export const playing = state => state.playing

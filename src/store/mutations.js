@@ -17,6 +17,9 @@ const matutaions = {
   [types.SET_IS_LOGIN](state,isLogin){
     state.isLogin = isLogin
   },
+  [types.SET_VIDEO_ID](state,videoId){
+    state.videoId = videoId
+  },
   [types.SET_SINGER](state, singer) {
     state.singer = singer
   },

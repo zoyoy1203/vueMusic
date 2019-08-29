@@ -17,7 +17,7 @@
               <div class="swiper-slide" v-for="(item, index) in title" :key="index">
 
                 <div class="videos" v-for="(video, i) in videolist" v-if="index === isActive">
-                  <div class="line"></div>
+                  <div class="line" :class="modeType ? '' : 'night'"></div>
                   <div class="content1">
                     <div class="coverImg">
                       <img :src="video.data.coverUrl" alt="" v-if="i != videoIndex" @click="playVideo(i,video.data.vid)">
@@ -64,7 +64,7 @@
   import Swiper from 'swiper'
   import Songs from 'base/songs/songs'
   import {getVideoList, getVideos, getVideo} from 'api/api'
-  import {mapGetters, mapMutations} from 'vuex'
+  import {mapGetters} from 'vuex'
   export default {
     name: 'video-list',
     data() {
@@ -129,9 +129,6 @@
         this.imgIndex = index
         console.log(this.imgIndex)
       },
-      ...mapMutations({
-        setModeType: 'SET_MODE_TYPE'
-      }),
       liseGo(index) {
         this.isActive = index;
         this.mySwiper.slideTo(index, 500, false); //切换到第index个slide，速度为0.5秒
@@ -232,7 +229,6 @@
           top: 90px*/
       overflow:hidden
       &.night{
-        background: none!important
         color: #fff!important
         border:none
       }
@@ -258,7 +254,7 @@
     }
 
     .mainContent{
-      margin-top:40px
+      padding-top:40px
       .videos{
         width:100%
         height:auto
@@ -266,6 +262,9 @@
           width: 100%
           height:15px
           background :$color-line1
+          &.night{
+            background: $color-line2!important
+          }
         }
         .content1{
           .coverImg{

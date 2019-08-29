@@ -10,6 +10,8 @@ export const SET_AVATAR_URL = 'SET_AVATAR_URL'
 
 export const SET_IS_LOGIN = 'SET_IS_LOGIN'
 
+export const SET_VIDEO_ID = 'SET_VIDEO_ID'
+
 export const SET_SINGER = 'SET_SINGER'
 
 export const SET_PLAYING_STATE = 'SET_PLAYING_STATE'

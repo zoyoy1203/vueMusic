@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container" :class="modeType ? '' : 'night'">
     <back-head :title="videoDetail.title" ico_color="#fff" ico_display="none"></back-head>
     <div class="video" v-if="videoUrl != null">
       <video
@@ -17,7 +17,7 @@
         >
       </video>
     </div>
-    <div class="content">
+    <div class="content" >
       <div class="video_info">
 
         <div class="title">
@@ -25,9 +25,9 @@
           <span class="icon iconfont" :class="tagFlag ? 'icon-shixinjiantou-xiangshang' : 'icon-shixinjiantou-xiangshang-copy'" @click="tagFlag=!tagFlag"></span>
         </div>
         <div class="tag" v-if="tagFlag">
-          <span v-for="(item, index) in videoDetail.videoGroup">{{item.name}}</span>
+          <span v-for="(item, index) in videoDetail.videoGroup" :class="modeType ? '' : 'night'">{{item.name}}</span>
         </div>
-        <div class="video_nav">
+        <div class="video_nav" :class="modeType ? '' : 'night'">
           <ul>
             <li class="nav ">
               <div class="icon iconfont icon-dianzan"></div>
@@ -52,7 +52,7 @@
           <span>{{videoDetail.creator.nickname}}</span>
           <span class="attention">+关注</span>
         </div>
-        <div class="line"></div>
+        <div class="line" :class="modeType ? '' : 'night'"></div>
         <div class="aboutVideo">
           <div class="title">相关视频</div>
           <div class="content">
@@ -65,7 +65,7 @@
             </div>
           </div>
         </div>
-        <div class="line"></div>
+        <div class="line" :class="modeType ? '' : 'night'"></div>
         <div class="comment">
           <div class="title">精彩评论</div>
           <div class="item" v-for="(item,index) in videoHotComment">
@@ -113,7 +113,7 @@
               <div class="text_c">
                 {{item.content}}
               </div>
-              <span class="reply" @click="goReply(item)">回复</span>
+              <span class="reply" @click="goReply(item)" v-if="item.beReplied.length>0">回复</span>
             </div>
           </div>
         </div>
@@ -123,13 +123,13 @@
 </template>
 
 <script>
+  import {mapGetters,mapMutations} from 'vuex'
   import BackHead from 'base/back-head/back-head'
   import {getVideo,  getVideoDetail, getVideoComment,getAboutVideo} from 'api/api'
   export default {
     name: 'video',
     data() {
       return{
-        vid:null,
         videoUrl:null,
         videoDetail:null,
         videoHotComment:[],
@@ -144,14 +144,22 @@
     components:{
       BackHead,
     },
+    computed: {
+      ...mapGetters([
+        'modeType',
+        'videoId'
+      ])
+    },
     created() {
-      this.vid = this.$route.params.vid
-      this._getVideo(this.vid)
-      this._getVideoComment(this.vid,this.offset,this.limit)
-      this._getAboutVideo(this.vid)
+      if(this.videoId == null){
+        this.setVideoId(this.$route.params.vid)
+      }
+      this._getVideo(this.videoId)
+      this._getVideoComment(this.videoId,this.offset,this.limit)
+      this._getAboutVideo(this.videoId)
     },
     mounted() {
-      this._getVideoDetail(this.vid)
+      this._getVideoDetail(this.videoId)
       document.addEventListener('scroll',this.scrollMoreData,false)
     },
     methods: {
@@ -210,7 +218,7 @@
         })
       },
       _getVideo(vid) {
-        getVideo(this.vid).then(res => {
+        getVideo(vid).then(res => {
           console.log(res)
           this.videoUrl = res.data.urls[0].url
           console.log( this.videoUrl)
@@ -237,6 +245,10 @@
         console.log(this.videoUrl)
         console.log("111111111111111111")
       }*/
+      ...mapMutations({
+        setVideoId: 'SET_VIDEO_ID'
+      }),
+
     }
   }
 </script>
@@ -259,11 +271,17 @@
   .content{
     margin-top: 540px
     width: 100%
+    .&night{
+      background: #000
+    }
     .video_info{
       .line{
         width: 100%
         height:15px
         background: $color-line1
+        &.night{
+          background: $color-line2!important
+        }
       }
       .title{
         width: 90%
@@ -298,6 +316,9 @@
           word-wrap :break-word
           background: $color-line1
           font-size:$font-size-small-s
+          &.night{
+            background: $color-line2!important
+          }
         }
       }
       .video_nav{
@@ -305,6 +326,9 @@
         width:100%
         padding-top:20px
         border-bottom:1px solid $color-line
+        &.night{
+          color: $color-font1!important
+        }
         ul{
           .nav{
             float: left
@@ -315,7 +339,7 @@
             .icon{
               width:100%
               heihgt:auto
-              color:$color-font2
+            /*  color:$color-font2*/
               font-size: 40px
             }
             .text{
@@ -469,6 +493,7 @@
               line-height:40px
               margin-top: 10px
               font-size:$font-size-small
+              color:$color-font5
             }
           }
         }

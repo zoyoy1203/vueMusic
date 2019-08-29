@@ -189,9 +189,6 @@
           console.log(err)
         })
       },
-      ...mapMutations({
-        setModeType: 'SET_MODE_TYPE'
-      }),
     }
 
   }
