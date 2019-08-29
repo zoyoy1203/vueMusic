@@ -209,3 +209,17 @@ export function  getVideoComment(id,offset,limit){
     url: apiUrl +  '/comment/video?id=' + id + '&offset=' + offset + '&limit=' + limit
   })
 }
+
+//歌单评论
+export function  getSonglistComment(id,offset,limit){
+  return fetch({
+    url: apiUrl +  '/comment/playlist?id=' + id + '&offset=' + offset + '&limit=' + limit
+  })
+}
+
+//获取热门评论
+export function  getHotComment(id,type,offset,limit){
+  return fetch({
+    url: apiUrl +  '/comment/hot?id=' + id + '&type=' + type + '&offset=' + offset + '&limit=' + limit
+  })
+}

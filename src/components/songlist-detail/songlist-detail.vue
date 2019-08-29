@@ -13,6 +13,7 @@
         <div class="c_t_detail">
           <div class="img gradient-wrap" >
             <img ref="img" :src="songlist.coverImgUrl"  >
+            <span class="playcount iconfont icon-bofang1 ">{{songlist.playCount | formatNum}}</span>
           </div>
       <!--    <div class="img gradient-wrap" style="">
             <img ref="img" src="../../common/image/default.png"  cross-origin = "anonymous" >
@@ -21,20 +22,29 @@
           </canvas>-->
           <div class="text">
             <div class="text_t">{{songlist.name}}</div>
+            <div class="text_c">
+              <img :src="songlist.creator.avatarUrl" alt="">
+              <span>{{songlist.creator.nickname}}</span>
+              <span class="iconfont icon-arrow-right"></span>
+            </div>
             <div class="text_d">
-              {{songlist.description}}
+              <div class="text_d_t">
+                {{songlist.description}}
+              </div>
+              <div class="text_d_b iconfont icon-arrow-right">
+              </div>
             </div>
           </div>
         </div>
         <div class="c_t_navbar">
           <ul>
-            <li class="nav">
+            <li class="nav" @click="goComment()">
               <div class="icon iconfont icon-xiaoxi"></div>
-              <div class="text">评论</div>
+              <div class="text">{{songlist.commentCount}}</div>
             </li>
             <li class="nav ">
               <div class="icon iconfont icon-fenxiang"></div>
-              <div class="text">分享</div>
+              <div class="text">{{songlist.shareCount}}</div>
             </li>
             <li class="nav">
               <div class="icon iconfont icon-xiazai"></div>
@@ -56,8 +66,12 @@
       <div class="container_list" :class="modeType ? '' : 'night'">
         <div class="list_title">
           <div class="list_title_icon iconfont icon-bofang"></div>
-          <div class="list_title_t">播放全部  <span>(20首)</span></div>
-          <div class="list_save">+ 收藏 <span>(84.4万)</span></div>
+          <div class="list_title_t">播放全部  <span>(共{{songlist.trackCount}}首)</span></div>
+          <div class="list_save">
+            <span class="icon iconfont icon-jiahao"></span>
+            收藏
+            <span>({{songlist.subscribedCount}})</span>
+          </div>
         </div>
         <ul class="list_song">
           <li @click="goSongPlayer(item,index)" class="item" v-for="(item, index) in songlistDetail" :key="index">
@@ -83,7 +97,6 @@ import {mapActions} from 'vuex'
 import util from 'api/util'
 import BackHead from 'base/back-head/back-head'
 
-
 export default {
   name: 'songlist-detail',
   mixins: [playlistMixin],
@@ -103,10 +116,14 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'modeType'
+      'modeType',
+      'songlistId',
     ])
   },
   created () {
+    if(this.$route.params.id){
+      this.setSonglistId(this.$route.params.id)
+    }
     this._getSonglist()
   },
   mounted () {
@@ -116,8 +133,18 @@ export default {
     })*/
   },
   methods: {
+    goComment() {
+      this.$router.push({
+        path:'/comment',
+        name:'comment',
+        params:{
+          id:this.songlistId,
+          type:"2",
+        }
+      })
+    },
     ...mapMutations({
-      setModeType: 'SET_MODE_TYPE'
+      setSonglistId: 'SET_SONGLIST_ID',
     }),
 /*    handlePlaylist(playlist) {
       const bottom = playlist.length > 0 ? '60px' : ''
@@ -146,8 +173,7 @@ export default {
       }*/
       if(this.$route.params.flag === "leaderboard"){
         this.titleContent=true
-        const id = this.$route.params.id
-        getToplistDetail(id).then((res) => {
+        getToplistDetail(this.songlistId).then((res) => {
           console.log(res)
           this.songlist = res.data.playlist
           let songid = ""
@@ -176,8 +202,8 @@ export default {
         })
       }else{
         this.titleContent=true
-        const id = this.$route.params.id
-        getSonglistDetail(id).then((res) => {
+   /*     const id = this.$route.params.id*/
+        getSonglistDetail(this.songlistId).then((res) => {
           console.log(res)
           this.songlist = res.data.playlist
           console.log(this.songlist)
@@ -202,7 +228,7 @@ export default {
         console.log(err)
       })
     },
-    drawCanvas() {
+  /*  drawCanvas() {
       let canvas = this.$refs.canvas
       let ctx = canvas.getContext('2d');
       let r = 0
@@ -243,12 +269,21 @@ export default {
       };
 
 
-    },
+    },*/
     ...mapActions([
       'selectPlay',
       'randomPlay'
     ])
 
+  },
+  /*destroyed () {
+    this.setSonglistId(null)
+  }*/
+  filters: {
+    formatNum(num) {
+      num = num > 9999 ?  parseInt(num/10000) + "万" : num
+      return num
+    }
   }
 }
 </script>
@@ -295,6 +330,7 @@ export default {
         width: 100%
         height:350px
         .img{
+          position: relative
           float: left
           width: 350px
           height:350px
@@ -302,6 +338,16 @@ export default {
             width:250px
             height:250px
             margin:50px !important
+          }
+          .playcount{
+            position: absolute
+            top:60px
+            right:60px
+            color: $color-font1
+            font-size:$font-size-medium
+            &.iconfont{
+              font-size:$font-size-small-s
+            }
           }
         }
         .text{
@@ -320,19 +366,51 @@ export default {
             -webkit-box-orient: vertical;
             font-size:40px
           }
+          .text_c{
+            width: 100%
+            height:80px
+            line-height:80px
+            img{
+              width:50px
+              height:50px
+              border-radius :25px
+              vertical-align :middle
+            }
+            span{
+              color: $color-font6
+              font-size:$font-size-small
+              vertical-align :middle
+            }
+
+          }
           .text_d{
+            display: inline-block
             height: 120px
             line-height:40px
-            margin-top: 50px
+            margin-top: 10px
             margin-right: 50px
-            display: -webkit-box;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            word-wrap: break-word;
-            white-space: normal !important;
-            -webkit-line-clamp: 3;
-            -webkit-box-orient: vertical;
-            font-size:$font-size-medium
+            color: $color-font7
+            .text_d_t{
+              float: left;
+              width: 80%
+              display: -webkit-box;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              word-wrap: break-word;
+              white-space: normal !important;
+              -webkit-line-clamp: 3;
+              -webkit-box-orient: vertical;
+              font-size:$font-size-small
+            }
+            .text_d_b{
+              color: $color-font7
+              float: left;
+              width:20%
+              height: 120px
+              line-height:120px
+              text-align :center
+              font-size:$font-size-medium
+            }
           }
         }
 
@@ -388,17 +466,25 @@ export default {
           width:auto
           height:80px
           line-height:80px
+          span{
+            font-size:$font-size-small
+            color: $color-font4
+          }
         }
         .list_save{
           float: right
-          width:250px
-          heihgt:70px
-          line-height: 70px
+          width:200px
+          heihgt:60px
+          line-height:60px
           margin:5px 20px
           background:red
           border-radius 30px
           text-align:center
           color: $color-font1
+          font-size:$font-size-small
+          .icon{
+            font-size:$font-size-medium
+          }
         }
       }
       .list_song{

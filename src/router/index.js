@@ -134,6 +134,14 @@ export default new Router({
       meta: {
         keepAlive:false
       }
+    },
+    {
+      path:'/comment',
+      name:'comment',
+      component: resolve => require(['@/components/comment/comment'], resolve),
+      meta: {
+        keepAlive:false
+      }
     }
   ]
 })

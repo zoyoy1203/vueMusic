@@ -20,6 +20,12 @@ const matutaions = {
   [types.SET_VIDEO_ID](state,videoId){
     state.videoId = videoId
   },
+  [types.SET_SONGLIST_ID](state,songlistId){
+    state.songlistId = songlistId
+  },
+  [types.SET_COMMENT_TYPE](state,commentType){
+    state.commentType = commentType
+  },
   [types.SET_SINGER](state, singer) {
     state.singer = singer
   },

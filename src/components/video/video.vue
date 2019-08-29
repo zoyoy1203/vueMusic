@@ -66,7 +66,7 @@
           </div>
         </div>
         <div class="line" :class="modeType ? '' : 'night'"></div>
-        <div class="comment">
+      <!--  <div class="comment">
           <div class="title">精彩评论</div>
           <div class="item" v-for="(item,index) in videoHotComment">
             <div class="img">
@@ -92,40 +92,24 @@
           <div class="more_hot_comment">
             <span >全部精彩评论》</span>
           </div>
-        </div>
-        <div class="comment">
+        </div>-->
+        <div class="comment_wrap">
+          <div class="title">精彩评论</div>
+          <comment-list :comment="videoHotComment" v-if="videoHotComment.length>0"></comment-list>
+
           <div class="title">最新评论</div>
-          <div class="item" v-for="(item,index) in videoComment">
-            <div class="img">
-              <img :src="item.user.avatarUrl" alt="">
-            </div>
-            <div class="text">
-              <div class="text_t">
-                <div class="text_t_l">
-                  <p class="username">{{item.user.nickname}}</p>
-                  <p>{{item.time | formatDate}}</p>
-                </div>
-                <div class="text_t_r">
-                  <span>{{item.likedCount}}</span>
-                  <span class="icon iconfont icon-dianzan"></span>
-                </div>
-              </div>
-              <div class="text_c">
-                {{item.content}}
-              </div>
-              <span class="reply" @click="goReply(item)" v-if="item.beReplied.length>0">回复</span>
-            </div>
-          </div>
+          <comment-list :comment="videoComment" v-if="videoComment.length>0"></comment-list>
         </div>
+
       </div>
     </div>
   </div>
 </template>
 
 <script>
-  import {formatDate} from 'common/js/date'
   import {mapGetters,mapMutations} from 'vuex'
   import BackHead from 'base/back-head/back-head'
+  import CommentList from 'components/comment/comment-list'
   import {getVideo,  getVideoDetail, getVideoComment,getAboutVideo} from 'api/api'
   export default {
     name: 'video',
@@ -144,6 +128,7 @@
     },
     components:{
       BackHead,
+      CommentList
     },
     computed: {
       ...mapGetters([
@@ -164,15 +149,6 @@
       document.addEventListener('scroll',this.scrollMoreData,false)
     },
     methods: {
-      goReply(item) {
-        this.$router.push({
-          path:'/reply',
-          name:'reply',
-          params:{
-            comment:item
-          }
-        })
-      },
       scrollMoreData() {
         const scrollTopHeight = document.documentElement.scrollTop || document.body.scrollTop //滚动高度
         const clientHeight = document.documentElement.clientHeight || window.screen.availHeight //屏幕可用工作区高度
@@ -183,7 +159,7 @@
         /*  this.loadingMore = true*/
           this.offset +=20
           console.log('请求刷新------------')
-          this._getVideoComment(this.vid,this.offset,this.limit)
+          this._getVideoComment(this.videoId,this.offset,this.limit)
         }
       },
       _getAboutVideo(vid){
@@ -250,13 +226,8 @@
         setVideoId: 'SET_VIDEO_ID'
       }),
 
-    },
-    filters: {
-      formatDate(time) {
-        var date = new Date(time);
-        return formatDate(date, 'yyyy-MM-dd hh:mm');
-      }
     }
+
   }
 </script>
 
@@ -436,89 +407,14 @@
           }
         }
       }
-      .comment{
-        .title{
-          width: 90%
-          height:80px
-          line-height:80px
-          margin: 0 auto
-        }
-        .item{
-          display: inline-block
-          width:100%
-          height:auto
-          .img{
-            padding-left:5%
-            img{
-              float: left
-              width:60px
-              height:60px
-              border-radius :30px
-            }
-          }
 
-          .text{
-            margin-left: 20px
-            margin-bottom: 20px
-            float: left
-            width: 600px
-            border-bottom: 1px solid $color-line1
-            .text_t{
-              display: inline-block
-              width:100%
-              margin-bottom:20px
-              .text_t_l{
-                display: inline-block
-                height:60px
-                line-height:30px
-                p{
-                  font-size:$font-size-small-s
-                  &.username{
-                    font-size:$font-size-small
-                  }
-                }
-              }
-              .text_t_r{
-                display: inline-block
-                float: right
-                height:60px
-                line-height:60px
-                font-size:$font-size-small
-                .icon{
-                  font-size: $font-size-medium
-                }
-              }
-            }
-            .text_c{
-              width: 100%
-              height:auto
-              line-height:40px
-              font-size:$font-size-medium
-            }
-            .reply{
-              height:40px
-              line-height:40px
-              margin-top: 10px
-              font-size:$font-size-small
-              color:$color-font5
-            }
-          }
-        }
-        .more_hot_comment{
-          display: inline-block
-          width: 100%
-          height:100px
-          line-height:100px
-          text-align:center
-          border-bottom:1px solid $color-line1
-          span{
-            border:1px solid $color-line
-            border-radius :20px
-            padding:10px 15px
-            margin:0 auto
-            font-size:$font-size-small
-          }
-        }
+    }
+    .comment_wrap{
+      .title{
+        width: 90%
+        height:80px
+        line-height:80px
+        margin: 0 auto
       }
     }
   }

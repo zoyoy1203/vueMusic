@@ -5,8 +5,8 @@
       <span class="title">{{title}}</span>
     </div>
     <div class="right" :style="{display:ico_display}">
-      <span class="iconfont icon-sousuo"></span>
-      <span class="iconfont icon-more-vertical"></span>
+      <span class="iconfont " :class="ico1"></span>
+      <span class="iconfont " :class="ico2"></span>
     </div>
   </div>
 </template>
@@ -26,6 +26,14 @@
       ico_color: {
         type:String,
         default:"#fff"
+      },
+      ico1:{
+        type:String,
+        default:"icon-sousuo"
+      },
+      ico2:{
+        type:String,
+        default:"icon-more-vertical"
       }
     },
     methods:{

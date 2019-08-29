@@ -16,6 +16,10 @@ const state = {
 
   //视屏id
   videoId:null,
+  //歌单id
+  songlistId:null,
+  //评论类型
+  commentType:null,
 
   //歌手
   singer: {},
