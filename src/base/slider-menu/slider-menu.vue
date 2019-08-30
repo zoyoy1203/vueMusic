@@ -40,7 +40,6 @@
         songlist: [],//歌单内容
         sliderImg:[],//旋转木马轮播图
         once:true,//是否是第一次请求
-        list:[],
         ids:'',//热门歌单所有id
         loading:false,
         loadingMore:false,
@@ -207,9 +206,9 @@
       }
     }
 
+    .mainContent{
+      margin-top:50px
+    }
+  }
 
-  }
-  .mainContent{
-    margin-top:50px
-  }
 </style>

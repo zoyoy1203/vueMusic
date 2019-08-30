@@ -5,7 +5,7 @@ import {loadSearch, loadPlay, loadFavorite} from 'common/js/cache'
 const state = {
   //手机号
   phone: "",
-  //用户id
+  //本人id
   userId:"",
   //用户名
   username:"",
@@ -20,6 +20,9 @@ const state = {
   songlistId:null,
   //评论类型
   commentType:null,
+
+  //用户id
+  otherUserId:null,
 
   //歌手
   singer: {},

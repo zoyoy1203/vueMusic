@@ -22,7 +22,7 @@
           </canvas>-->
           <div class="text">
             <div class="text_t">{{songlist.name}}</div>
-            <div class="text_c">
+            <div class="text_c" @click="goUser(songlist.creator.userId)">
               <img :src="songlist.creator.avatarUrl" alt="">
               <span>{{songlist.creator.nickname}}</span>
               <span class="iconfont icon-arrow-right"></span>
@@ -133,6 +133,16 @@ export default {
     })*/
   },
   methods: {
+    goUser(uid) {
+      console.log(uid)
+      this.$router.push({
+        path:'/user',
+        name:'user',
+        params:{
+          uid:uid
+        }
+      })
+    },
     goComment() {
       this.$router.push({
         path:'/comment',
@@ -301,7 +311,8 @@ export default {
     height:580px
     background-repeat:no-repeat;
     background-size:cover;
-    filter:blur(15px);
+/*    filter:blur(15px);*/
+    filter:brightness(75%);
   }
   .container{
     position: absolute
@@ -355,7 +366,8 @@ export default {
           width: 400px
           height:350px
           .text_t{
-            margin-top: 50px
+            line-height: 40px
+            margin-top: 40px
             margin-right: 50px
             display: -webkit-box;
             overflow: hidden;
@@ -364,7 +376,7 @@ export default {
             white-space: normal !important;
             -webkit-line-clamp: 2;
             -webkit-box-orient: vertical;
-            font-size:40px
+            font-size:$font-size-medium-x
           }
           .text_c{
             width: 100%

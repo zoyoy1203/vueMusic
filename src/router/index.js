@@ -142,6 +142,14 @@ export default new Router({
       meta: {
         keepAlive:false
       }
+    },
+    {
+      path:'/user',
+      name:'user',
+      component: resolve => require(['@/components/user/user'], resolve),
+      meta: {
+        keepAlive:false
+      }
     }
   ]
 })

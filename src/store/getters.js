@@ -16,6 +16,8 @@ export const songlistId = state => state.songlistId
 
 export const commentType = state => state.commentType
 
+export const otherUserId = state => state.otherUserId
+
 export const singer = state => state.singer
 
 export const playing = state => state.playing

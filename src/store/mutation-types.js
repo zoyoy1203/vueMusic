@@ -16,6 +16,8 @@ export const SET_SONGLIST_ID = 'SET_SONGLIST_ID'
 
 export const SET_COMMENT_TYPE = 'SET_COMMENT_TYPE'
 
+export const SET_OTHER_USER_ID = 'SET_OTHER_USER_ID'
+
 export const SET_SINGER = 'SET_SINGER'
 
 export const SET_PLAYING_STATE = 'SET_PLAYING_STATE'

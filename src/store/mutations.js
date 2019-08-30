@@ -26,6 +26,9 @@ const matutaions = {
   [types.SET_COMMENT_TYPE](state,commentType){
     state.commentType = commentType
   },
+  [types.SET_OTHER_USER_ID](state,otherUserId){
+    state.otherUserId = otherUserId
+  },
   [types.SET_SINGER](state, singer) {
     state.singer = singer
   },
