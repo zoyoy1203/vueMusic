@@ -47,7 +47,7 @@
 <style lang="stylus" scoped>
   @import "~common/stylus/variable"
   .header{
-    position: relative
+    position: fixed
     top: 0
     left: 0
     height:80px

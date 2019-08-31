@@ -308,7 +308,7 @@ export default {
     left: 0
     top: -80px
     width: 100%
-    height:580px
+    height:660px
     background-repeat:no-repeat;
     background-size:cover;
 /*    filter:blur(15px);*/

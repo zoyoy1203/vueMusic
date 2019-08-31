@@ -1,7 +1,7 @@
 <template>
     <div class="container">
       <back-head title="电台" ico_color="#000" ></back-head>
-      <scroll ref="scroll" class="recommend-content" :class="modeType ? '' : 'night'">
+      <scroll ref="scroll" class="scroll-content" :class="modeType ? '' : 'night'">
         <div>
           <div v-if="banners.length" class="slider-wrapper" ref="sliderWrapper">
             <slider>
@@ -147,111 +147,114 @@
 <style lang="stylus" scoped>
   @import "~common/stylus/variable"
 .container{
-  .slider-wrapper{
-    position: relative
-    width: 100%
-    overflow: hidden
-  }
-  .navbar{
-    width: 100%
-    height:100px
-    margin:20px 0
-    .nav{
-      float: left
-      width: 100px
-      height:150px
-      margin:10px 40px
-      line-height:100px
-      text-align:center
-      .icon{
-        width:100px
-        heihgt:100px
-        border-radius:50px
-        color:#fff
-        background:$color-icon
-        font-size: 40px
-        &.night{
-          background: #a9a9a9!important
-          color: #fff!important
-        }
-      }
-      .text{
-        height 40px;
-        line-height: 40px
-        margin-top: 10px
-        font-size:$font-size-small
-      }
-
-    }
-
-  }
-
-  .list-content{
-    .list-title{
-      height: 65px
-      line-height: 65px
-      text-align: center
-      width:100%
-      display: inline-block
-      margin:20px auto;
-      .list-title-left{
-        float:left
-        font-size:$font-size-large-x
-        margin:0 20px
-      }
-      .list-title-right{
-        float: right
-        font-size:$font-size-small
-        line-height: 40px
-        width:140px
-        heihgt:40px
-        border-radius:20px
-        border:1px solid $color-line
-        margin:15px 20px
-
-      }
-
-    }
-
-    .list-center{
-      display: flex
+  .scroll-content{
+    .slider-wrapper{
+      position: relative
       width: 100%
-      height:auto
-      flex-wrap: wrap
-      justify-content :center
-      align-items: center
-      .item{
-        display: flex
-        flex-direction:column
-        box-sizing: border-box
-        padding: 0 20px 20px 20px
-        width:33%
-        .img{
-          flex: 0 0 60px
-          width:100%
-          padding-right: 20px
-          img{
-            width: 100%
-            heihgt: auto
+      overflow: hidden
+    }
+    .navbar{
+      width: 100%
+      height:100px
+      margin:20px 0
+      .nav{
+        float: left
+        width: 100px
+        height:150px
+        margin:10px 40px
+        line-height:100px
+        text-align:center
+        .icon{
+          width:100px
+          heihgt:100px
+          border-radius:50px
+          color:#fff
+          background:$color-icon
+          font-size: 40px
+          &.night{
+            background: #a9a9a9!important
+            color: #fff!important
           }
         }
         .text{
-          width: 100%
-          height:80px
+          height 40px;
           line-height: 40px
-          display: -webkit-box;
-          overflow: hidden;
-          text-overflow: ellipsis;
-          word-wrap: break-word;
-          white-space: normal !important;
-          -webkit-line-clamp: 2;
-          -webkit-box-orient: vertical;
-          font-size:$font-size-medium
+          margin-top: 10px
+          font-size:$font-size-small
         }
+
       }
+
     }
 
+    .list-content{
+      .list-title{
+        height: 65px
+        line-height: 65px
+        text-align: center
+        width:100%
+        display: inline-block
+        margin:20px auto;
+        .list-title-left{
+          float:left
+          font-size:$font-size-large-x
+          margin:0 20px
+        }
+        .list-title-right{
+          float: right
+          font-size:$font-size-small
+          line-height: 40px
+          width:140px
+          heihgt:40px
+          border-radius:20px
+          border:1px solid $color-line
+          margin:15px 20px
+
+        }
+
+      }
+
+      .list-center{
+        display: flex
+        width: 100%
+        height:auto
+        flex-wrap: wrap
+        justify-content :center
+        align-items: center
+        .item{
+          display: flex
+          flex-direction:column
+          box-sizing: border-box
+          padding: 0 20px 20px 20px
+          width:33%
+          .img{
+            flex: 0 0 60px
+            width:100%
+            padding-right: 20px
+            img{
+              width: 100%
+              heihgt: auto
+            }
+          }
+          .text{
+            width: 100%
+            height:80px
+            line-height: 40px
+            display: -webkit-box;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            word-wrap: break-word;
+            white-space: normal !important;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            font-size:$font-size-medium
+          }
+        }
+      }
+
+    }
   }
+
 
 }
 </style>
