@@ -35,31 +35,14 @@
       </div>
       <div class="container_b">
 
-        <div class="navList" :class="modeType ? '' : 'night'">
-          <ul>
-            <li  v-for="(item, index) in title" :key="index"  @click="liseGo(index)">
-          <span class="tag" :class="{myColor:index==isActive}">
-            {{item.name}}
-          </span>
-            </li>
-          </ul>
-        </div>
-        <!--内容-->
-        <div class="mainContent" :class="modeType ? '' : 'night'">
-          <div class="swiper-container">
-            <div class="swiper-wrapper">
-              <div class="swiper-slide" v-for="(item, index) in title" :key="index">
-                {{item.name}}
-              </div>
-            </div>
-          </div>
-        </div>
+      <user-content></user-content>
 
       </div>
     </div>
   </div>
 </template>
 <script>
+  import UserContent from 'components/user/user-content'
   import Swiper from 'swiper'
   import BackHead from 'base/back-head/back-head'
   import {mapGetters, mapMutations} from 'vuex'
@@ -67,19 +50,19 @@
   export default {
     name: 'user',
     components:{
-      BackHead
+      BackHead,
+      UserContent
     },
     data() {
       return{
-        mySwiper: '',
-        isActive: 0,
+        mySwiper:'',
+        nowIndex:0,
         uid:null,
         userDetail:[],
         title:[
           {name: "音乐"},
           {name: "动态"},
           {name: "关于TA"},
-
         ]
       }
     },
@@ -96,37 +79,38 @@
       ])
     },
     mounted() {
-      this.getSwiper()
+      var that=this
+      that.mySwiper = new Swiper('.swiper-container',{
+        initialSlide:0,
+        autoplay:false,
+        keyboardControl:true,
+        autoHeight:true,
+        observer:true,
+        observeParents:true,
+        //引入的swiper为3之后的版本
+        onSlideChangeStart:function(){
+          // console.log(that.mySwiper.activeIndex)
+          that.nowIndex=that.mySwiper.activeIndex
+        },
+        //引入的版本为4之后的版本
+        on: {
+          slideChangeTransitionStart: function() {
+            that.nowIndex = that.mySwiper.activeIndex
+          },
+        },
+      });
+      // this.getList();
     },
     methods: {
-      liseGo(index) {
-        this.isActive = index;
-        console.log("2222222222")
-        this.mySwiper.slideTo(index, 500, false); //切换到第index个slide，速度为0.5秒
-      },
-      //封装swiper
-      getSwiper() {
-        console.log("111111111111")
-        var that = this;
-        // swiper-container  class名称
-        this.mySwiper = new Swiper('.swiper-container', {
-          autoplay: false, //可选选项，自动滑动
-          on: {
-            slideChangeTransitionEnd: function() {
-              // this指向的是当前的swiper实例，that指向的是vue实例
-              that.isActive = this.activeIndex; //切换结束时，告诉我现在是第几个slide
-              console.log(this.activeIndex)
-            },
-          },
-        })
-
+      tabClick(index){
+        this.nowIndex = index
+        this.mySwiper.slideTo(index,1000,false)
       },
       _getUserDetail(uid){
         getUserDetail(uid).then(res => {
           console.log(res)
           this.userDetail = res.data
           console.log(this.userDetail)
-          console.log(this.userDetail.profile.backgroundUrl)
         }).catch(err => {
           console.log(err)
         })
@@ -220,6 +204,7 @@
       }
       .container_t_b{
         width: 90%
+        height: 100%
         margin:0 auto
         color: $color-font1
         p{
@@ -248,41 +233,37 @@
     }
     .container_b{
       width: 100%
-      height:400px
+      height:100%
       border-top-left-radius:40px
       border-top-right-radius:40px
       background: #fff
-      .navList{
-        overflow:hidden
-        margin-bottom:40px
-        &.night{
-          background: none!important
-          color: #fff!important
-          border:none
-        }
-        ul{
-          display: -webkit-box
-          overflow-x scroll
-          white-space:nowrap
-          li{
-            width:150px
-            text-align :center
-            display: inline-block
-            padding:5px 10px
-            height:50px
-            line-height:50px
-            border-bottom: 1px solid #ccc
-            text-align: center
-            .myColor{
-              color: $color-icon
-              border-bottom :4px solid $color-icon
-            }
+      .navlist{
+        width:100%;
+        height:80px;
+        border-bottom:1px solid rgba(151,151,151,0.1);
+        position:relative;
+        .navli{
+          width: 33%
+          text-align:center;
+          float:left;
+          line-height:80px
+          height:80px
+          i{
+            font-style: normal;
+            font-size: 16px;
           }
         }
       }
 
-      .mainContent{
-        margin-top:50px
+      .activeT{
+        color:#00ba6b;
+        padding-bottom: .3rem;
+        border-bottom: 2px solid #00ba6b;
+      }
+      .swiper_con{
+        width:100%;
+        margin-bottom:40px;
+        position:relative;
       }
     }
   }

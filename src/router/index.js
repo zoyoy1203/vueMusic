@@ -122,7 +122,7 @@ export default new Router({
     {
       path:'/test',
       name:'test',
-      component: resolve => require(['@/components/video/test'], resolve),
+      component: resolve => require(['@/components/test/test'], resolve),
       meta: {
         keepAlive:false
       }
@@ -147,6 +147,14 @@ export default new Router({
       path:'/user',
       name:'user',
       component: resolve => require(['@/components/user/user'], resolve),
+      meta: {
+        keepAlive:false
+      }
+    },
+    {
+      path:'/usercontent',
+      name:'usercontent',
+      component: resolve => require(['@/components/user/user-content'], resolve),
       meta: {
         keepAlive:false
       }
