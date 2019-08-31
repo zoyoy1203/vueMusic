@@ -37,6 +37,9 @@
         nowIndex:0,
       }
     },
+    props: {
+
+    },
     components:{
     },
     mounted() {

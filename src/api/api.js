@@ -11,7 +11,7 @@ let apiUrl = '/api'
 export function getBanner(){
   return fetch({
     /*url:  '/api/banner',*/
-    url: apiUrl + '/banner',
+    url: apiUrl + '/banner?type=0',
   })
 }
 
@@ -223,3 +223,25 @@ export function  getHotComment(id,type,offset,limit){
     url: apiUrl +  '/comment/hot?id=' + id + '&type=' + type + '&offset=' + offset + '&limit=' + limit
   })
 }
+
+//电台banner
+export function  getDjBanner(){
+  return fetch({
+    url: apiUrl + '/banner?type=0',
+  })
+}
+
+//电台推荐
+export function  getDjRecommend(num){
+  return fetch({
+    url: apiUrl + '/dj/recommend?limit=' + num,
+  })
+}
+
+//电台-付费精选
+export function  getDjPaygift(){
+  return fetch({
+    url: apiUrl + '/dj/paygift?limit=3&offset=0',
+  })
+}
+

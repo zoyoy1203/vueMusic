@@ -96,6 +96,14 @@ export default new Router({
       }
     },
     {
+      path:'/radio',
+      name:'radio',
+      component: resolve => require(['@/components/radio/radio'], resolve),
+      meta: {
+        keepAlive:false
+      }
+    },
+    {
       path:'/sliderleft',
       name:'sliderleft',
       component: resolve => require(['@/base/drawer-layout/drawer-layout'], resolve),

@@ -46,27 +46,29 @@
 
 <style lang="stylus" scoped>
   @import "~common/stylus/variable"
-  .list-center
+  .list-center{
     display: flex
     width: 100%
     height:auto
     flex-wrap: wrap
     justify-content :center
     align-items: center
-    .item
+    .item{
       display: flex
       flex-direction:column
       box-sizing: border-box
       padding: 0 20px 20px 20px
       width:33%
-      .img
+      .img{
         flex: 0 0 60px
         width:100%
         padding-right: 20px
-        img
+        img{
           width: 100%
           heihgt: auto
-      .text
+        }
+      }
+      .text{
         width: 100%
         height:80px
         line-height: 40px
@@ -78,4 +80,8 @@
         -webkit-line-clamp: 2;
         -webkit-box-orient: vertical;
         font-size:$font-size-medium
+      }
+    }
+  }
+
 </style>

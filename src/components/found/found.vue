@@ -27,10 +27,10 @@
                   <div class="icon iconfont icon-paixingbang" :class="modeType ? '' : 'night'"></div>
                   <div class="text">排行榜</div>
                 </router-link>
-                <li class="nav ">
+                <router-link tag="li" to="/radio" class="nav ">
                   <div class="icon iconfont icon-diantai" :class="modeType ? '' : 'night'"></div>
                   <div class="text">电台</div>
-                </li>
+                </router-link>
                 <li class="nav ">
                   <div class="icon iconfont icon-zhibo" :class="modeType ? '' : 'night'"></div>
                   <div class="text">直播</div>
@@ -68,7 +68,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import {mapGetters, mapMutations} from 'vuex'
+  import {mapGetters} from 'vuex'
   import Slider from 'base/slider/slider'
   import Scroll from 'base/scroll/scroll'
   import Loading from 'base/loading/loading'
