@@ -118,7 +118,7 @@
           list.forEach(function (item) {
             that.songlist.push(item)
           })
-        /*  this.songlist.push=res.data.playlists*/
+        /*  this.b-songlist.push=res.data.playlists*/
           if(this.once){
             this.sliderImg = []
             this.sliderImg.push(this.songlist.shift())

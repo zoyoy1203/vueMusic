@@ -2,8 +2,8 @@
   <div class="songlist_detail">
     <back-head title="歌单"></back-head>
     <!--
-    :style="{'background':titleContent ? 'url('+songlist.coverImgUrl+')' : 'url('+ require('../../common/img/bg.jpg') +')'}"
-    :style="{'background': 'url('+songlist.coverImgUrl+')'}"
+    :style="{'background':titleContent ? 'url('+b-songlist.coverImgUrl+')' : 'url('+ require('../../common/img/bg.jpg') +')'}"
+    :style="{'background': 'url('+b-songlist.coverImgUrl+')'}"
     :style="{background: backgroundColor}"
     -->
     <div class="background_color"   :style="{'background':titleContent ? 'url('+songlist.coverImgUrl+')' : 'url('+ require('../../common/img/bg.jpg') +')'}"></div>
@@ -63,7 +63,7 @@
         </div>
       </div>
 
-      <div class="container_list" :class="modeType ? '' : 'night'">
+      <div id="main" class="container_list" :class="modeType ? '' : 'night'">
         <div class="list_title">
           <div class="list_title_icon iconfont icon-bofang"></div>
           <div class="list_title_t">播放全部  <span>(共{{songlist.trackCount}}首)</span></div>
@@ -73,23 +73,26 @@
             <span>({{songlist.subscribedCount}})</span>
           </div>
         </div>
-        <ul class="list_song">
-          <li @click="goSongPlayer(item,index)" class="item" v-for="(item, index) in songlistDetail" :key="index">
-            <div class="index">{{index}}</div>
-            <div class="song_title">
-              <div class="song_title_t">{{item.name}}</div>
-              <div class="song_title_b">{{item.ar[0].name}}</div>
-            </div>
-            <div class="icon iconfont icon-more-vertical"></div>
-            <div class="icon iconfont icon-bofang"></div>
-          </li>
-        </ul>
+        <div  ref="wrapper" class="list-wrapper">
+          <ul id="list_song" class="list_song">
+            <li @click="goSongPlayer(item,index)" class="item" v-for="(item, index) in songlistDetail" :key="index">
+              <div class="index">{{index}}</div>
+              <div class="song_title">
+                <div class="song_title_t">{{item.name}}</div>
+                <div class="song_title_b">{{item.ar[0].name}}</div>
+              </div>
+              <div class="icon iconfont icon-more-vertical"></div>
+              <div class="icon iconfont icon-bofang"></div>
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
 
   </div>
 </template>
 <script>
+import BScroll from 'better-scroll'
 import {getSonglistDetail, getSongDetail,getToplistDetail,getRecommendSongs} from 'api/api'
 import {mapGetters, mapMutations} from 'vuex'
 import {playlistMixin} from 'common/js/mixin'
@@ -112,7 +115,8 @@ export default {
     }
   },
   components: {
-    BackHead
+    BackHead,
+    BScroll,
   },
   computed: {
     ...mapGetters([
@@ -131,8 +135,29 @@ export default {
   /*  window.addEventListener('load', function(){
       Grade(document.querySelectorAll('.gradient-wrap'))
     })*/
+    document.addEventListener('scroll',this.listenScroll,false)
+
   },
   methods: {
+    listenScroll() {
+      const scrollTopHeight = document.documentElement.scrollTop || document.body.scrollTop //滚动高度
+      var main = document.getElementById("main")
+      var list_song = document.getElementById("list_song")
+      var list_song_top = list_song.offsetTop
+      if(scrollTopHeight > 150){
+        console.log('11111111111')
+        main.style.position = 'fixed'
+        main.style.top = '50px'
+        main.style.left = '0px'
+      }
+
+    /*  console.log(list_song_top)
+      if(list_song_top <100){
+        main.style.position = 'relative'
+        main.style.top = '-30px'
+        main.style.left = '0px'
+      }*/
+    },
     goUser(uid) {
       console.log(uid)
       this.$router.push({
@@ -234,6 +259,14 @@ export default {
       getSongDetail(this.ids).then((res) => {
         this.songlistDetail = res.data.songs
         console.log(res)
+
+        const options = {
+          scrollY:true //默认， 可以省略
+        }
+        setTimeout(() => {
+          this.scroll = new BScroll(this.$refs.wrapper,options)
+        },20)
+
       }).catch(err => {
         console.log(err)
       })
@@ -286,9 +319,9 @@ export default {
     ])
 
   },
-  /*destroyed () {
-    this.setSonglistId(null)
-  }*/
+  destroyed () {
+    document.removeEventListener('scroll',this.listenScroll)
+  },
   filters: {
     formatNum(num) {
       num = num > 9999 ?  parseInt(num/10000) + "万" : num
@@ -499,51 +532,58 @@ export default {
           }
         }
       }
-      .list_song{
-        display: inline-block
+
+      .list-wrapper{
         width: 100%
-        height:auto
-        .item{
+        height:1134px
+        overflow :hidden
+        .list_song{
           display: inline-block
           width: 100%
-          heihgt:80px
-          margin:20px 0
-          .index{
-            float: left
-            width:100px;
-            height:80px
-            line-height:80px
-            text-align :center
-          }
-          .song_title{
-            float: left
-            display:inline-block
-            width:490px
-            height:80px
-            .song_title_t{
-              height:50px
-              line-height:50px
-              font-size:$font-size-medium-x
-              overflow:hidden
-              text-overflow:ellipsis
-              white-space:nowrap
+          height:auto
+          .item{
+            display: inline-block
+            width: 100%
+            heihgt:80px
+            margin:20px 0
+            .index{
+              float: left
+              width:100px;
+              height:80px
+              line-height:80px
+              text-align :center
             }
-            .song_title_b{
-              height:30px
-              line-heihgt:30px
-              font-size:$font-size-small
-            }
+            .song_title{
+              float: left
+              display:inline-block
+              width:490px
+              height:80px
+              .song_title_t{
+                height:50px
+                line-height:50px
+                font-size:$font-size-medium-x
+                overflow:hidden
+                text-overflow:ellipsis
+                white-space:nowrap
+              }
+              .song_title_b{
+                height:30px
+                line-heihgt:30px
+                font-size:$font-size-small
+              }
 
-          }
-          .icon{
-            float: right
-            width:80px
-            height:80px
-            line-height:80px
-            font-size:$font-size-medium
+            }
+            .icon{
+              float: right
+              width:80px
+              height:80px
+              line-height:80px
+              font-size:$font-size-medium
+            }
           }
         }
       }
+
     }
   }
 </style>

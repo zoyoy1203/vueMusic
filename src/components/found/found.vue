@@ -131,7 +131,7 @@
       },
       goSonglist() {
         this.$router.push({
-          path: '/songlist',
+          path: '/b-songlist',
           name: 'songlist'
         })
       },
@@ -158,7 +158,7 @@
           /*let songslist = res.data.result
           var that = this
           songslist.forEach(function (item,index) {
-            that.songlist[index]={
+            that.b-songlist[index]={
               id:item.id,
               name:item.name,
               img:item.picUrl

@@ -3,11 +3,12 @@
    <div class="background">
      <img :src="background" alt="">
    </div>
-   <back-head title="歌单广场" ico_display="none" :ico_color="modeType ? '#000' : '#fff'" style="border:none"></back-head>
+   <back-head title="歌单广场" ico_display="none" :ico_color="modeType ? '#000' : '#fff'" style="border:none"
+              :styleClass="topColor ? 'topColor' : ''" ></back-head>
    <div class="songlist_container">
      <div id="lao" class="warp">
        <!--导航-->
-       <div class="navList" :class="modeType ? '' : 'night'">
+       <div class="navList" :class="[modeType ? '' : 'night',topColor ? 'topColor' : '']">
          <ul>
            <li  v-for="(item, index) in title" :key="index"  @click="liseGo(index)">
           <span class="tag" :class="{myColor:index==isActive}">
@@ -16,7 +17,9 @@
            </li>
          </ul>
        </div>
-       <slider3d :piclist="sliderImg" @getImgIndex="getImgIndex"></slider3d>
+       <div class="slider">
+         <slider3d :piclist="sliderImg" @getImgIndex="getImgIndex" class="slider3d"> </slider3d>
+       </div>
        <!--内容-->
        <div class="mainContent" :class="modeType ? '' : 'night'">
          <div class="swiper-container">
@@ -44,6 +47,7 @@
     name: 'songlist',
     data() {
       return{
+        topColor:false,
         mySwiper: '',
         isActive: 0,
         title: [], //热门歌单类型
@@ -73,10 +77,12 @@
     created() {
       this._getTitle()
     },
-    mounted() {
+    mounted: function () {
       // 初始化swiper
       /*   this.getSwiper()*/
-      document.addEventListener('scroll',this.scrollMoreData,false)
+
+      document.addEventListener('scroll', this.scrollMoreData, false)
+
     },
     methods: {
       getImgIndex(index) {
@@ -132,7 +138,7 @@
           list.forEach(function (item) {
             that.songlist.push(item)
           })
-          /*  this.songlist.push=res.data.playlists*/
+          /*  this.b-songlist.push=res.data.playlists*/
           if(this.once){
             this.sliderImg = []
             this.sliderImg.push(this.songlist.shift())
@@ -164,7 +170,14 @@
           console.log('请求刷新------------')
           this._getSonglist(this.isActive,this.offset,this.limit)
         }
-      }
+
+        if(scrollTopHeight  > 50){
+          this.topColor = true
+        }else{
+          this.topColor = false
+        }
+      },
+
     },
     watch: {
       isActive(index){
@@ -202,16 +215,22 @@
         height:auto
       }
     }
+    .songlist_container{
+      margin-top:$main-margin-top
+    }
   }
   .warp{
     width: 100%
     height: 100%
     .navList{
+      position: fixed
       width: 100%
       overflow:hidden
       margin-bottom:40px
       z-index:111
-      position: relative
+      &.topColor{
+        background: #FFFAFA
+      }
       &.night{
         background: none!important
         color: #ccc!important
@@ -238,6 +257,9 @@
       }
     }
 
+    .slider{
+      padding-top:70px
+    }
     .mainContent{
       margin-top:50px
       &.night{

@@ -121,7 +121,7 @@
     },
     watch: {
       isActive(index){
-      /*  this.songlist = []
+      /*  this.b-songlist = []
         this.offset = 0
         this.once = true*/
       }

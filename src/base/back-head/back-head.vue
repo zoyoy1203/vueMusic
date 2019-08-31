@@ -1,5 +1,5 @@
 <template>
-  <div class="header" :style="{color:ico_color}">
+  <div class="header" :style="{color:ico_color}" :class="styleClass">
     <div class="left">
       <span class="iconfont icon-prev" @click="prev"></span>
       <span class="title">{{title}}</span>
@@ -15,6 +15,10 @@
   export default {
     name: 'back-head',
     props: {
+      styleClass: {
+        type:String,
+        default:""
+      },
       title: {
         type: String,
         default:""
@@ -54,6 +58,9 @@
     width: 100%
     border-bottom:1px solid $color-line
     z-index:100
+    &.topColor{
+      background:#FFFAFA
+    }
     .left{
       display: inline-block
       width: auto
