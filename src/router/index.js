@@ -174,6 +174,14 @@ export default new Router({
       meta: {
         keepAlive:false
       }
+    },
+    {
+      path:'/new-album',
+      name:'new-album',
+      component: resolve => require(['@/components/new-album/new-album'], resolve),
+      meta: {
+        keepAlive:false
+      }
     }
   ]
 })

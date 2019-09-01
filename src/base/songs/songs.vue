@@ -4,6 +4,7 @@
       <div class="img">
         <img v-lazy="item.picUrl" v-if="img === 'picUrl'">
         <img v-lazy="item.coverImgUrl" v-if="img === 'coverImgUrl'">
+        <img v-lazy="item.album.picUrl" v-if="img === 'album.picUrl'">
       </div>
       <div class="text" v-html="item.name">
       </div>
@@ -21,6 +22,10 @@
       },
       img:{
         type: String,
+        default:""
+      },
+      imgUrl:{
+        type:String,
         default:""
       }
     },

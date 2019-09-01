@@ -50,15 +50,20 @@
             </div>
             <div class="recommend-list">
               <div class="list-title">
-                <div class="list-title-left">
+                <div class="list-title-left" @click="discORsong=true" :class="discORsong ? 'active' : ''">
                   新碟
                 </div>
-
-                <div class="list-title-right">
+                <div class="list-title-left" @click="discORsong=false" :class="discORsong ? '' : 'active'" >
+                  新歌
+                </div>
+                <router-link tag="div" to="/new-album" class="list-title-right" v-if="discORsong">
                   更多新碟
+                </router-link>
+                <div class="list-title-right" v-else>
+                  新歌推荐
                 </div>
               </div>
-              <songs :songlist="discList" img="picUrl"></songs>
+              <songs :songlist="discORsong ? discList : newSongList" :img="discORsong ? 'picUrl' : 'album.picUrl'"></songs>
             </div>
           </div>
         </scroll>
@@ -75,14 +80,16 @@
   import Loading from 'base/loading/loading'
   import Songs from 'base/songs/songs'
   import SliderLeft from 'components/slider-left/slider-left'
-  import { getBanner, getNewDisc,getRecommendSonglist} from 'api/api'
+  import { getBanner, getNewDisc,getNewSong, getRecommendSonglist} from 'api/api'
 
   export default {
     data() {
       return {
         banners:[],
         discList: [],
-        songlist:[]
+        newSongList:[],
+        discORsong:true,
+        songlist:[],
       }
     },
     components: {
@@ -106,6 +113,7 @@
       this._getBanners()
       this._getSonglist()
       this._getDiscList()
+      this._getNewSong()
       console.log(this.mode)
 
     },
@@ -173,19 +181,21 @@
         })
       },
       _getDiscList() {
-        getNewDisc().then((res) => {
+        getNewDisc(0,3).then((res) => {
           console.log(res)
-         /* let disclist = res.data.albums
-          var that = this
-          disclist.forEach(function (item,index) {
-            that.discList[index]={
-              id:item.id,
-              name:item.name,
-              img:item.picUrl
-            }
-          })*/
          this.discList = res.data.albums
           console.log(this.discList)
+        }).catch(err => {
+          console.log(err)
+        })
+      },
+      _getNewSong() {
+        getNewSong().then(res => {
+          console.log(res)
+          let newSonglist =res.data.data
+          this.newSongList = newSonglist.slice(0,3)
+          console.log(this.newSongList)
+
         }).catch(err => {
           console.log(err)
         })
@@ -368,8 +378,13 @@
           margin:20px auto;
           .list-title-left
             float:left
-            font-size:$font-size-large-x
+            font-size:$font-size-medium
+            color: $color-font4
             margin:0 20px
+            &.active{
+              font-size:$font-size-large-x
+              color: #000
+            }
           .list-title-right
             float: right
             font-size:$font-size-small

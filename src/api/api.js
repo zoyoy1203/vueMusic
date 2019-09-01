@@ -88,10 +88,10 @@ export function getSongText(id){
 }
 
 //新碟上架
-export function getNewDisc(){
+export function getNewDisc(offset, limit){
   return fetch({
    /* url:  '/api/top/album?offset=0&limit=3',*/
-    url: apiUrl +  '/top/album?offset=0&limit=3',
+    url: apiUrl +  '/top/album?offset=' + offset + '&limit=' + limit,
   })
 }
 
