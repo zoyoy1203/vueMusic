@@ -166,6 +166,14 @@ export default new Router({
       meta: {
         keepAlive:false
       }
+    },
+    {
+      path:'/djclass',
+      name:'djclass',
+      component: resolve => require(['@/components/dj-class/dj-class'], resolve),
+      meta: {
+        keepAlive:false
+      }
     }
   ]
 })

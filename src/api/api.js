@@ -245,3 +245,34 @@ export function  getDjPaygift(){
   })
 }
 
+//电台分类
+export function  getDjCatelist(){
+  return fetch({
+    url: apiUrl + '/dj/catelist',
+  })
+}
+
+//电台分类推荐
+export function  getDjCatelistRec(type){
+  return fetch({
+    url: apiUrl + '/dj/recommend/type?type' + type,
+  })
+}
+
+
+//电台详情
+export function  getDjDetail(rid){
+  return fetch({
+    url: apiUrl + '/dj/detail?rid=' + rid,
+  })
+}
+
+
+//电台节目详情
+export function  getDjProgramDetail(id){
+  return fetch({
+    url: apiUrl + '/dj/program/detail?id=' + id,
+  })
+}
+
+
