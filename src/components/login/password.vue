@@ -89,7 +89,7 @@
     .container{
       width: 90%
       height:auto
-      margin: 0 auto
+      margin:100px auto 0 auto
       input{
         width: 100%
         height: 60px

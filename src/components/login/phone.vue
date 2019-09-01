@@ -57,7 +57,7 @@
   .container{
     width: 90%
     height:auto
-    margin: 0 auto
+    margin:100px auto 0 auto
     p{
       margin: 30px 0
       font-size:$font-size-medium

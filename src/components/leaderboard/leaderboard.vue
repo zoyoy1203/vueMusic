@@ -163,7 +163,9 @@
 </script>
 
 <style lang="stylus" scoped>
+  @import "~common/stylus/variable"
 .container{
+  margin-top:$main-margin-top
   .c1{
     .title{
       width: 100%

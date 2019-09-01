@@ -1,6 +1,6 @@
 <template>
   <div class="songlist_detail">
-    <back-head title="歌单"></back-head>
+    <back-head title="歌单" :style="{'background':backheadBg ? backheadUrl : 'none' }"></back-head>
     <!--
     :style="{'background':titleContent ? 'url('+b-songlist.coverImgUrl+')' : 'url('+ require('../../common/img/bg.jpg') +')'}"
     :style="{'background': 'url('+b-songlist.coverImgUrl+')'}"
@@ -36,7 +36,7 @@
             </div>
           </div>
         </div>
-        <div class="c_t_navbar">
+        <div id="navbar" class="c_t_navbar">
           <ul>
             <li class="nav" @click="goComment()">
               <div class="icon iconfont icon-xiaoxi"></div>
@@ -58,7 +58,7 @@
         </div>
       </div>
       <div class="container_title1"v-else>
-        <div class="text">
+        <div id="text" class="text">
           根据你的音乐口味，为你推荐好音乐，好朋友
         </div>
       </div>
@@ -111,7 +111,10 @@ export default {
       songlistDetail:[],
       songDetailS:"",
       leaderboardFlag:false,
-      titleContent:true
+      titleContent:true,
+      backheadBg:false,
+      backheadUrl:"",
+      scrolly:null,
     }
   },
   components: {
@@ -140,22 +143,34 @@ export default {
   },
   methods: {
     listenScroll() {
-      const scrollTopHeight = document.documentElement.scrollTop || document.body.scrollTop //滚动高度
-      var main = document.getElementById("main")
-      var list_song = document.getElementById("list_song")
-      var list_song_top = list_song.offsetTop
-      if(scrollTopHeight > 150){
+
+      var scrollTop = document.documentElement.scrollTop || document.body.scrollTop; //滚动高度
+      var windowHeight = document.documentElement.clientHeight || document.body.clientHeight; //变量windowHeight是可视区的高度
+      var scrollHeight = document.documentElement.scrollHeight || document.body.scrollHeight;//变量scrollHeight是滚动条的总高度
+
+      var text = document.getElementById("text")
+      var navbar = document.getElementById("navbar")
+      if(scrollTop > this.scrolly){
         console.log('11111111111')
-        main.style.position = 'fixed'
-        main.style.top = '50px'
-        main.style.left = '0px'
+        this.backheadBg = true
+        if(text){
+          text.style.display = 'none'
+        }
+        if(navbar){
+          navbar.style.display = 'none'
+        }
+      }else{
+        this.backheadBg = false
+        if(text){
+          text.style.display = 'block'
+        }
+        if(navbar){
+          navbar.style.display = 'block'
+        }
       }
 
-    /*  console.log(list_song_top)
-      if(list_song_top <100){
-        main.style.position = 'relative'
-        main.style.top = '-30px'
-        main.style.left = '0px'
+     /* if (scrollTop + windowHeight == scrollHeight) {
+
       }*/
     },
     goUser(uid) {
@@ -208,6 +223,7 @@ export default {
       }*/
       if(this.$route.params.flag === "leaderboard"){
         this.titleContent=true
+        this.scrolly=150
         getToplistDetail(this.songlistId).then((res) => {
           console.log(res)
           this.songlist = res.data.playlist
@@ -223,6 +239,8 @@ export default {
       }else if (this.$route.params.flag === "recommend"){
         console.log('recommend')
         this.titleContent=false
+        this.scrolly=100
+        console.log(this.backheadUrl)
         getRecommendSongs().then((res) => {
           console.log(res)
           this.songlist = res.data.result
@@ -237,10 +255,13 @@ export default {
         })
       }else{
         this.titleContent=true
+        this.scrolly = 150
    /*     const id = this.$route.params.id*/
+        console.log(this.backheadUrl)
         getSonglistDetail(this.songlistId).then((res) => {
           console.log(res)
           this.songlist = res.data.playlist
+          this.backheadUrl = 'url(' + this.songlist.coverImgUrl + ')'
           console.log(this.songlist)
           let songid = ""
           this.songlist.tracks.forEach(function (item,index) {

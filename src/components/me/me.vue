@@ -3,8 +3,7 @@
   <slider-left>
     <div slot="mainContainer">
       <div class="main_container">
-        <scroll ref="scroll" class="container">
-          <div>
+        <div ref="scroll" class="container">
             <slider-bar></slider-bar>
             <div class="list">
               <ul>
@@ -49,8 +48,7 @@
               </div>
               <songs :songlist="songlist" img="picUrl"></songs>
             </div>
-          </div>
-        </scroll>
+        </div>
       </div>
     </div>
   </slider-left>
@@ -111,12 +109,12 @@
 <style lang="stylus" scoped>
   @import "~common/stylus/variable"
   .main_container{
-    position:fixed
     width: 100%
-    top: 88px
-    bottom: 0
+    height:1300px
     .container{
-
+      width: 100%
+      height:100%
+      overflow-y :scroll
       .list{
         width: 100%
         height:auto
