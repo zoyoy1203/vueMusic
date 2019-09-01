@@ -53,6 +53,7 @@
                 <div class="list-title-left">
                   新碟
                 </div>
+
                 <div class="list-title-right">
                   更多新碟
                 </div>
@@ -328,7 +329,7 @@
       .slider-wrapper
         position: relative
         width: 100%
-        overflow: hidden
+
       .navbar
         width: 100%
         height:100px

@@ -214,17 +214,17 @@
         box-sizing: border-box;
         overflow: hidden;
         text-align: center;
-
         a {
           display: block;
-          width: 100%;
-          overflow: hidden;
+          width: 90%;
+          margin: 0 auto
           text-decoration: none;
         }
 
         img {
           display: block;
           width: 100%;
+          border-radius :20px
         }
       }
     }

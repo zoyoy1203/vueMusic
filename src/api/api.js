@@ -255,7 +255,7 @@ export function  getDjCatelist(){
 //电台分类推荐
 export function  getDjCatelistRec(type){
   return fetch({
-    url: apiUrl + '/dj/recommend/type?type' + type,
+    url: apiUrl + '/dj/recommend/type?type=' + type,
   })
 }
 

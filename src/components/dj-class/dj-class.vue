@@ -31,7 +31,7 @@
 
         </li>
       </ul>
-      
+
       <div class="content_b">
         我要做主播
       </div>
@@ -41,7 +41,7 @@
 
 <script>
   import BackHead from 'base/back-head/back-head'
-  import {getDjCatelist} from 'api/api'
+  import {getDjCatelist, getDjCatelistRec} from 'api/api'
   export default {
     name: 'dj-class',
     components:{
@@ -54,6 +54,11 @@
     },
     created () {
       this._getDjCatelist()
+      getDjCatelistRec("2001").then(res => {
+        console.log(res)
+      }).catch(err => {
+        console.log(err)
+      })
     },
     methods: {
       _getDjCatelist() {
@@ -129,7 +134,7 @@
     }
     .content_b{
       width:100%
-      
+
     }
   }
 }
