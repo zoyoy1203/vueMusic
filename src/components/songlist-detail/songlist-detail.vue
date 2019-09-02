@@ -282,7 +282,8 @@ export default {
         console.log(res)
 
         const options = {
-          scrollY:true //默认， 可以省略
+          scrollY:true,//默认， 可以省略
+          click:true
         }
         setTimeout(() => {
           this.scroll = new BScroll(this.$refs.wrapper,options)
