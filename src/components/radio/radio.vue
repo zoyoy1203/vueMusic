@@ -16,15 +16,15 @@
           <div class="navbar">
             <ul>
               <router-link tag="li" to="/djclass" class="nav " @click="">
-                <div class="icon iconfont icon-meirituijian-" :class="modeType ? '' : 'night'"></div>
+                <div class="icon iconfont icon-leimupinleifenleileibie2" :class="modeType ? '' : 'night'"></div>
                 <div class="text">电台分类</div>
               </router-link>
               <li class="nav " @click="">
-                <div class="icon iconfont icon-gedan" :class="modeType ? '' : 'night'"></div>
+                <div class="icon iconfont icon-paixingbang" :class="modeType ? '' : 'night'"></div>
                 <div class="text">电台排行</div>
               </li>
               <router-link tag="li" to="/leaderboard" class="nav">
-                <div class="icon iconfont icon-paixingbang" :class="modeType ? '' : 'night'"></div>
+                <div class="icon iconfont icon-jingpin" :class="modeType ? '' : 'night'"></div>
                 <div class="text">付费精品</div>
               </router-link>
               <router-link tag="li" to="/radio" class="nav ">
@@ -43,7 +43,7 @@
               </div>
             </div>
             <ul class="list-center">
-              <li @click="" v-for="(item, index) in djRecommend" v-if="index<3" :key="index" class="item">
+              <li @click="goRadiolistDetail(item.id)" v-for="(item, index) in djRecommend" v-if="index<3" :key="index" class="item">
                 <div class="img">
                   <img v-lazy="item.picUrl" >
                 </div>
@@ -62,7 +62,7 @@
               </div>
             </div>
             <ul class="list-center">
-              <li @click="" v-for="(item, index) in  djPaygift" :key="index" class="item">
+              <li @click="goDjPaygiftDetail(item.id)" v-for="(item, index) in  djPaygift" :key="index" class="item">
                 <div class="img">
                   <img v-lazy="item.picUrl" >
                 </div>
@@ -111,6 +111,24 @@
     },
 
     methods: {
+      goDjPaygiftDetail(id){
+        this.$router.push({
+          path:'/djPaygiftDetail',
+          name:'djPaygiftDetail',
+          params:{
+            id:id
+          }
+        })
+      },
+      goRadiolistDetail(id) {
+        this.$router.push({
+          path:'/radiolistDetail',
+          name:'radiolistDetail',
+          params:{
+            id:id
+          }
+        })
+      },
       loadImage() {
         if (!this.checkloaded) {
           this.checkloaded = true

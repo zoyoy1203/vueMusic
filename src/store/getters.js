@@ -14,6 +14,8 @@ export const videoId = state => state.videoId
 
 export const songlistId = state => state.songlistId
 
+export const radioId = state => state.radioId
+
 export const commentType = state => state.commentType
 
 export const otherUserId = state => state.otherUserId

@@ -182,6 +182,22 @@ export default new Router({
       meta: {
         keepAlive:false
       }
-    }
+    },
+    {
+      path:'/radiolistDetail',
+      name:'radiolistDetail',
+      component: resolve => require(['@/components/radiolist-detail/radiolist-detail'], resolve),
+      meta: {
+        keepAlive:false
+      }
+    },
+    {
+      path:'/djPaygiftDetail',
+      name:'djPaygiftDetail',
+      component: resolve => require(['@/components/djPaygift-detail/djPaygift-detail'], resolve),
+      meta: {
+        keepAlive:false
+      }
+    },
   ]
 })

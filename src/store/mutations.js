@@ -23,6 +23,9 @@ const matutaions = {
   [types.SET_SONGLIST_ID](state,songlistId){
     state.songlistId = songlistId
   },
+  [types.SET_RADIO_ID](state,radioId){
+    state.radioId = radioId
+  },
   [types.SET_COMMENT_TYPE](state,commentType){
     state.commentType = commentType
   },

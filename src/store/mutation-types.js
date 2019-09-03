@@ -14,6 +14,8 @@ export const SET_VIDEO_ID = 'SET_VIDEO_ID'
 
 export const SET_SONGLIST_ID = 'SET_SONGLIST_ID'
 
+export const SET_RADIO_ID = 'SET_RADIO_ID'
+
 export const SET_COMMENT_TYPE = 'SET_COMMENT_TYPE'
 
 export const SET_OTHER_USER_ID = 'SET_OTHER_USER_ID'

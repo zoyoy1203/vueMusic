@@ -18,6 +18,9 @@ const state = {
   videoId:null,
   //歌单id
   songlistId:null,
+  //电台id
+  radioId:null,
+
   //评论类型
   commentType:null,
 
