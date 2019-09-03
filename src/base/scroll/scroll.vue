@@ -9,6 +9,10 @@
 
   export default {
     props: {
+      preventDefault:{
+        type:Boolean,
+        default:false
+      },
       probeType: {
         type: Number,
         default: 1
@@ -26,6 +30,10 @@
         default: null
       },
       pullup: {
+        type: Boolean,
+        default: false
+      },
+      pulldown: {
         type: Boolean,
         default: false
       },
@@ -50,7 +58,12 @@
         }
         this.scroll = new BScroll(this.$refs.wrapper, {
           probeType: this.probeType,
-          click: this.click
+          click: this.click,
+          preventDefault:this.preventDefault,
+          pullDownRefresh:{
+            threshold:50,
+            stop:20
+          }
         })
 
         if (this.listenScroll) {
@@ -68,6 +81,12 @@
           })
         }
 
+        if (this.pulldown) {
+          this.scroll.on('pullingDown', () => {
+            this.$emit('pullingDown')
+          })
+        }
+
         if (this.beforeScroll) {
           this.scroll.on('beforeScrollStart', () => {
             this.$emit('beforeScroll')
@@ -82,6 +101,7 @@
       },
       refresh() {
         this.scroll && this.scroll.refresh()
+
       },
       scrollTo() {
         this.scroll && this.scroll.scrollTo.apply(this.scroll, arguments)

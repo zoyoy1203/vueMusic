@@ -63,7 +63,7 @@
         </div>
       </div>
 
-      <div id="main" class="container_list" :class="modeType ? '' : 'night'">
+      <div id="main" class="container_list" :class="[modeType ? '' : 'night', listScroll ? 'isFixed' :'isRelative']">
         <div class="list_title">
           <div class="list_title_icon iconfont icon-bofang"></div>
           <div class="list_title_t">播放全部  <span>(共{{songlist.trackCount}}首)</span></div>
@@ -73,7 +73,12 @@
             <span>({{songlist.subscribedCount}})</span>
           </div>
         </div>
-        <div  ref="wrapper" class="list-wrapper">
+        <scroll  ref="scroll"
+                 :listenScroll="ifScroll"
+                 :preventDefault="preventDefault"
+                 :pulldown="pulldown"
+                 @pullingDown="pullingDown"
+                 id="wrapper" class="list-wrapper" >
           <ul id="list_song" class="list_song">
             <li @click="goSongPlayer(item,index)" class="item" v-for="(item, index) in songlistDetail" :key="index">
               <div class="index">{{index}}</div>
@@ -85,7 +90,7 @@
               <div class="icon iconfont icon-bofang"></div>
             </li>
           </ul>
-        </div>
+        </scroll>
       </div>
     </div>
 
@@ -93,6 +98,7 @@
 </template>
 <script>
 import BScroll from 'better-scroll'
+import Scroll from 'base/scroll/scroll'
 import {getSonglistDetail, getSongDetail,getToplistDetail,getRecommendSongs} from 'api/api'
 import {mapGetters, mapMutations} from 'vuex'
 import {playlistMixin} from 'common/js/mixin'
@@ -115,11 +121,17 @@ export default {
       backheadBg:false,
       backheadUrl:"",
       scrolly:null,
+      ifScroll:true,
+      preventDefault:false,
+      listScroll:false,
+      ifTop:false,
+      pulldown: true,
     }
   },
   components: {
     BackHead,
     BScroll,
+    Scroll
   },
   computed: {
     ...mapGetters([
@@ -142,36 +154,54 @@ export default {
 
   },
   methods: {
+    pullingDown(){
+      this.isTop=false
+      this.listScroll =false
+      console.log(this.isTop)
+    },
+ /*   listScroll(pos){
+     /!* console.log(pos)*!/
+      this.scrollY = Math.abs(Math.round(pos.y));
+      //判断滑动距离
+
+      if(this.scrollY >600) {
+        this.isScroll = true;
+        console.log(this.scrolly)
+      }else {
+        this.isScroll = false;
+   /!*     console.log(this.scrolly)*!/
+      }
+
+    },*/
     listenScroll() {
 
       var scrollTop = document.documentElement.scrollTop || document.body.scrollTop; //滚动高度
       var windowHeight = document.documentElement.clientHeight || document.body.clientHeight; //变量windowHeight是可视区的高度
       var scrollHeight = document.documentElement.scrollHeight || document.body.scrollHeight;//变量scrollHeight是滚动条的总高度
 
-      var text = document.getElementById("text")
-      var navbar = document.getElementById("navbar")
-      if(scrollTop > this.scrolly){
-        console.log('11111111111')
-        this.backheadBg = true
-        if(text){
-          text.style.display = 'none'
-        }
-        if(navbar){
-          navbar.style.display = 'none'
-        }
-      }else{
-        this.backheadBg = false
-        if(text){
-          text.style.display = 'block'
-        }
-        if(navbar){
-          navbar.style.display = 'block'
-        }
+      var mainOffsetTop = document.querySelector('#main').offsetTop
+      if(scrollTop > mainOffsetTop && !this.isTop){
+        console.log("到顶部")
+        console.log(scrollTop)
+        console.log(mainOffsetTop+80)
+        this.listScroll = true
+        this.isTop = true
       }
 
-     /* if (scrollTop + windowHeight == scrollHeight) {
+      var text = document.getElementById("text")
+      var navbar = document.getElementById("navbar")
+      var listWapper = document.getElementById("wrapper")
+      var listSong = document.getElementById("list_song")
+      var main = document.getElementById("main")
 
-      }*/
+     /* this.preventDefault=false*/
+      },
+
+    getElementToPageTop(el){
+      if(el.parentElement){
+        return this.getElementToPageTop(el.parentElement) + el.offsetTop
+      }
+      return el.offsetTop
     },
     goUser(uid) {
       console.log(uid)
@@ -223,7 +253,7 @@ export default {
       }*/
       if(this.$route.params.flag === "leaderboard"){
         this.titleContent=true
-        this.scrolly=150
+        this.scrolly=300
         getToplistDetail(this.songlistId).then((res) => {
           console.log(res)
           this.songlist = res.data.playlist
@@ -281,14 +311,14 @@ export default {
         this.songlistDetail = res.data.songs
         console.log(res)
 
-        const options = {
+       /* const options = {
           scrollY:true,//默认， 可以省略
           click:true
         }
         setTimeout(() => {
           this.scroll = new BScroll(this.$refs.wrapper,options)
         },20)
-
+*/
       }).catch(err => {
         console.log(err)
       })
@@ -516,6 +546,15 @@ export default {
       border:1px solid $color-line
       color: $color-font2
       background: #fff
+      &.isRelative{
+        position: relative
+      }
+      &.isFixed{
+        position:fixed;
+        background-color:#Fff;
+        top:80px;
+        z-index:999;
+       }
       .list_title{
         display: inline-block
         width: 100%
