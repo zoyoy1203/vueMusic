@@ -58,7 +58,6 @@
 </script>
 
 <style lang="stylus" scoped>
-  @import "~common/stylus/variable"
   .comment{
     margin-top:20px
     .item{

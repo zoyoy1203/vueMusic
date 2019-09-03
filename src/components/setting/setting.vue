@@ -317,7 +317,6 @@
 </script>
 
 <style lang="stylus" scoped>
-  @import "~common/stylus/variable"
 .setting{
   .content{
     .list{

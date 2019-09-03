@@ -131,7 +131,6 @@
 </script>
 
 <style lang="stylus" scoped>
-  @import "~common/stylus/variable"
   .container{
     width: 100%
     height:100%

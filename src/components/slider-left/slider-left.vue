@@ -173,7 +173,6 @@
 </script>
 
 <style lang="stylus" scoped>
-  @import "~common/stylus/variable"
   .drawer{
     position: absolute
     left: 0

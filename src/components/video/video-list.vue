@@ -216,7 +216,6 @@
 </script>
 
 <style lang="stylus" scoped>
-  @import "~common/stylus/variable"
   .main_container{
     position:fixed
     width: 100%

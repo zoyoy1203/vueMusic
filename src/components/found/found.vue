@@ -206,7 +206,7 @@
 </script>
 
 <style scoped lang="stylus" rel="stylesheet/stylus">
-  @import "~common/stylus/variable"
+
   .drawer{
     position: absolute
     left: 0

@@ -79,7 +79,6 @@
 </script>
 
 <style lang="stylus" scoped>
-  @import "~common/stylus/variable"
   .reply{
     .line{
       width: 100%

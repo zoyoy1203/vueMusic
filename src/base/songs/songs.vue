@@ -50,7 +50,6 @@
 </script>
 
 <style lang="stylus" scoped>
-  @import "~common/stylus/variable"
   .list-center{
     display: flex
     width: 100%

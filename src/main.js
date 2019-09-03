@@ -13,6 +13,7 @@ import 'swiper/dist/css/swiper.css'
 import 'common/stylus/index.styl'
 import 'common/fonts/iconfont.css'
 
+
 import Video from 'video.js'
 import 'video.js/dist/video-js.css'
 

@@ -23,7 +23,6 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-  @import "~common/stylus/variable"
   .night{
     .left{
       color: #fff!important

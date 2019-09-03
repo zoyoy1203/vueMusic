@@ -59,7 +59,6 @@
 </script>
 
 <style lang="stylus" scoped>
-  @import "~common/stylus/variable"
 .home{
   width: 100%
   height:100vh

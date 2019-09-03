@@ -50,7 +50,6 @@
 </script>
 
 <style lang="stylus" scoped>
-  @import "~common/stylus/variable"
 .phone_login{
   width: 100%
   height:auto

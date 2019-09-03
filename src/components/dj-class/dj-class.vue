@@ -74,7 +74,6 @@
 </script>
 
 <style lang="stylus" scoped>
-  @import "~common/stylus/variable"
 .container{
   .content{
     width: 90%

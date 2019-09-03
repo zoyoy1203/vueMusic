@@ -90,7 +90,6 @@
 </script>
 
 <style lang="stylus" scoped>
-  @import "~common/stylus/variable"
     ul{
       width:1700px
       height: 100%

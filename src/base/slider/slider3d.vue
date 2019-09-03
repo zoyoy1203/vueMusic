@@ -167,7 +167,6 @@
 </script>
 
 <style lang="stylus" scoped>
-  @import "~common/stylus/variable"
   #wrapper {
     margin: auto;
     height:450px ;

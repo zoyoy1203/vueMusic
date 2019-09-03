@@ -166,7 +166,6 @@
 </script>
 
 <style lang="stylus" scoped>
-  @import "~common/stylus/variable"
   .radio{
     .container{
       width: 100%

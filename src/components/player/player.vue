@@ -480,7 +480,6 @@
 </script>
 
 <style lang="stylus" scoped>
-  @import "~common/stylus/variable"
   .night{
     .text{
       color: #fff!important

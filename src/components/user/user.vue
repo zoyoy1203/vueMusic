@@ -135,7 +135,6 @@
   }
 </script>
 <style lang="stylus" scoped>
-  @import "~common/stylus/variable"
 .user{
   .background{
     position: relative
