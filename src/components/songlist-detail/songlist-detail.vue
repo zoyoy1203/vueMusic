@@ -6,7 +6,7 @@
     :style="{'background': 'url('+b-songlist.coverImgUrl+')'}"
     :style="{background: backgroundColor}"
     -->
-    <div class="background_color"   :style="{'background':titleContent ? 'url('+songlist.coverImgUrl+')' : 'url('+ require('../../common/img/bg.jpg') +')'}"></div>
+    <div class="background_color"  :class="modeType ? '' : 'night'" :style="{'background':titleContent ? 'url('+songlist.coverImgUrl+')' : 'url('+ require('../../common/img/bg.jpg') +')'}"></div>
     <div class="container">
 
       <div class="container_title" v-if="titleContent">
@@ -67,8 +67,8 @@
         <div class="list_title">
           <div class="list_title_icon iconfont icon-bofang"></div>
           <div class="list_title_t">播放全部  <span>(共{{songlist.trackCount}}首)</span></div>
-          <div class="list_save">
-            <span class="icon iconfont icon-jiahao"></span>
+          <div class="list_save" :class="modeType ? '' : 'night'">
+            <span class="icon iconfont icon-jiahao" ></span>
             收藏
             <span>({{songlist.subscribedCount}})</span>
           </div>
@@ -397,6 +397,9 @@ export default {
     background-size:cover;
 /*    filter:blur(15px);*/
     filter:brightness(75%);
+    &.night{
+      filter:brightness(50%);
+    }
   }
   .container{
     position: absolute
@@ -545,6 +548,9 @@ export default {
       border:1px solid $color-line
       color: $color-font2
       background: #fff
+      &.night{
+        background:$color-night-bg2
+      }
       &.isRelative{
         position: relative
       }
@@ -587,6 +593,9 @@ export default {
           text-align:center
           color: $color-font1
           font-size:$font-size-small
+          &.night{
+            background:$color-night-ico1
+          }
           .icon{
             font-size:$font-size-medium
           }

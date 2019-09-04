@@ -604,10 +604,10 @@
           text-align: center
           .text{
             line-height: 50px
-            color: $color-text-l
+            color:$color-font4
             font-size: $font-size-large
             &.current{
-              color: $color-text
+              color: $color-font1
             }
 
           }
@@ -709,6 +709,11 @@
 
   }
   .mini-player{
+    &.night{
+      background: #2e2d2e !important
+      border-top:1px solid #4a4a4a
+      box-shadow :none
+    }
     display: flex
     align-items: center
     position: fixed

@@ -3,8 +3,8 @@
   <slider-left>
     <div slot="mainContainer">
       <div class="main_container">
-        <div ref="scroll" class="container">
-            <slider-bar></slider-bar>
+        <div ref="scroll" class="container" :class="modeType ? '' : 'night'">
+            <slider-bar class="slider-bar_c" :class="modeType ? '' : 'night'"></slider-bar>
             <div class="list">
               <ul>
                 <li class="item">
@@ -29,17 +29,17 @@
                 </li>
               </ul>
             </div>
-            <div class="line"></div>
+            <div class="line" :class="modeType ? '' : 'night'"></div>
             <div class="my_songlist">
               <div class="head">
-                <span class="icon iconfont icon-xiangxiajiantou"></span>
+                <span class="icon iconfont icon-shixinjiantou-xiangshang-copy"></span>
                 <span>创建歌单</span>
                 <span>(1)</span>
-                <span class="icon i_r iconfont icon-diantai"></span>
-                <span class="icon i_r iconfont icon-diantai"></span>
+                <span class="icon i_r iconfont icon-more-vertical "></span>
+                <span class="icon i_r iconfont icon-jiahao"></span>
               </div>
             </div>
-            <div class="line"></div>
+            <div class="line" :class="modeType ? '' : 'night'"></div>
             <div class="recommend-list">
               <div class="list-title">
                 <span class="icon i_l iconfont icon-shixin"></span>
@@ -114,6 +114,16 @@
       width: 100%
       height:100%
       overflow-y :scroll
+      &.night{
+        background: $color-night-bg3
+        color: $color-night-font1
+      }
+      .slider-bar_c{
+        &.night{
+          background: $color-night-bg2
+          color: $color-night-font1
+        }
+      }
       .list{
         width: 100%
         height:auto
@@ -124,7 +134,7 @@
           line-height:90px
           .icon{
             float: left
-            font-size:$icon-size-large
+            font-size:$icon-size-medium-x
             width:150px
             text-align :center
           }
@@ -132,6 +142,10 @@
             float: left
             width:600px
             border-bottom:1px solid #ccc
+            span{
+              font-size:$font-size-small-x
+
+            }
           }
         }
       }
@@ -141,14 +155,18 @@
         height:10px
         background: #ccc
         margin-top:-3px
+        &.night{
+          background: $color-night-line1
+        }
       }
       .my_songlist{
         width: 100%
         height:auto
         .head{
-          width: 100%
+          width: 94%
           height:80px
           line-height:80px
+          margin:0 auto
           .icon{
             font-size:$icon-size-medium
             &.i_r{
@@ -159,6 +177,7 @@
         }
       }
       .recommend-list{
+        margin-bottom:300px
         .list-title{
           height:80px
           line-height :80px

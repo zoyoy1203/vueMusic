@@ -143,13 +143,39 @@ export function  getUserDetail(uid){
   })
 }
 
-//获取用户信息 , 歌单，收藏，mv, dj 数量
+//获取登录用户信息 , 歌单，收藏，mv, dj 数量
 export function  getUserMore(){
   return fetch({
   /*  url:   '/api/user/subcount'*/
     url: apiUrl + '/user/subcount'
   })
 }
+
+//获取用户电台
+export function  getUserDj(id){
+  return fetch({
+    /*  url:   '/api/user/subcount'*/
+    url: apiUrl + '/user/dj?uid=' + id
+  })
+}
+
+//获取用户歌单
+export function  getUserSonglist(id){
+  return fetch({
+    /*  url:   '/api/user/subcount'*/
+    url: apiUrl + '/user/playlist?uid=' + id
+  })
+}
+
+//获取用户动态
+export function  getUserEvent(id){
+  return fetch({
+    /*  url:   '/api/user/subcount'*/
+    url: apiUrl + '/user/event?uid=' + id
+  })
+}
+
+
 
 //登录状态
 export function  getUserStatus(){

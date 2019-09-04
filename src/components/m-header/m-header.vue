@@ -1,5 +1,5 @@
 <template>
-    <div class="m-header">
+    <div class="m-header"  :class="modeType ? '' : 'night'">
       <div class="left iconfont icon-liebiao" @click="handleIconClick"></div>
       <div class="center">
         <router-link tag="a" to="/me">我的</router-link>
@@ -12,7 +12,13 @@
 </template>
 
 <script>
+  import {mapGetters} from 'vuex'
 export default {
+  computed: {
+    ...mapGetters([
+      'modeType'
+    ])
+  },
   methods: {
     handleIconClick() {
      /* if (this.moving) return;*/
@@ -24,6 +30,7 @@ export default {
 
 <style lang="stylus" scoped>
   .night{
+    background: #2c2c2c!important
     .left{
       color: #fff!important
     }

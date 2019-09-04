@@ -2,9 +2,9 @@
   <slider-left>
     <div slot="mainContainer">
       <div class="recommend" ref="recommend">
-        <scroll ref="scroll" class="recommend-content" :class="modeType ? '' : 'night'">
+        <scroll ref="scroll" class="recommend-content">
           <div>
-            <div v-if="banners.length" class="slider-wrapper" ref="sliderWrapper">
+            <div v-if="banners.length" class="slider-wrapper" :class="modeType ? '' : 'night'" ref="sliderWrapper">
               <slider>
                 <div v-for="item in banners">
                   <a href="#">
@@ -13,7 +13,7 @@
                 </div>
               </slider>
             </div>
-            <div class="navbar">
+            <div class="navbar" :class="modeType ? '' : 'night'">
               <ul>
                 <li class="nav " @click="goRecommendSongs()">
                   <div class="icon iconfont icon-meirituijian-" :class="modeType ? '' : 'night'"></div>
@@ -37,29 +37,29 @@
                 </li>
               </ul>
             </div>
-            <div class="recommend-list">
+            <div class="recommend-list" :class="modeType ? '' : 'night'">
               <div class="list-title">
                 <div class="list-title-left">
                   推荐歌单
                 </div>
-                <div class="list-title-right" @click="goSonglist()"  >
+                <div class="list-title-right":class="modeType ? '' : 'night'" @click="goSonglist()"  >
                   歌单广场
                 </div>
               </div>
               <songs :songlist="songlist" img="picUrl"></songs>
             </div>
-            <div class="recommend-list">
+            <div class="recommend-list" :class="modeType ? '' : 'night'">
               <div class="list-title">
-                <div class="list-title-left" @click="discORsong=true" :class="discORsong ? 'active' : ''">
+                <div class="list-title-left" @click="discORsong=true" :class="discORsong ? (modeType ? 'active' : 'active_night') : ''">
                   新碟
                 </div>
-                <div class="list-title-left" @click="discORsong=false" :class="discORsong ? '' : 'active'" >
+                <div class="list-title-left" @click="discORsong=false" :class="!discORsong ? (modeType ? 'active' : 'active_night') : ''" >
                   新歌
                 </div>
-                <router-link tag="div" to="/new-album" class="list-title-right" v-if="discORsong">
+                <router-link tag="div" to="/new-album" class="list-title-right" :class="modeType ? '' : 'night'" v-if="discORsong">
                   更多新碟
                 </router-link>
-                <div class="list-title-right" v-else>
+                <div class="list-title-right" :class="modeType ? '' : 'night'" v-else>
                   新歌推荐
                 </div>
               </div>
@@ -206,144 +206,31 @@
 </script>
 
 <style scoped lang="stylus" rel="stylesheet/stylus">
-
-  .drawer{
-    position: absolute
-    left: 0
-    top: 0
-    bottom: 0
-    overflow-x: hidden
-    overflow-y:scroll
-    width: 100%
-    &::-webkit-scrollbar {
-      display: none;
-    }
-    &.night{
-      background:	#545454!important
-    }
-    .user{
-      background:	#F7F7F7
-      .nologin{
-        text-align :center
-        padding-top:80px
-        p{
-          text-align :center
-          font-size:$font-size-small
-          margin-top:20px
-        }
-        button{
-          margin-top: 40px
-          margin-bottom :60px
-          background: 	#F7F7F7
-          border:1px solid #ccc
-          padding: 6px 40px
-          border-radius :20px
-        }
-      }
-    }
-
-    .content{
-      width:90%
-      height:auto
-      margin: 0 5%
-      display: inline-block
-      .line{
-        width: 100%
-        height:1px
-        background: #ccc
-      }
-      .usernav{
-        display: inline-block
-        width:100%
-        padding-top:40px
-        ul{
-          .nav{
-            float: left
-            width: 84px
-            height:100px
-            margin:10px 25px
-            text-align:center
-            .icon{
-              width:100%
-              heihgt:auto
-              color:$color-icon
-              font-size: 40px
-            }
-            .text{
-              width:100%
-              height 40px;
-              line-height: 40px
-              margin-top: 10px
-              font-size:$font-size-small-s
-            }
-
-          }
-        }
-
-      }
-      .list{
-        margin-bottom:80px
-        ul{
-          .item{
-            width: 100%
-            heihgt:80px
-            line-height :80px
-            display:inline-block
-            font-size: $font-size-medium
-            .icon{
-              float: left
-              font-size:$font-size-large-x
-            }
-            .text{
-              float: left
-              margin-left:20px
-            }
-            .text_r{
-              float: right
-            }
-          }
-        }
-      }
-    }
-
-    .footer{
-      display: inline-block
-      position: fixed
-      bottom:0
-      left:0
-      right:0
-      heihgt:80px
-      background: #fff
-      border-top:1px solid #ccc
-      .item{
-        display: inline-block
-        height:80px
-        line-height :80px
-        margin:0 30px
-        font-size:$font-size-medium
-        .icon{
-          font-size:$font-size-medium
-        }
-      }
-    }
-  }
-
   .recommend
     position: fixed
     width: 100%
-    top: 88px
+    top: 80px
     bottom: 0
     .recommend-content
       height: 100%
       overflow: hidden
       .slider-wrapper
-        position: relative
         width: 100%
+        height:200px
+        padding-top:20px
+        &.night{
+          background:$color-night-bg1!important
+        }
 
       .navbar
         width: 100%
-        height:100px
-        margin:20px 0
+        height:160px
+        padding-top:60px
+        border-bottom:1px solid #ccc
+        &.night{
+          background: $color-night-bg2!important
+          border-bottom:1px solid $color-night-line1
+        }
         .nav
           float: left
           width: 100px
@@ -369,6 +256,9 @@
             font-size:$font-size-small
 
       .recommend-list
+        &.night{
+          background :$color-night-bg3!important
+        }
         .list-title
           height: 65px
           line-height: 65px
@@ -385,6 +275,10 @@
               font-size:$font-size-large-x
               color: #000
             }
+            &.active_night{
+              color: #ccc
+              font-size:$font-size-large-x
+            }
           .list-title-right
             float: right
             font-size:$font-size-small
@@ -394,4 +288,8 @@
             border-radius:20px
             border:1px solid $color-line
             margin:15px 20px
+            &.night{
+              background:$color-night-bg3!important
+              border:1px solid $color-night-line1
+            }
 </style>

@@ -1,6 +1,6 @@
 <template>
   <div class="user">
-    <back-head ico_color="#fff" ico1=""></back-head>
+    <back-head ico_color="#fff" ico1="" ico2="icon-fenxiang"></back-head>
     <div class="background">
       <img :src="userDetail.profile.backgroundUrl" alt="">
     </div>
@@ -20,7 +20,7 @@
         </div>
         <div class="container_t_b">
           <p class="name">{{userDetail.profile.nickname}}</p>
-          <p>{{userDetail.profile.allAuthTypes[0].desc}}</p>
+          <p v-if="userDetail.profile.allAuthTypes[0].desc">{{userDetail.profile.allAuthTypes[0].desc}}</p>
           <p class="num">
             <span>关注</span>
             <span>{{userDetail.profile.follows}}</span>
@@ -203,7 +203,7 @@
       }
       .container_t_b{
         width: 90%
-        height: 100%
+        height:200px
         margin:0 auto
         color: $color-font1
         p{

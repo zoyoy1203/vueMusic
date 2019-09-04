@@ -3,7 +3,7 @@
     ref="drawerLayout"
     @mask-click="handleMaskClick"
   >
-    <div slot="drawer" class="drawer" :class="modeType ? '' : 'night'">
+    <div slot="drawer" class="drawer">
       <div class="user" :class="modeType ? '' : 'night'">
         <div class="nologin" v-if="!isLogin">
           <p>登录网易云音乐</p>
@@ -22,7 +22,7 @@
         </div>
       </div>
       <div class="content">
-        <div class="usernav">
+        <div class="usernav" :class="modeType ? '' : 'night'">
           <ul>
             <li class="nav ">
               <div class="icon iconfont icon-xiaoxi1"></div>
@@ -42,8 +42,8 @@
             </li>
           </ul>
         </div>
-        <div class="line"></div>
-        <div class="list">
+        <div class="line" :class="modeType ? '' : 'night'"></div>
+        <div class="list" :class="modeType ? '' : 'night'">
           <ul>
             <li class="item">
               <span class="icon iconfont icon-huopiaotongxing"></span>
@@ -68,7 +68,7 @@
               <span class="text">我的订单</span>
             </li>
           </ul>
-          <div class="line"></div>
+          <div class="line" :class="modeType ? '' : 'night'"></div>
           <ul>
             <li class="item">
               <span class="icon iconfont icon-time"></span>
@@ -104,7 +104,8 @@
       <div class="footer" :class="modeType ? '' : 'night'">
         <div class="item" @click="modeClick">
           <span class="icon iconfont " :class="modeType ? 'icon-yejianmoshi' : 'icon-rijianmoshi'"></span>
-          <span>夜间模式</span>
+          <span v-if="modeType">夜间模式</span>
+          <span v-else>日间模式</span>
         </div>
         <div class="item">
           <span class="icon iconfont icon-shezhi"></span>
@@ -184,10 +185,10 @@
     &::-webkit-scrollbar {
       display: none;
     }
-    &.night{
-      background:	#545454!important
-    }
     .user{
+      &.night{
+        background:	#212222!important
+      }
       width: 100%
       height:400px
       background:	#F7F7F7
@@ -202,6 +203,10 @@
           margin-top:20px
         }
         button{
+          &.night{
+            background:	#252629!important
+            border:1px solid #4a4a4a!important
+          }
           margin-top: 40px
           margin-bottom :60px
           background: 	#F7F7F7
@@ -263,19 +268,29 @@
     }
 
     .content{
-      width:90%
+      display: inline-block
+      &.night{
+        background: #2a2a2b!important
+      }
+      width:100%
       height:auto
-      margin: 0 5%
       display: inline-block
       .line{
+        &.night{
+          background: #4a4a4a!important
+        }
         width: 100%
         height:1px
         background: #ccc
       }
       .usernav{
         display: inline-block
-        width:100%
+        width:90%
+        padding: 0 5%
         padding-top:40px
+        &.night{
+          background: #262626!important
+        }
         ul{
           .nav{
             float: left
@@ -294,7 +309,7 @@
               height 40px;
               line-height: 40px
               margin-top: 10px
-              font-size:$font-size-small-s
+              font-size:$font-size-small
             }
 
           }
@@ -302,8 +317,14 @@
 
       }
       .list{
+        margin-top: -10px
         margin-bottom:80px
+        &.night{
+          background: #212427!important
+        }
         ul{
+          width:90%
+          padding:0 5%
           .item{
             width: 100%
             heihgt:80px
@@ -327,6 +348,10 @@
     }
 
     .footer{
+      &.night{
+        background:	#252629!important
+        border-top:1px solid #252629!important
+      }
       display: inline-block
       position: fixed
       bottom:0

@@ -83,7 +83,7 @@
         white-space: normal !important;
         -webkit-line-clamp: 2;
         -webkit-box-orient: vertical;
-        font-size:$font-size-medium
+        font-size:$font-size-small-x
       }
     }
   }
