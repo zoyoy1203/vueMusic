@@ -15,7 +15,7 @@
       },
       probeType: {
         type: Number,
-        default: 1
+        default: 2
       },
       click: {
         type: Boolean,
@@ -35,7 +35,7 @@
       },
       pulldown: {
         type: Boolean,
-        default: false
+        default:true
       },
       beforeScroll: {
         type: Boolean,
@@ -60,10 +60,11 @@
           probeType: this.probeType,
           click: this.click,
           preventDefault:this.preventDefault,
+          pulldown:this.pulldown,
           pullDownRefresh:{
-            threshold:50,
-            stop:20
-          }
+            threshold:-10,
+          },
+          useTransition:false  // 防止iphone微信滑动卡顿
         })
 
         if (this.listenScroll) {
@@ -84,6 +85,10 @@
         if (this.pulldown) {
           this.scroll.on('pullingDown', () => {
             this.$emit('pullingDown')
+            setTimeout(() => {
+              this.scroll.finishPullDown() //可以多次执行下拉刷新，没有这段代码下只会刷新一次
+              this.scroll.refresh() //初始化demo  当异步加载数据的时候，重新渲染页面，这段代码非常重要
+            }, 500)
           })
         }
 

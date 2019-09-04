@@ -160,14 +160,6 @@ export default new Router({
       }
     },
     {
-      path:'/usercontent',
-      name:'usercontent',
-      component: resolve => require(['@/components/user/user-content'], resolve),
-      meta: {
-        keepAlive:false
-      }
-    },
-    {
       path:'/djclass',
       name:'djclass',
       component: resolve => require(['@/components/dj-class/dj-class'], resolve),

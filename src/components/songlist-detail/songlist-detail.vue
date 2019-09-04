@@ -124,7 +124,7 @@ export default {
       ifScroll:true,
       preventDefault:false,
       listScroll:false,
-      ifTop:false,
+      isTop:false,
       pulldown: true,
     }
   },
@@ -188,11 +188,11 @@ export default {
         this.isTop = true
       }
 
-      var text = document.getElementById("text")
+/*      var text = document.getElementById("text")
       var navbar = document.getElementById("navbar")
       var listWapper = document.getElementById("wrapper")
       var listSong = document.getElementById("list_song")
-      var main = document.getElementById("main")
+      var main = document.getElementById("main")*/
 
      /* this.preventDefault=false*/
       },
