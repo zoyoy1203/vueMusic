@@ -191,5 +191,13 @@ export default new Router({
         keepAlive:false
       }
     },
+    {
+      path:'/search',
+      name:'search',
+      component: resolve => require(['@/components/search/search'], resolve),
+      meta: {
+        keepAlive:false
+      }
+    },
   ]
 })

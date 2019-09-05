@@ -308,3 +308,24 @@ export function  getCommentEvent(id){
     url: apiUrl + '/comment/event?threadId=' + id,
   })
 }
+
+//搜索
+export function  getSearch(keywords){
+  return fetch({
+    url: apiUrl + '/search?keywords= ' + keywords,
+  })
+}
+
+//热搜列表（简略）
+export function  getSearchHot(){
+  return fetch({
+    url: apiUrl + '/search/hot',
+  })
+}
+
+//热搜列表（详细）
+export function  getSearchHotDetail(){
+  return fetch({
+    url: apiUrl + '/search/hot/detail',
+  })
+}

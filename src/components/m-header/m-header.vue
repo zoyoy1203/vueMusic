@@ -7,7 +7,7 @@
         <router-link tag="a" to="/cloud">云村</router-link>
         <router-link tag="a" to="/videolist">视屏</router-link>
       </div>
-      <div class="right iconfont icon-sousuo"></div>
+      <router-link tag="div" to="/search" class="right iconfont icon-sousuo"></router-link>
     </div>
 </template>
 
