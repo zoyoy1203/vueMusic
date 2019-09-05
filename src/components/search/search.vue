@@ -1,10 +1,6 @@
 <template>
     <div class="search_container">
-      <div class="search_bar">
-        <span class="search_bar_l iconfont icon-prev"></span>
-        <input class="search_bar_c"  v-model="keywords" type="text" placeholder="请输入关键字">
-        <span class="search_bar_r iconfont icon-geshou"></span>
-      </div>
+      <search-bar @keyDown="keyDown"></search-bar>
       <div class="search_content">
         <div class="search_history">
           <div class="title">
@@ -39,19 +35,31 @@
 </template>
 
 <script>
-  import {getSearch, getSearchHotDetail} from 'api/api'
+  import {getSearchHotDetail,} from 'api/api'
+  import SearchBar from 'components/search/search-bar'
   export default {
     name: 'search',
     data() {
       return{
-        keywords:"",
         searchHotList:[],
       }
+    },
+    components:{
+      SearchBar,
     },
     created () {
       this._getSearchHotDetail()
     },
     methods:{
+      keyDown(keywords) {
+        this.$router.push({
+          path:'/searchTo',
+          name:'searchTo',
+          params:{
+            keywords:keywords
+          }
+        })
+      },
       _getSearch(){
         getSearch(this.keywords).then(res => {
           console.log(res)
@@ -73,27 +81,6 @@
 
 <style lang="stylus" scoped>
 .search_container{
-  .search_bar{
-    box-sizing :border-box
-    display: inline-block
-    width: 100%
-    padding:0 5%
-    height:80px
-    line-height:80px
-    .search_bar_l{
-      float: left;
-      font-size:$icon-size-medium
-    }
-    .search_bar_r{
-      float: right
-      font-size:$icon-size-medium
-    }
-    .search_bar_c{
-      width:80%
-      margin:0 2%
-      border-bottom:1px solid $color-line3
-    }
-  }
   .search_content{
     .search_history{
       box-sizing :border-box

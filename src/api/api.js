@@ -329,3 +329,11 @@ export function  getSearchHotDetail(){
     url: apiUrl + '/search/hot/detail',
   })
 }
+
+//搜索建议
+export function  getSearchSuggest(keywords){
+  return fetch({
+  /*  url: apiUrl + '/search/suggest?keywords=' + keywords + '&type=mobile',*/
+    url: apiUrl + '/search/suggest?keywords=' + keywords  ,
+  })
+}
