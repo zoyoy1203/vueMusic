@@ -302,3 +302,9 @@ export function  getDjProgramDetail(id){
 }
 
 
+//获取动态评论
+export function  getCommentEvent(id){
+  return fetch({
+    url: apiUrl + '/comment/event?threadId=' + id,
+  })
+}

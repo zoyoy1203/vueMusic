@@ -143,7 +143,36 @@
                     </ul>
               </scroll>
             </div>
-            <div class="swiper-slide">3333
+            <div class="swiper-slide">
+              <scroll ref="scroll"
+                      :listenScroll="ifScroll"
+                      :preventDefault="preventDefault"
+                      :pulldown="pulldown"
+                      @pullingDown="pullingDown"
+                      @pullingUp="pullingUp"
+                      class="list-wrapper3" >
+                <div class="content">
+                  <div class="title">认证信息</div>
+                  <ul v-if="userDetail.profile.allAuthTypes">
+                    <li v-for="(item, index) in userDetail.profile.allAuthTypes">
+                      {{item.desc}}
+                    </li>
+                  </ul>
+                  <div class="title">个人信息</div>
+                  <p>等级 {{userDetail.level}}</p>
+                  <div class="social_account" v-if="item.url.length>0" v-for="(item, index) in userDetail.bindings">
+                    <span>社交账号</span>
+                    <a :href="item.url" >
+                      链接
+                    </a>
+                  </div>
+                  <div class="title">个人介绍</div>
+                  <div class="text">
+                    {{userDetail.profile.signature}}
+                  </div>
+
+                </div>
+              </scroll>
             </div>
           </div>
         </div>
@@ -596,6 +625,18 @@
                       }
                     }
                   }
+                }
+              }
+            }
+            .list-wrapper3{
+              .content{
+                width: 100%
+                padding:0 5%
+                .title{
+                  height:80px
+                  line-height:80px
+                  font-size:$font-size-medium
+                  font-weight:600
                 }
               }
             }
