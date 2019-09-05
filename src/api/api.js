@@ -160,10 +160,10 @@ export function  getUserDj(id){
 }
 
 //获取用户歌单
-export function  getUserSonglist(id,limit){
+export function  getUserSonglist(id,offset,limit){
   return fetch({
     /*  url:   '/api/user/subcount'*/
-    url: apiUrl + '/user/playlist?uid=' + id + '&limit=' + limit
+    url: apiUrl + '/user/playlist?uid=' + id + '&offset=' + offset + '&limit=' + limit
   })
 }
 

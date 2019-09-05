@@ -35,7 +35,7 @@
       },
       pulldown: {
         type: Boolean,
-        default:true
+        default:false
       },
       beforeScroll: {
         type: Boolean,
@@ -60,8 +60,11 @@
           probeType: this.probeType,
           click: this.click,
           preventDefault:this.preventDefault,
-          pulldown:this.pulldown,
           pullDownRefresh:{
+            threshold:40, // 当下拉到超过顶部40px 时，触发 pullingDown 事件
+            stop: 30 // 刷新数据的过程中，回弹停留在距离顶部还有 30px 的位置
+          },
+          pullUpLoad:{
             threshold:-10,
           },
           useTransition:false  // 防止iphone微信滑动卡顿
@@ -74,23 +77,30 @@
           })
         }
 
+        // 是否派发滚动到底部事件，用于上拉加载
         if (this.pullup) {
-          this.scroll.on('scrollEnd', () => {
-            if (this.scroll.y <= (this.scroll.maxScrollY + 50)) {
-              this.$emit('scrollToEnd')
-            }
+          this.scroll.on('pullingUp', () => {
+            this.$emit('pullingUp')
+            setTimeout(() => {
+              // 事情做完，需要调用此方法告诉 better-scroll 数据已加载，否则上拉事件只会执行一次
+              this.scroll.finishPullUp()
+              this.scroll.refresh() //重新计算元素高度
+            }, 2000)
           })
         }
 
+
+        // 是否派发顶部下拉事件，用于下拉刷新
         if (this.pulldown) {
-          this.scroll.on('pullingDown', () => {
+          this.scroll.on('pullingDown', (pos) => {
             this.$emit('pullingDown')
             setTimeout(() => {
-              this.scroll.finishPullDown() //可以多次执行下拉刷新，没有这段代码下只会刷新一次
-              this.scroll.refresh() //初始化demo  当异步加载数据的时候，重新渲染页面，这段代码非常重要
-            }, 500)
+              // 事情做完，需要调用此方法告诉 better-scroll 数据已加载，否则下拉事件只会执行一次
+              this.scroll.finishPullDown()
+            }, 2000)
           })
         }
+
 
         if (this.beforeScroll) {
           this.scroll.on('beforeScrollStart', () => {

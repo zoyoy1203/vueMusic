@@ -77,7 +77,9 @@
                  :listenScroll="ifScroll"
                  :preventDefault="preventDefault"
                  :pulldown="pulldown"
+                 :pullup="pullup"
                  @pullingDown="pullingDown"
+                 @pullingUp="pullingUp"
                  id="wrapper" class="list-wrapper" >
           <ul id="list_song" class="list_song">
             <li @click="goSongPlayer(item,index)" class="item" v-for="(item, index) in songlistDetail" :key="index">
@@ -126,6 +128,7 @@ export default {
       listScroll:false,
       isTop:false,
       pulldown: true,
+      pullup:true,
     }
   },
   components: {
@@ -154,6 +157,9 @@ export default {
 
   },
   methods: {
+    pullingUp() {
+      console.log("上拉加载啊")
+    },
     pullingDown(){
       this.isTop=false
       this.listScroll =false

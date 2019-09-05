@@ -20,7 +20,7 @@
         </div>
         <div class="container_t_b">
           <p class="name">{{userDetail.profile.nickname}}</p>
-          <p v-if="userDetail.profile.allAuthTypes[0].desc">{{userDetail.profile.allAuthTypes[0].desc}}</p>
+          <p v-if="userDetail.profile.allAuthTypes">{{userDetail.profile.allAuthTypes[0].desc}}</p>
           <p class="num">
             <span>关注</span>
             <span>{{userDetail.profile.follows}}</span>
@@ -49,7 +49,9 @@
                         :listenScroll="ifScroll"
                         :preventDefault="preventDefault"
                         :pulldown="pulldown"
+                        :pullup="pullup"
                         @pullingDown="pullingDown"
+                        @pullingUp="pullingUp"
                         class="list-wrapper" >
                   <div>
                     <div class="title">
@@ -100,6 +102,7 @@
                       :preventDefault="preventDefault"
                       :pulldown="pulldown"
                       @pullingDown="pullingDown"
+                      @pullingUp="pullingUp"
                       class="list-wrapper2" >
                     <ul>
                       <li class="item" v-for="(item, index) in userEvent">
@@ -181,6 +184,9 @@
         listScroll:false,
         isTop:false,
         pulldown: true,
+        pullup:true,
+        offset:0,
+        limit:20,
       }
     },
     created () {
@@ -203,6 +209,10 @@
 
     },
     methods: {
+      pullingUp() {
+        console.log("上拉加载啊")
+        this._getUserSonglist()
+      },
       pullingDown(){
         this.isTop=false
         this.listScroll =false
@@ -266,14 +276,16 @@
         })
       },
       _getUserSonglist() {
-        getUserSonglist(this.otherUserId,10).then(res => {
+        var that = this
+        getUserSonglist(this.otherUserId,this.offset,this.limit).then(res => {
           console.log(res)
-          this.songList = res.data.playlist
-          console.log(this.songList)
 
-          this.$nextTick(() => {
-
+          let list = res.data.playlist
+          list.forEach(function (item) {
+            that.songList.push(item)
           })
+          console.log(this.songList)
+          this.offset += this.limit
 
         }).catch(err => {
           console.log(err)
@@ -401,7 +413,7 @@
           color: $color-font7
           &.name{
             color:$color-font1
-            font-size:$font-size-medium
+            font-size:$font-size-medium-x
           }
           &.num{
             span{
