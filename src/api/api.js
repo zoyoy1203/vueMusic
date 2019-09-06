@@ -5,8 +5,8 @@ import fetch from '@/axios/fetch'
 
 */
 // 获取轮播图
-/*let apiUrl = process.env.API_HOST*/
-let apiUrl = '/api'
+let apiUrl = process.env.API_HOST
+/*let apiUrl = '/api'*/
 
 export function getBanner(){
   return fetch({
