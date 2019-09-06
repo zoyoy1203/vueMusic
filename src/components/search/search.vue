@@ -8,7 +8,8 @@
             <i class="iconfont icon-shanchu"></i>
           </div>
           <div class="tag">
-            <span></span>
+            <span>开发中...</span>
+            <span>开发中...</span>
           </div>
         </div>
         <div class="search_hot">
@@ -99,6 +100,17 @@
         i{
           float: right;
           font-size:$icon-size-small-x
+        }
+      }
+      .tag{
+        width:100%
+        height:auto
+        span{
+          background:$color-bg1
+          border-radius :20px
+          padding:10px 15px
+          font-size:$font-size-small-x
+          margin-right:10px
         }
       }
     }

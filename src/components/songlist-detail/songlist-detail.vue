@@ -102,9 +102,8 @@
 import BScroll from 'better-scroll'
 import Scroll from 'base/scroll/scroll'
 import {getSonglistDetail, getSongDetail,getToplistDetail,getRecommendSongs} from 'api/api'
-import {mapGetters, mapMutations} from 'vuex'
+import {mapGetters, mapMutations, mapActions} from 'vuex'
 import {playlistMixin} from 'common/js/mixin'
-import {mapActions} from 'vuex'
 import util from 'api/util'
 import BackHead from 'base/back-head/back-head'
 
@@ -202,7 +201,6 @@ export default {
 
      /* this.preventDefault=false*/
       },
-
     getElementToPageTop(el){
       if(el.parentElement){
         return this.getElementToPageTop(el.parentElement) + el.offsetTop
