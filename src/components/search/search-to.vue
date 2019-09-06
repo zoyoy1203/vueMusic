@@ -56,7 +56,7 @@
     created () {
       this.keywords = this.$route.params.keywords
       this._getSearch()
-      this._getSearchSuggest()
+     /* this._getSearchSuggest()*/
     },
     methods:{
       _getSongDetail() {

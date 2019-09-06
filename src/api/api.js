@@ -333,7 +333,13 @@ export function  getSearchHotDetail(){
 //搜索建议
 export function  getSearchSuggest(keywords){
   return fetch({
-  /*  url: apiUrl + '/search/suggest?keywords=' + keywords + '&type=mobile',*/
     url: apiUrl + '/search/suggest?keywords=' + keywords  ,
+  })
+}
+
+//热门歌手
+export function  getHotSingers(offset,limit){
+  return fetch({
+    url: apiUrl + '/top/artists?offset=' + offset + '&limit=' + limit  ,
   })
 }

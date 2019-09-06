@@ -207,5 +207,13 @@ export default new Router({
         keepAlive:false
       }
     },
+    {
+      path:'/singer',
+      name:'singer',
+      component: resolve => require(['@/components/singer/singer'], resolve),
+      meta: {
+        keepAlive:false
+      }
+    },
   ]
 })

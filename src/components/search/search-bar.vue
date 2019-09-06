@@ -8,7 +8,7 @@
                @keydown="getSearch($event)"
                placeholder="请输入关键字">
       </form>
-      <span class="search_bar_r iconfont icon-geshou"></span>
+      <router-link tag="span" to="/singer" class="search_bar_r iconfont icon-geshou"></router-link>
     </div>
 </template>
 
