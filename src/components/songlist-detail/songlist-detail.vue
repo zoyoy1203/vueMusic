@@ -1,6 +1,10 @@
 <template>
   <div class="songlist_detail">
-    <back-head title="歌单" :style="{'background':backheadBg ? backheadUrl : 'none' }"></back-head>
+    <back-head title="歌单"
+               :ico_color="modeType ? '#fff' : ''"
+               :style="{'background': listScroll ? backheadUrl : 'none'}"
+               class="backhead"
+    ></back-head>
     <!--
     :style="{'background':titleContent ? 'url('+b-songlist.coverImgUrl+')' : 'url('+ require('../../common/img/bg.jpg') +')'}"
     :style="{'background': 'url('+b-songlist.coverImgUrl+')'}"
@@ -119,7 +123,6 @@ export default {
       songDetailS:"",
       leaderboardFlag:false,
       titleContent:true,
-      backheadBg:false,
       backheadUrl:"",
       scrolly:null,
       ifScroll:true,
@@ -300,7 +303,7 @@ export default {
         getSonglistDetail(this.songlistId).then((res) => {
           console.log(res)
           this.songlist = res.data.playlist
-          this.backheadUrl = 'url(' + this.songlist.coverImgUrl + ')'
+          this.backheadUrl ='url(' + this.songlist.coverImgUrl + ')'
           console.log(this.songlist)
           let songid = ""
           this.songlist.tracks.forEach(function (item,index) {
@@ -395,6 +398,9 @@ export default {
 <style lang="stylus" scoped>
   .songlist_detail{
     width:100%
+    .backhead{
+      background-size:100%
+    }
   }
   .background_color{
     position: relative

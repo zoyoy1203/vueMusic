@@ -24,7 +24,7 @@ fastclick.attach(document.body)
 
 Vue.use(axios)
 Vue.use(VueLazyload, {
-  loading: require('common/image/default.png')
+  loading: require('common/image/default.jpg')
 })
 
 Vue.prototype.$axios = axios
