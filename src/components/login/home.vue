@@ -76,8 +76,8 @@
         color: $color-font1
         font-size:$icon-size-large-x
         margin-top: 200px
-        width:100px
-        height:80px
+        width:120px
+        height:100px
         border-radius :75px
         padding-top:20px
         background :$color-icon2

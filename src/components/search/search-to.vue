@@ -1,5 +1,5 @@
 <template>
-    <div class="search_to_container">
+    <div class="search_to_container" :class="modeType ? '' : 'night'">
       <search-bar @keyDown="keyDown" :value="keywords"></search-bar>
       <div class="content">
         <div class="title">
@@ -144,6 +144,9 @@
 
 <style lang="stylus" scoped>
 .search_to_container{
+  &.night{
+    background: $color-night-bg2
+  }
   .content{
     .title{
       box-sizing :border-box

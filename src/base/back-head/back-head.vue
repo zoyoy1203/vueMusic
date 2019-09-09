@@ -1,5 +1,7 @@
 <template>
-  <div class="header" :style="{color:ico_color,head_style}" :class="styleClass">
+  <div class="header"
+       :style="{color:ico_color,head_style}"
+       :class="[modeType ? '' : 'night',styleClass]">
     <div class="left">
       <span class="iconfont icon-prev" @click="prev"></span>
       <span class="title">{{title}}</span>
@@ -12,6 +14,7 @@
 </template>
 
 <script>
+  import {mapGetters} from 'vuex'
   export default {
     name: 'back-head',
     props: {
@@ -33,7 +36,7 @@
       },
       ico_color: {
         type:String,
-        default:"#fff"
+        default:""
       },
       ico1:{
         type:String,
@@ -43,6 +46,11 @@
         type:String,
         default:"icon-more-vertical"
       }
+    },
+    computed:{
+      ...mapGetters([
+        "modeType",
+      ])
     },
     methods:{
       prev() {

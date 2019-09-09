@@ -9,7 +9,7 @@
     <div class="background_color"  :class="modeType ? '' : 'night'" :style="{'background':titleContent ? 'url('+songlist.coverImgUrl+')' : 'url('+ require('../../common/img/bg.jpg') +')'}"></div>
     <div class="container">
 
-      <div class="container_title" v-if="titleContent">
+      <div class="container_title" :style="listScroll ? 'display:none' : '' " v-if="titleContent" >
         <div class="c_t_detail">
           <div class="img gradient-wrap" >
             <img ref="img" :src="songlist.coverImgUrl"  >
@@ -184,22 +184,27 @@ export default {
       var windowHeight = document.documentElement.clientHeight || document.body.clientHeight; //变量windowHeight是可视区的高度
       var scrollHeight = document.documentElement.scrollHeight || document.body.scrollHeight;//变量scrollHeight是滚动条的总高度
 
-      var mainOffsetTop = document.querySelector('#main').offsetTop
+
+      /*bug啊！距离变化多端*/
+      var mainOffsetTop = document.querySelector('#main').offsetTop -20
       if(scrollTop > mainOffsetTop && !this.isTop){
         console.log("到顶部")
         console.log(scrollTop)
         console.log(mainOffsetTop+80)
         this.listScroll = true
         this.isTop = true
+      }else{
+        console.log(mainOffsetTop)
+        console.log(scrollTop)
       }
 
-/*      var text = document.getElementById("text")
+     /* var text = document.getElementById("text")
       var navbar = document.getElementById("navbar")
       var listWapper = document.getElementById("wrapper")
       var listSong = document.getElementById("list_song")
       var main = document.getElementById("main")*/
 
-     /* this.preventDefault=false*/
+      /*this.preventDefault=false*/
       },
     getElementToPageTop(el){
       if(el.parentElement){
@@ -554,13 +559,13 @@ export default {
       background: #fff
       &.night{
         background:$color-night-bg2
+        border:none
       }
       &.isRelative{
         position: relative
       }
       &.isFixed{
         position:fixed;
-        background-color:#Fff;
         top:80px;
         z-index:999;
        }

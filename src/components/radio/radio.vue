@@ -1,7 +1,7 @@
 <template>
   <div class="radio">
-    <back-head title="电台" ico_color="#000" :style="{'background':'#fff'}"></back-head>
-    <div class="container">
+    <back-head title="电台"></back-head>
+    <div class="container" :class="modeType ? '' : 'night'">
       <div ref="scroll" class="scroll-content" :class="modeType ? '' : 'night'">
         <div>
           <div v-if="banners.length" class="slider-wrapper" ref="sliderWrapper">

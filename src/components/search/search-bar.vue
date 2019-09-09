@@ -1,9 +1,10 @@
 <template>
-    <div class="search_bar_container">
+    <div class="search_bar_container"  :class="modeType ? '' : 'night'">
       <span class="search_bar_l iconfont icon-prev"  @click="prev"></span>
       <form @submit.prevent="formSubmit" action="javascript:return true">
         <input type="search"
                class="search_bar_c"
+               :class="modeType ? '' : 'night'"
                v-model="keywords"
                @keydown="getSearch($event)"
                placeholder="请输入关键字">
@@ -13,6 +14,7 @@
 </template>
 
 <script>
+  import {mapGetters} from 'vuex'
   export default {
     name: 'search-bar',
     data() {
@@ -25,6 +27,11 @@
         type:String,
         default:""
       }
+    },
+    computed:{
+      ...mapGetters([
+        "modeType",
+      ])
     },
     methods: {
       prev() {
@@ -67,11 +74,15 @@
   }
   .search_bar_c{
     float: left;
-    height:80px
-    line-height:80px
+    height:70px
+    line-height:70px
     width:80%
     margin:0 2%
     border-bottom:1px solid $color-line3
+    outline :none
+    &.night{
+      border-bottom:1px solid $color-night-line2!important
+    }
   }
 }
 </style>

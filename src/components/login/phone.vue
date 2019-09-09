@@ -67,9 +67,7 @@
       height: 60px
       margin-top:20px
       border-bottom:1px solid #000
-      :focus{
-        border:none!important
-      }
+      outline:none
     }
     button{
       width: 100%

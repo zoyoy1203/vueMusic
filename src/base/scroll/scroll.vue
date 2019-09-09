@@ -61,8 +61,8 @@
           click: this.click,
           preventDefault:this.preventDefault,
           pullDownRefresh:{
-            threshold:40, // 当下拉到超过顶部40px 时，触发 pullingDown 事件
-            stop: 30 // 刷新数据的过程中，回弹停留在距离顶部还有 30px 的位置
+            threshold:20, // 当下拉到超过顶部40px 时，触发 pullingDown 事件
+            stop: 10 // 刷新数据的过程中，回弹停留在距离顶部还有 30px 的位置
           },
           pullUpLoad:{
             threshold:-10,

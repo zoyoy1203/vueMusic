@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" :class="modeType ? '' : 'night'">
     <keep-alive v-if="$route.meta.keepAlive">
       <router-view/>
     </keep-alive>
@@ -12,11 +12,17 @@
 </template>
 
 <script>
+  import {mapGetters} from 'vuex'
 import Player from 'components/player/player'
 export default {
   name: 'app',
   components: {
     Player
+  },
+  computed:{
+    ...mapGetters([
+      "modeType"
+    ])
   },
   created () {
     //在页面加载时读取sessionStorage里的状态信息

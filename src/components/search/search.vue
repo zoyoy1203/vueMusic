@@ -1,13 +1,13 @@
 <template>
-    <div class="search_container">
+    <div class="search_container" :class="modeType ? '' : 'night'" >
       <search-bar @keyDown="keyDown"></search-bar>
-      <div class="search_content">
+      <div class="search_content" >
         <div class="search_history">
           <div class="title">
             <span>历史记录</span>
             <i class="iconfont icon-shanchu"></i>
           </div>
-          <div class="tag">
+          <div class="tag" :class="modeType ? '' : 'night'">
             <span>开发中...</span>
             <span>开发中...</span>
           </div>
@@ -15,8 +15,8 @@
         <div class="search_hot">
           <div class="title">热搜榜</div>
           <ul>
-            <li v-for="(item, index) in searchHotList">
-              <div class="li_l">
+            <li v-for="(item, index) in searchHotList" @click="keyDown(item.searchWord)">
+              <div class="li_l" :class="index<3 ? 'index_top':''">
                 {{index+1}}
               </div>
               <div class="li_r">
@@ -36,6 +36,7 @@
 </template>
 
 <script>
+  import {mapGetters} from 'vuex'
   import {getSearchHotDetail,} from 'api/api'
   import SearchBar from 'components/search/search-bar'
   export default {
@@ -47,6 +48,11 @@
     },
     components:{
       SearchBar,
+    },
+    computed:{
+      ...mapGetters([
+        "modeType",
+      ])
     },
     created () {
       this._getSearchHotDetail()
@@ -82,6 +88,9 @@
 
 <style lang="stylus" scoped>
 .search_container{
+  &.night{
+    background :$color-night-bg2
+  }
   .search_content{
     .search_history{
       box-sizing :border-box
@@ -105,6 +114,12 @@
       .tag{
         width:100%
         height:auto
+        &.night{
+          background :$color-night-bg2
+          span{
+            background:$color-night-bg7!important
+          }
+        }
         span{
           background:$color-bg1
           border-radius :20px
@@ -135,6 +150,9 @@
             height:80px
             line-height: 80px
             text-align :left
+            &.index_top{
+              color:$color-night-ico1
+            }
           }
           .li_r{
             float: left
@@ -143,7 +161,7 @@
               height:50px
               line-height:50px
               .name{
-                font-size:$font-size-medium
+                font-size:$font-size-medium-x
                 font-weight :600
               }
               .num{
@@ -154,7 +172,7 @@
             .text{
               height:30px
               line-height:30px
-              font-size:$font-size-small
+              font-size:$font-size-small-x
               color: $color-font4
             }
           }
