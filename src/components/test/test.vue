@@ -1,6 +1,6 @@
 <template>
 <div>
-  <div class="navlist">
+ <!-- <div class="navlist">
     <ul>
       <li class="navli"  v-for="(item,index) in navList" :class="{'activeT':nowIndex===index}" @click="tabClick(index)"><i>{{item.name}}</i>
       </li>
@@ -8,39 +8,45 @@
   </div>
   <div class="swiper-container swiper_con">
     <div class="swiper-wrapper">
-      <!-- 第一个swiper -->
+      &lt;!&ndash; 第一个swiper &ndash;&gt;
       <div class="swiper-slide" ref="viewBox">1111
       </div>
-      <!-- 第二个swiper -->
+      &lt;!&ndash; 第二个swiper &ndash;&gt;
       <div class="swiper-slide">2222
       </div>
       <div class="swiper-slide">3333
       </div>
     </div>
-  </div>
-
+  </div>-->
+  <swiper-list :navList="navList">
+    <div slot="slot-item-0">000000000</div>
+    <div slot="slot-item-1">111111111</div>
+    <div slot="slot-item-2">222222222222</div>
+  </swiper-list>
 </div>
 
 </template>
 
 <script>
-  import Swiper from 'swiper'
+  import SwiperList from 'base/swiper_list/swiper_list'
+ /* import Swiper from 'swiper'*/
   export default {
     name: "test",
     data() {
       return {
         navList:[
-          {name:'音乐'},
-          {name:'动态'},
-          {name:'关于TA'}
+          {name:'a'},
+          {name:'b'},
+          {name:'c'}
         ],
         nowIndex:0,
       }
     },
     components:{
+      SwiperList,
     },
     mounted() {
-      var that=this
+    /*  var that=this
       that.mySwiper = new Swiper('.swiper-container',{
         initialSlide:0,
         autoplay:false,
@@ -59,14 +65,14 @@
             that.nowIndex = that.mySwiper.activeIndex
           },
         },
-      });
+      });*/
       // this.getList();
     },
     methods: {
-      tabClick(index){
+    /*  tabClick(index){
         this.nowIndex = index
         this.mySwiper.slideTo(index,1000,false)
-      },
+      },*/
     },
     created(id){
 

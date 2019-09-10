@@ -32,8 +32,8 @@ const matutaions = {
   [types.SET_OTHER_USER_ID](state,otherUserId){
     state.otherUserId = otherUserId
   },
-  [types.SET_SINGER](state, singer) {
-    state.singer = singer
+  [types.SET_SINGER_ID](state, singerId) {
+    state.singerId= singerId
   },
   [types.SET_PLAYING_STATE](state, flag) {
     state.playing = flag

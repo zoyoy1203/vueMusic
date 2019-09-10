@@ -20,7 +20,7 @@ export const commentType = state => state.commentType
 
 export const otherUserId = state => state.otherUserId
 
-export const singer = state => state.singer
+export const singerId = state => state.singerId
 
 export const playing = state => state.playing
 

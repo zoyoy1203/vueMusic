@@ -343,3 +343,30 @@ export function  getHotSingers(offset,limit){
     url: apiUrl + '/top/artists?offset=' + offset + '&limit=' + limit  ,
   })
 }
+
+//歌手描述
+export function  getSingerDesc(id){
+  return fetch({
+    url: apiUrl + '/artist/desc?id=' + id ,
+  })
+}
+
+//歌手单曲
+export function  getSingerSong(id){
+  return fetch({
+    url: apiUrl + '/artists?id=' + id ,
+  })
+}
+
+//歌手MV
+export function  getSingerMv(id){
+  return fetch({
+    url: apiUrl + '/artist/mv?id=' + id ,
+  })
+}
+//歌手专辑
+export function  getSingerAlbum(id,offset,limit){
+  return fetch({
+    url: apiUrl + '/artist/album?id=' + id + '&offset=' + offset + '&limit=' + limit  ,
+  })
+}

@@ -5,8 +5,16 @@ import found from '../components/found/found'
 Vue.use(Router)
 
 export default new Router({
- /* mode: 'history',*/
+  mode: 'history',
   routes: [
+   /* {
+      path:'/swiperList',
+      name:'swiperList',
+      component: resolve => require(['@/base/swiper_list/swiper_list'], resolve),
+      meta: {
+        keepAlive:false
+      }
+    },*/
     {
       path: '/',
       name: 'home',
@@ -215,5 +223,14 @@ export default new Router({
         keepAlive:false
       }
     },
+    {
+      path:'/singerCategory',
+      name:'singerCategory',
+      component: resolve => require(['@/components/singer/singer-category'], resolve),
+      meta: {
+        keepAlive:false
+      }
+    },
+
   ]
 })
