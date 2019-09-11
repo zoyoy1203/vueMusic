@@ -74,10 +74,11 @@
 <style lang="stylus" scoped>
   .navlist{
     display:flex
-    height:80px;
-    border-bottom:1px solid rgba(151,151,151,0.1);
+    height:80px
+    border-bottom:1px solid $color-line1
+    /*border-bottom:1px solid rgba(151,151,151,0.1);*/
    /* position:relative;*/
-      .navli{
+    .navli{
         flex: 1
         text-align:center;
         line-height:80px

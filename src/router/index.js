@@ -220,7 +220,7 @@ export default new Router({
       name:'singer',
       component: resolve => require(['@/components/singer/singer'], resolve),
       meta: {
-        keepAlive:false
+        keepAlive:true
       }
     },
     {
@@ -231,6 +231,13 @@ export default new Router({
         keepAlive:false
       }
     },
-
+    {
+      path:'/singerIntroduction',
+      name:'singerIntroduction',
+      component: resolve => require(['@/components/singer/singer-introduction'], resolve),
+      meta: {
+        keepAlive:false
+      }
+    },
   ]
 })

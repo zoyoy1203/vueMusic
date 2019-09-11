@@ -22,6 +22,8 @@ export const otherUserId = state => state.otherUserId
 
 export const singerId = state => state.singerId
 
+export const singerDetail = state => state.singerDetail
+
 export const playing = state => state.playing
 
 export const fullScreen = state => state.fullScreen

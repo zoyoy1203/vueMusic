@@ -56,14 +56,15 @@
       this._getHotSingers()
     },
     methods:{
+      ...mapMutations({
+        setSingerDetail:"SET_SINGER_DETAIL"
+      }),
       goSinger(item) {
         this.setSingerId(item.id)
+        this.setSingerDetail(item)
         this.$router.push({
           path:'/singer',
           name:'singer',
-          params:{
-            
-          }
         })
       },
       pullingUp(){

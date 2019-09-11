@@ -2,15 +2,34 @@
   <div class="singer_container">
     <back-head ico_color="#fff" ico1="" ico2="icon-fenxiang"></back-head>
     <div class="background">
-      <img :src="userDetail.profile.backgroundUrl" alt="">
+      <img :src="singerDetail.picUrl" alt="">
     </div>
     <div class="container">
-      <swiper-list :navList="navList">
-        <div slot="slot-item-0">000000000</div>
-        <div slot="slot-item-1">111111111</div>
-        <div slot="slot-item-2">222222222222</div>
-        <div slot="slot-item-3">333333333333</div>
-      </swiper-list>
+      <div class="container_t">
+        <div class="singer_detail">
+          <p>{{singerDetail.name}}(<span v-if="singerDetail.alias[0]">{{singerDetail.alias[0]}}</span>)</p>
+          <span class="collection_tag iconfont icon-jiahao">收藏</span>
+          <span class="user_tag iconfont icon-ren-copy">个人主页</span>
+        </div>
+      </div>
+      <div class="container_b">
+        <swiper-list :navList="navList">
+          <div slot="slot-item-0">000000000</div>
+          <div slot="slot-item-1">111111111</div>
+          <div slot="slot-item-2">222222222222</div>
+          <div slot="slot-item-3">
+            <div class="container_b4">
+              <div class="introduction">
+                <p class="title">{{singerDetail.name}}简介</p>
+                <div class="introduction_text">
+                  {{singerDesc.briefDesc}}
+                </div>
+                <router-link tag="p" to="/singerIntroduction" v-if="singerDesc.introduction.length && singerDesc.introduction" class="more_intro">完整歌手介绍 <span class="iconfont icon-arrow-right"></span></router-link>
+              </div>
+            </div>
+          </div>
+        </swiper-list>
+      </div>
     </div>
   </div>
 </template>
@@ -19,7 +38,7 @@
   import {mapGetters} from 'vuex'
   import BackHead from 'base/back-head/back-head'
   import SwiperList from 'base/swiper_list/swiper_list'
-  import { getUserDetail,getSingerSong, getSingerMv, getSingerAlbum, getSingerDesc} from 'api/api'
+  import { getSingerSong, getSingerMv, getSingerAlbum, getSingerDesc} from 'api/api'
   export default {
     name: 'singer',
     components:{
@@ -29,7 +48,6 @@
     data() {
       return{
         singerDesc:null,
-        userDetail:null,
         navList:[
           {name:'热门单曲'},
           {name:'专辑'},
@@ -41,7 +59,6 @@
       }
     },
     created () {
-      this._getUserDetail()
       this._getSingerDesc()
       this._getSingerSong()
       this._getSingerMv()
@@ -51,17 +68,10 @@
       ...mapGetters([
         'modeType',
         'singerId',
+        'singerDetail'
       ])
     },
     methods:{
-      _getUserDetail() {
-        getUserDetail(this.singerId).then(res => {
-          console.log(res)
-          this.userDetail = res.data
-        }).catch(err => {
-          console.log(err)
-        })
-      },
       _getSingerDesc() {
         getSingerDesc(this.singerId).then(res => {
           console.log(res)
@@ -116,191 +126,76 @@
     left:0
     width: 100%
     height:auto
-    .container_b{
+    .container_t{
+      position: relative
       width: 100%
-      height:100%
+      height:450px
+      .singer_detail{
+        position: absolute
+        box-sizing:border-box
+        bottom:0
+        left:0
+        width: 100%
+        padding:0 5%
+        height:200px
+        p{
+          font-size:$font-size-large-x
+          color: #ffffff
+        }
+        .user_tag,.collection_tag{
+          float: right;
+          margin-left:10px
+          border-radius :30px
+          border:1px solid #ffffff
+          padding:10px 15px
+          color: #fff
+          margin-top:40px
+          font-size:$font-size-medium
+        }
+        .collection_tag{
+          background: $color-icon
+        }
+
+      }
+    }
+    .container_b{
+      position:relative
+      left: 0
+      top: -30px
+      width: 100%
+      height:auto
       border-top-left-radius:40px
       border-top-right-radius:40px
+      color: $color-font2
       background: #fff
-      &.isRelative{
-        position: relative
-      }
-      &.isFixed{
-        position:fixed;
-        background-color:#Fff;
-        top:80px;
-        z-index:999;
-      }
-      .navlist{
-        width:100%;
-        height:80px;
-        border-bottom:1px solid rgba(151,151,151,0.1);
-        position:relative;
-        .navli{
-          width: 33%
-          text-align:center;
-          float:left;
-          line-height:80px
-          height:80px
-          i{
-            height: 80px
-            font-style: normal;
-            font-size: $font-size-medium
-            &.activeT{
-              color:$color-font3
-              padding-bottom: .3rem;
-              border-bottom: 4px solid $color-font3
-            }
+      .container_b4{
+        width: 100%
+        height:250px
+        padding-top:20px
+        .introduction{
+          box-sizing :border-box
+          width: 100%
+          padding:0 5%
+          height:250px
+          .title{
+            font-size:$font-size-large
+            margin-bottom:20px
+          }
+          .introduction_text{
+            width: 100%
+            height:auto
+            line-height:40px
+            font-size:$font-size-medium
+            color: $color-font8
+            margin-bottom:10px
+          }
+          .more_intro{
+            text-align :center
+            font-size:$font-size-small-x
+            color: $color-font4
           }
         }
       }
-
-      .swiper-container{
-        .swiper-wrapper{
-          .swiper-slide{
-            .list-wrapper{
-              width: 100%
-              height:1134px
-              .title{
-                width: 100%
-                padding: 0 5%
-                height:60px
-                line-height:60px
-                .name{
-                  font-weight:500
-                  font-size:$font-size-medium
-                }
-                .num{
-                  color: $color-font4
-                  font-size:$font-size-small
-                }
-              }
-              ul{
-                width: 100%
-                padding: 0 5%
-                .item{
-                  display: inline-block
-                  width: 100%
-                  height:150px
-                  .item_l{
-                    float: left;
-                    width:150px
-                    height:100%
-                    img{
-                      width: 100%
-                      height:100%
-                    }
-                  }
-                  .item_r{
-                    float: left;
-                    width:500px
-                    height:150px
-                    margin-left:20px
-                    p{
-                      &.name{
-                        width: 100%
-                        height:40px
-                        line-height:40px
-                        font-size:$font-size-medium
-                        margin-top:40px
-                        overflow:hidden
-                        text-overflow :ellipsis
-                        white-space:nowrap
-                      }
-                      &.text{
-                        height:30px
-                        line-height:30px
-                        font-size:$font-size-small-x
-                        color: $color-font4
-                      }
-                    }
-                  }
-                }
-              }
-            }
-
-            .list-wrapper2{
-              width: 100%
-              height:1134px
-              ul{
-                width: 100%
-                padding:0 5%
-                .item{
-                  display: inline-block
-                  width: 100%
-                  height:auto
-                  border-bottom:1px solid $color-line1
-                  margin-bottom:30px
-                  margin-top:30px
-                  .item_l{
-                    float: left;
-                    img{
-                      width:70px
-                      height:70px
-                      border-radius :35px
-                    }
-                  }
-                  .item_r{
-                    float: left;
-                    width:600px
-                    padding-left:20px
-                    .name{
-                      height: 40px
-                      line-height: 40px
-                      font-size:$font-size-medium
-                    }
-                    .time{
-                      height: 30px
-                      line-height: 30px
-                      font-size:$font-size-small
-                    }
-                    .text{
-                      height:auto
-                      line-height: 40px
-                      font-size:$font-size-medium
-                    }
-                    .img{
-                      width: 100%
-                      height:300px
-                      img{
-                        width:200px
-                        height:200px
-                      }
-                    }
-                    .tag{
-                      display: inline-block
-                      width: 100%
-                      height:100px
-                      line-height:100px
-                      .tag_c{
-                        float: left
-                        margin-right:70px
-                        i{
-                          font-size:$icon-size-small-x
-
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-            .list-wrapper3{
-              .content{
-                width: 100%
-                padding:0 5%
-                .title{
-                  height:80px
-                  line-height:80px
-                  font-size:$font-size-medium
-                  font-weight:600
-                }
-              }
-            }
-          }
-        }
-      }
-
     }
   }
 }
