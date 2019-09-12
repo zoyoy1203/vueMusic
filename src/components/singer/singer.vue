@@ -12,7 +12,7 @@
           <span class="user_tag iconfont icon-ren-copy">个人主页</span>
         </div>
       </div>
-      <div class="container_b">
+      <div class="container_b" id="main"  :class="[modeType ? '' : 'night', listScroll ? 'isFixed' :'isRelative']">
         <swiper-list :navList="navList">
           <div slot="slot-item-0">
             <div class="container_b0">
@@ -24,7 +24,7 @@
                        @pullingDown="pullingDown"
                        @pullingUp="pullingUp"
                        id="wrapper" class="list-wrapper" >
-                <div>
+                <div class="list-wrapper_c">
                   <div class="navbar">
                     <span class="navbar_l iconfont icon-shoucang"></span>
                     <span class="navbar_l">收藏热门50单曲</span>
@@ -67,15 +67,18 @@
 </template>
 
 <script>
-  import {mapGetters} from 'vuex'
+  import {mapGetters, mapMutations, mapActions} from 'vuex'
+  import util from 'api/util'
   import BackHead from 'base/back-head/back-head'
   import SwiperList from 'base/swiper_list/swiper_list'
+  import Scroll from 'base/scroll/scroll'
   import { getSingerSong, getSingerMv, getSingerAlbum, getSingerDesc} from 'api/api'
   export default {
     name: 'singer',
     components:{
       BackHead,
       SwiperList,
+      Scroll
     },
     data() {
       return{
@@ -97,6 +100,9 @@
         pullup:true,
       }
     },
+    mounted() {
+      document.addEventListener('scroll',this.listenScroll,false)
+    },
     created () {
       this._getSingerDesc()
       this._getSingerSong()
@@ -110,6 +116,59 @@
       ])
     },
     methods:{
+      ...mapActions([
+        'selectPlay',
+        'randomPlay'
+      ]),
+      pullingUp() {
+        console.log("上拉加载啊")
+      },
+      pullingDown(){
+        this.isTop=false
+        this.listScroll =false
+        console.log(this.isTop)
+      },
+      listenScroll() {
+
+        var scrollTop = document.documentElement.scrollTop || document.body.scrollTop; //滚动高度
+        var windowHeight = document.documentElement.clientHeight || document.body.clientHeight; //变量windowHeight是可视区的高度
+        var scrollHeight = document.documentElement.scrollHeight || document.body.scrollHeight;//变量scrollHeight是滚动条的总高度
+
+
+        /*bug啊！距离变化多端*/
+        var mainOffsetTop = document.querySelector('#main').offsetTop -20
+        if(scrollTop > mainOffsetTop && !this.isTop){
+          console.log("到顶部")
+          console.log(scrollTop)
+          console.log(mainOffsetTop+80)
+          this.listScroll = true
+          this.isTop = true
+        }else{
+          console.log(mainOffsetTop)
+          console.log(scrollTop)
+        }
+
+        /* var text = document.getElementById("text")
+         var navbar = document.getElementById("navbar")
+         var listWapper = document.getElementById("wrapper")
+         var listSong = document.getElementById("list_song")
+         var main = document.getElementById("main")*/
+
+        /*this.preventDefault=false*/
+      },
+      goSongPlayer(item,index){
+        console.log('item='+item)
+        console.log('index='+index)
+        util.setLocalData('songDetail',item)
+        /* this.$router.push({
+           path: '/player',
+           name: 'player'
+         })*/
+        this.selectPlay({
+          list: this.singerSongs.hotSongs,
+          index
+        })
+      },
       _getSingerDesc() {
         getSingerDesc(this.singerId).then(res => {
           console.log(res)
@@ -142,7 +201,10 @@
           console.log(err)
         })
       }
-    }
+    },
+    destroyed () {
+      document.removeEventListener('scroll',this.listenScroll)
+    },
   }
 </script>
 
@@ -208,71 +270,95 @@
       border-top-right-radius:40px
       color: $color-font2
       background: #fff
+      &.night{
+        background:$color-night-bg2
+        border:none
+      }
+      &.isRelative{
+        position: relative
+      }
+      &.isFixed{
+        position:fixed;
+        top:80px;
+        z-index:999;
+      }
       .container_b0{
         .list-wrapper{
-          .navbar{
-            box-sizing :border-box
-            width: 100%
-            padding: 0 5%
-            height:80px
-            line-height:80px
-            .iconfont{
-              font-size:$icon-size-small-x
-              padding-right:10px
-            }
-            .navbar_r{
-              float:right
-            }
-            .navbar_l{
-              float: left
-            }
-          }
-          .list_song{
-            display: inline-block
+          width:100%
+          height:1134px
+          overflow :hidden
+          .list-wrapper_c{
             width: 100%
             height:auto
-            padding:0
-            .item{
+            .navbar{
+              box-sizing :border-box
+              width: 100%
+              padding: 0 5%
+              height:80px
+              line-height:80px
+              .iconfont{
+                font-size:$icon-size-small-x
+                padding-right:10px
+              }
+              .navbar_r{
+                float:right
+              }
+              .navbar_l{
+                float: left
+              }
+            }
+            .list_song{
               display: inline-block
               width: 100%
-              heihgt:80px
-              margin:20px 0
-              .index{
-                float: left
-                width:100px;
-                height:80px
-                line-height:80px
-                text-align :center
-              }
-              .song_title{
-                float: left
-                display:inline-block
-                width:auto
-                height:80px
-                .song_title_t{
-                  height:50px
-                  line-height:50px
-                  font-size:$font-size-medium-x
-                  overflow:hidden
-                  text-overflow:ellipsis
-                  white-space:nowrap
+              height:auto
+              padding:0
+              .item{
+                display: inline-block
+                width: 100%
+                heihgt:80px
+                margin:20px 0
+                .index{
+                  float: left
+                  width:100px;
+                  height:80px
+                  line-height:80px
+                  text-align :center
                 }
-                .song_title_b{
-                  height:30px
-                  line-heihgt:30px
-                  font-size:$font-size-small-x
-                }
+                .song_title{
+                  float: left
+                  display:inline-block
+                  width:auto
+                  max-width :450px
+                  height:80px
+                  .song_title_t{
+                    height:50px
+                    line-height:50px
+                    font-size:$font-size-medium-x
+                    overflow:hidden
+                    text-overflow:ellipsis
+                    white-space:nowrap
+                  }
+                  .song_title_b{
+                    height:30px
+                    line-heihgt:30px
+                    font-size:$font-size-small-x
+                    overflow:hidden
+                    text-overflow:ellipsis
+                    white-space:nowrap
+                  }
 
-              }
-              .icon{
-                float: right
-                width:80px
-                height:80px
-                line-height:80px
-                font-size:$font-size-large-x
+                }
+                .icon{
+                  float: right
+                  width:80px
+                  height:80px
+                  line-height:80px
+                  font-size:$font-size-large-x
+                }
               }
             }
           }
+
         }
       }
       .container_b4{
