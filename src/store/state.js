@@ -29,8 +29,6 @@ const state = {
 
   //歌手
   singerId: {},
-  //歌手详情
-  singerDetail:null,
   //播放状态：播放，暂停
   playing: false,
   //播放器展开与收起状态
