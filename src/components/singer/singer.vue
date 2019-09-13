@@ -47,7 +47,38 @@
               </scroll>
             </div>
           </div>
-          <div slot="slot-item-1">111111111</div>
+          <div slot="slot-item-1">
+            <div class="container_b1">
+              <scroll  ref="scroll"
+                       :listenScroll="ifScroll"
+                       :preventDefault="preventDefault"
+                       :pulldown="pulldown"
+                       :pullup="pullup"
+                       @pullingDown="pullingDown"
+                       @pullingUp="pullingUp"
+                       id="wrapper1" class="list-wrapper" >
+                <div class="list-wrapper_c">
+                  <div class="navbar">
+                    <span class="navbar_l">按发行时间排序</span>
+                    <span class="navbar_r">排序</span>
+                    <span class="navbar_r iconfont icon-liebiao"></span>
+                  </div>
+                  <ul id="list_album" class="list_album">
+                    <li @click="goSonglistDetail(item.id)" class="item" v-for="(item, index) in singerAlbum" :key="index">
+                      <div class="img">
+                        <img :src="item.picUrl" alt="">
+                      </div>
+                      <div class="song_title">
+                        <div class="song_title_t">{{item.name}}</div>
+                        <div class="song_title_b">{{item.publishTime | formatDate()}} 歌曲 {{item.size}}</div>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+
+              </scroll>
+            </div>
+          </div>
           <div slot="slot-item-2">222222222222</div>
           <div slot="slot-item-3">
             <div class="container_b4">
@@ -69,6 +100,7 @@
 <script>
   import {mapGetters, mapMutations, mapActions} from 'vuex'
   import util from 'api/util'
+  import {formatDate} from 'common/js/date'
   import BackHead from 'base/back-head/back-head'
   import SwiperList from 'base/swiper_list/swiper_list'
   import Scroll from 'base/scroll/scroll'
@@ -84,6 +116,7 @@
       return{
         singerDesc:null,
         singerSongs:null,
+        singerAlbum:[],
         navList:[
           {name:'热门单曲'},
           {name:'专辑'},
@@ -116,6 +149,16 @@
       ])
     },
     methods:{
+      goSonglistDetail(id) {
+        this.$router.push({
+          path: '/songlistdetail',
+          name: 'songlistdetail',
+          params: {
+            id: id,
+            flag:'album',
+          }
+        })
+      },
       ...mapActions([
         'selectPlay',
         'randomPlay'
@@ -196,6 +239,7 @@
       _getSingerAlbum() {
         getSingerAlbum(this.singerId,this.offset,this.limit).then(res => {
           console.log(res)
+          this.singerAlbum = res.data.hotAlbums
           this.offset +=this.limit
         }).catch(err => {
           console.log(err)
@@ -205,6 +249,12 @@
     destroyed () {
       document.removeEventListener('scroll',this.listenScroll)
     },
+    filters: {
+      formatDate(time) {
+        var date = new Date(time);
+        return formatDate(date, 'yyyy-MM-dd');
+      }
+    }
   }
 </script>
 
@@ -285,7 +335,7 @@
       .container_b0{
         .list-wrapper{
           width:100%
-          height:1134px
+          height:1200px
           overflow :hidden
           .list-wrapper_c{
             width: 100%
@@ -354,6 +404,83 @@
                   height:80px
                   line-height:80px
                   font-size:$font-size-large-x
+                }
+              }
+            }
+          }
+
+        }
+      }
+      .container_b1{
+        .list-wrapper{
+          width:100%
+          height:1200px
+          overflow :hidden
+          .list-wrapper_c{
+            width: 100%
+            height:auto
+            .navbar{
+              box-sizing :border-box
+              width: 100%
+              padding: 0 5%
+              height:80px
+              line-height:80px
+              .iconfont{
+                font-size:$icon-size-small-x
+                padding-right:10px
+              }
+              .navbar_r{
+                float:right
+              }
+              .navbar_l{
+                float: left
+              }
+            }
+            .list_album{
+              display: inline-block
+              width: 100%
+              height:auto
+              padding:0
+              .item{
+                box-sizing :border-box
+                display: inline-block
+                width: 100%
+                heihgt:100px
+                margin:20px 0
+                padding:0 5%
+                .img{
+                  float: left
+                  width:100px
+                  height:100px
+                  img{
+                    width: 100%
+                    height:100%
+                  }
+                }
+                .song_title{
+                  float: left
+                  display:inline-block
+                  width:auto
+                  max-width :450px
+                  height:80px
+                  margin:10px 0 10px 20px
+                  .song_title_t{
+                    height:50px
+                    line-height:50px
+                    font-size:$font-size-medium-x
+                    overflow:hidden
+                    text-overflow:ellipsis
+                    white-space:nowrap
+                  }
+                  .song_title_b{
+                    height:30px
+                    line-heihgt:30px
+                    font-size:$font-size-small-x
+                    overflow:hidden
+                    text-overflow:ellipsis
+                    white-space:nowrap
+                  }
+
                 }
               }
             }

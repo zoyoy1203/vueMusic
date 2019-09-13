@@ -370,3 +370,10 @@ export function  getSingerAlbum(id,offset,limit){
     url: apiUrl + '/artist/album?id=' + id + '&offset=' + offset + '&limit=' + limit  ,
   })
 }
+//专辑内容
+export function  getAlbum(id){
+  return fetch({
+    url: apiUrl + '/album?id=' + id ,
+  })
+}
+

@@ -10,14 +10,14 @@
     :style="{'background': 'url('+b-songlist.coverImgUrl+')'}"
     :style="{background: backgroundColor}"
     -->
-    <div class="background_color"  :class="modeType ? '' : 'night'" :style="{'background':titleContent ? 'url('+songlist.coverImgUrl+')' : 'url('+ require('../../common/img/bg.jpg') +')'}"></div>
+    <div class="background_color"  :class="modeType ? '' : 'night'" :style="{'background':titleContent ? 'url('+backgroundImg+')' : 'url('+ require('../../common/img/bg.jpg') +')'}"></div>
     <div class="container">
 
       <div class="container_title" :style="listScroll ? 'display:none' : '' " v-if="titleContent" >
         <div class="c_t_detail">
           <div class="img gradient-wrap" >
-            <img ref="img" :src="songlist.coverImgUrl"  >
-            <span class="playcount iconfont icon-bofang1 ">{{songlist.playCount | formatNum}}</span>
+            <img ref="img" :src="backgroundImg"  >
+            <span class="playcount iconfont icon-bofang1 " v-if="songlist.playCount">{{songlist.playCount | formatNum}}</span>
           </div>
       <!--    <div class="img gradient-wrap" style="">
             <img ref="img" src="../../common/image/default.png"  cross-origin = "anonymous" >
@@ -26,9 +26,14 @@
           </canvas>-->
           <div class="text">
             <div class="text_t">{{songlist.name}}</div>
-            <div class="text_c" @click="goUser(songlist.creator.userId)">
+            <div class="text_c" v-if="songlist.creator" @click="goUser(songlist.creator.userId)">
               <img :src="songlist.creator.avatarUrl" alt="">
               <span>{{songlist.creator.nickname}}</span>
+              <span class="iconfont icon-arrow-right"></span>
+            </div>
+            <div class="text_c" v-if="songlist.artist" @click="goUser(songlist.artist.id)">
+              <img :src="songlist.artist.picUrl" alt="">
+              <span>{{songlist.artist.name}}</span>
               <span class="iconfont icon-arrow-right"></span>
             </div>
             <div class="text_d">
@@ -44,11 +49,13 @@
           <ul>
             <li class="nav" @click="goComment()">
               <div class="icon iconfont icon-xiaoxi"></div>
-              <div class="text">{{songlist.commentCount}}</div>
+              <div class="text" v-if="songlist.commentCount!=null">{{songlist.commentCount}}</div>
+              <div class="text" v-else>{{songlist.info.commentCount}}</div>
             </li>
             <li class="nav ">
               <div class="icon iconfont icon-fenxiang"></div>
-              <div class="text">{{songlist.shareCount}}</div>
+              <div class="text" v-if="songlist.shareCount!=null">{{songlist.shareCount}}</div>
+              <div class="text" v-else>{{songlist.info.shareCount}}</div>
             </li>
             <li class="nav">
               <div class="icon iconfont icon-xiazai"></div>
@@ -70,7 +77,11 @@
       <div id="main" class="container_list" :class="[modeType ? '' : 'night', listScroll ? 'isFixed' :'isRelative']">
         <div class="list_title">
           <div class="list_title_icon iconfont icon-bofang"></div>
-          <div class="list_title_t">播放全部  <span>(共{{songlist.trackCount}}首)</span></div>
+          <div class="list_title_t">
+            播放全部
+            <span v-if="songlist.trackCount">(共{{songlist.trackCount}}首)</span>
+            <span v-if="songlist.size">(共{{songlist.size}}首)</span>
+          </div>
           <div class="list_save" :class="modeType ? '' : 'night'">
             <span class="icon iconfont icon-jiahao" ></span>
             收藏
@@ -105,7 +116,7 @@
 <script>
 import BScroll from 'better-scroll'
 import Scroll from 'base/scroll/scroll'
-import {getSonglistDetail, getSongDetail,getToplistDetail,getRecommendSongs} from 'api/api'
+import {getSonglistDetail, getSongDetail,getToplistDetail,getRecommendSongs, getAlbum} from 'api/api'
 import {mapGetters, mapMutations, mapActions} from 'vuex'
 import {playlistMixin} from 'common/js/mixin'
 import util from 'api/util'
@@ -117,6 +128,7 @@ export default {
   data() {
     return {
       songlist:[],
+      backgroundImg:null,
       backgroundColor:{},
       ids:"",
       songlistDetail:[],
@@ -269,6 +281,7 @@ export default {
         getToplistDetail(this.songlistId).then((res) => {
           console.log(res)
           this.songlist = res.data.playlist
+          this.backgroundImg = this.songlist.coverImgUrl
           let songid = ""
           this.songlist.tracks.forEach(function (item,index) {
             songid +=item.id+","
@@ -286,6 +299,7 @@ export default {
         getRecommendSongs().then((res) => {
           console.log(res)
           this.songlist = res.data.result
+          this.backgroundImg = this.songlist.coverImgUrl
           let songid = ""
           this.songlist.forEach(function (item,index) {
             songid +=item.id+","
@@ -295,7 +309,22 @@ export default {
         }).catch(err => {
           console.log(err)
         })
-      }else{
+      }else if(this.$route.params.flag === "album"){
+        getAlbum(this.songlistId).then(res => {
+          console.log(res)
+          this.songlist = res.data.album
+          this.backgroundImg = this.songlist.blurPicUrl
+          let songid = ""
+          res.data.songs.forEach(function (item,index) {
+            songid +=item.al.id+","
+          })
+          this.ids = songid.slice(0,songid.length-1)
+          this._getSongDetail()
+        }).catch(err => {
+          console.log(err)
+        })
+      }
+      else{
         this.titleContent=true
         this.scrolly = 150
    /*     const id = this.$route.params.id*/
@@ -304,6 +333,7 @@ export default {
           console.log(res)
           this.songlist = res.data.playlist
           this.backheadUrl ='url(' + this.songlist.coverImgUrl + ')'
+          this.backgroundImg = this.songlist.coverImgUrl
           console.log(this.songlist)
           let songid = ""
           this.songlist.tracks.forEach(function (item,index) {
