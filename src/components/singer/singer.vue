@@ -79,7 +79,38 @@
               </scroll>
             </div>
           </div>
-          <div slot="slot-item-2">222222222222</div>
+          <div slot="slot-item-2">
+            <div class="container_b2">
+              <scroll  ref="scroll"
+                       :listenScroll="ifScroll"
+                       :preventDefault="preventDefault"
+                       :pulldown="pulldown"
+                       :pullup="pullup"
+                       @pullingDown="pullingDown"
+                       @pullingUp="pullingUp"
+                       id="wrapper2" class="list-wrapper" >
+                <div class="list-wrapper_c">
+                  <div class="navbar">
+                    <span class="navbar_l">全部</span>
+                    <span class="navbar_r">MV</span>
+                  </div>
+                  <ul id="list_mv" class="list_mv">
+                    <li @click="" class="item" v-for="(item, index) in singerMvDetail" :key="index">
+                      <div class="img">
+                        <img :src="item.cover" alt="">
+                        <span class="iconfont icon-bofang1">{{item.playCount | formatNum}}</span>
+                      </div>
+                      <div class="song_title">
+                        <div class="song_title_t">{{item.name}}</div>
+                        <div class="song_title_b">{{item.publishTime}}</div>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+
+              </scroll>
+            </div>
+          </div>
           <div slot="slot-item-3">
             <div class="container_b4">
               <div class="introduction">
@@ -104,7 +135,7 @@
   import BackHead from 'base/back-head/back-head'
   import SwiperList from 'base/swiper_list/swiper_list'
   import Scroll from 'base/scroll/scroll'
-  import { getSingerSong, getSingerMv, getSingerAlbum, getSingerDesc} from 'api/api'
+  import { getSingerSong, getSingerMv, getMvDetail, getSingerAlbum, getSingerDesc} from 'api/api'
   export default {
     name: 'singer',
     components:{
@@ -117,6 +148,8 @@
         singerDesc:null,
         singerSongs:null,
         singerAlbum:[],
+        singerMv:[],
+        singerMvDetail:[],
         navList:[
           {name:'热门单曲'},
           {name:'专辑'},
@@ -187,8 +220,8 @@
           this.listScroll = true
           this.isTop = true
         }else{
-          console.log(mainOffsetTop)
-          console.log(scrollTop)
+        /*  console.log(mainOffsetTop)
+          console.log(scrollTop)*/
         }
 
         /* var text = document.getElementById("text")
@@ -212,6 +245,14 @@
           index
         })
       },
+      _getSingerMvDetail(id) {
+        getMvDetail(id).then(res => {
+       /*   console.log(res)*/
+          this.singerMvDetail.push(res.data.data)
+        }).catch(err => {
+          console.log(err)
+        })
+      },
       _getSingerDesc() {
         getSingerDesc(this.singerId).then(res => {
           console.log(res)
@@ -232,6 +273,12 @@
       _getSingerMv(){
         getSingerMv(this.singerId).then(res => {
           console.log(res)
+          this.singerMv = res.data.mvs
+          var that = this
+          this.singerMv.forEach(function (item, index) {
+            that._getSingerMvDetail(item.id)
+          })
+          console.log(this.singerMvDetail)
         }).catch(err => {
           console.log(err)
         })
@@ -253,6 +300,10 @@
       formatDate(time) {
         var date = new Date(time);
         return formatDate(date, 'yyyy-MM-dd');
+      },
+      formatNum(num) {
+        num = num > 9999 ?  parseInt(num/10000) + "万" : num
+        return num
       }
     }
   }
@@ -488,6 +539,86 @@
 
         }
       }
+      .container_b2{
+        .list-wrapper{
+          width:100%
+          height:1200px
+          overflow :hidden
+          .list-wrapper_c{
+            width: 100%
+            height:auto
+            .navbar{
+              box-sizing :border-box
+              width: 100%
+              padding: 0 5%
+              height:80px
+              line-height:80px
+              .navbar_r{
+                float:right
+              }
+              .navbar_l{
+                float: left
+              }
+            }
+            .list_mv{
+              display: inline-block
+              width: 100%
+              height:auto
+              padding:0
+              .item{
+                box-sizing :border-box
+                display: inline-block
+                width: 100%
+                heihgt:150px
+                margin:40px 0
+                padding:0 5%
+                .img{
+                  position: relative
+                  float: left
+                  width:250px
+                  height:150px
+                  img{
+                    width: 100%
+                    height:100%
+                  }
+                  span{
+                    position: absolute
+                    top:10px
+                    right:10px
+                    color: #fff
+                  }
+                }
+                .song_title{
+                  float: left
+                  display:inline-block
+                  width:auto
+                  max-width :350px
+                  height:80pxr
+                  margin:30px 0 10px 20px
+                  .song_title_t{
+                    height:50px
+                    line-height:50px
+                    font-size:$font-size-medium-x
+                    overflow:hidden
+                    text-overflow:ellipsis
+                    white-space:nowrap
+                  }
+                  .song_title_b{
+                    height:30px
+                    line-heihgt:30px
+                    font-size:$font-size-small-x
+                    overflow:hidden
+                    text-overflow:ellipsis
+                    white-space:nowrap
+                  }
+
+                }
+              }
+            }
+          }
+
+        }
+      }
       .container_b4{
         width: 100%
         height:250px
@@ -516,6 +647,7 @@
           }
         }
       }
+
     }
   }
 }

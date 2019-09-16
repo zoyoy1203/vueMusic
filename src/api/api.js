@@ -377,3 +377,9 @@ export function  getAlbum(id){
   })
 }
 
+//MV数据
+export function  getMvDetail(id){
+  return fetch({
+    url: apiUrl + '/mv/detail?mvid=' + id ,
+  })
+}
