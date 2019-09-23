@@ -1,7 +1,7 @@
 <template>
   <slider-left>
     <div slot="mainContainer">
-      <div class="recommend" ref="recommend">
+      <div class="recommend" ref="recommend" :class="modeType ? '' : 'night'">
         <scroll ref="scroll" class="recommend-content">
           <div>
             <div v-if="banners.length" class="slider-wrapper" :class="modeType ? '' : 'night'" ref="sliderWrapper">
@@ -224,8 +224,8 @@
 
       .navbar
         width: 100%
-        height:160px
-        padding-top:60px
+        height:250px
+        padding-top:80px
         border-bottom:1px solid #ccc
         &.night{
           background: $color-night-bg2!important

@@ -1,7 +1,8 @@
 <template>
   <div class="header"
        :style="{color:ico_color,head_style}"
-       :class="[modeType ? '' : 'night',styleClass]">
+       :class="[modeType ? '' : 'night',styleClass]"
+  >
     <div class="left">
       <span class="iconfont icon-prev" @click="prev"></span>
       <span class="title">{{title}}</span>
@@ -62,6 +63,7 @@
 
 <style lang="stylus" scoped>
   .header{
+    box-sizing :border-box
     position: fixed
     top: 0
     left: 0
@@ -69,8 +71,13 @@
     width: 100%
     border-bottom:1px solid $color-line
     z-index:100
+    background:#fff;
     &.topColor{
       background:#FFFAFA
+    }
+    &.night{
+      background: #000
+      color: #fff
     }
     .left{
       display: inline-block

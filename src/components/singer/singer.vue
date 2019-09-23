@@ -95,7 +95,10 @@
                     <span class="navbar_r">MV</span>
                   </div>
                   <ul id="list_mv" class="list_mv">
-                    <li @click="" class="item" v-for="(item, index) in singerMvDetail" :key="index">
+                    <li @click="" class="item"
+                        v-for="(item, index) in singerMvDetail"
+                        @click="goVideo(item.id)"
+                        :key="index">
                       <div class="img">
                         <img :src="item.cover" alt="">
                         <span class="iconfont icon-bofang1">{{item.playCount | formatNum}}</span>
@@ -112,7 +115,7 @@
             </div>
           </div>
           <div slot="slot-item-3">
-            <div class="container_b4">
+            <div class="container_b3">
               <div class="introduction">
                 <p class="title">{{singerSongs.artist.name}}简介</p>
                 <div class="introduction_text">
@@ -120,6 +123,18 @@
                 </div>
                 <router-link tag="p" to="/singerIntroduction" v-if="singerDesc.introduction.length && singerDesc.introduction" class="more_intro">完整歌手介绍 <span class="iconfont icon-arrow-right"></span></router-link>
               </div>
+              <div class="simi_singer">
+                <p class="title">相似歌手</p>
+           <!--     <ul class="list">
+                  <li @click="" class="item" v-for="(item, index) in simiSingers" :key="index">
+                    <img :src="item.img1v1Url" alt="">
+                    <div class="song_title">
+                      <div class="song_title_t">{{item.name}}</div>
+                    </div>
+                  </li>
+                </ul>-->
+              </div>
+
             </div>
           </div>
         </swiper-list>
@@ -134,6 +149,7 @@
   import {formatDate} from 'common/js/date'
   import BackHead from 'base/back-head/back-head'
   import SwiperList from 'base/swiper_list/swiper_list'
+  import SliderBar2 from 'base/slider/slider-bar2'
   import Scroll from 'base/scroll/scroll'
   import { getSingerSong, getSingerMv, getMvDetail, getSingerAlbum, getSingerDesc} from 'api/api'
   export default {
@@ -150,6 +166,7 @@
         singerAlbum:[],
         singerMv:[],
         singerMvDetail:[],
+        simiSingers:[],
         navList:[
           {name:'热门单曲'},
           {name:'专辑'},
@@ -174,6 +191,7 @@
       this._getSingerSong()
       this._getSingerMv()
       this._getSingerAlbum()
+      this._getSimiSinger()
     },
     computed:{
       ...mapGetters([
@@ -182,6 +200,24 @@
       ])
     },
     methods:{
+      goVideo(vid) {
+        this.$router.push({
+          path:'/video',
+          name:'video',
+          params:{
+            vid:vid,
+            tag:'mv'
+          }
+        })
+      },
+      _getSimiSinger(){
+        getSimiSinger(this.singerId).then(res => {
+          this.simiSingers = res.data.artists
+          console.log(this.simiSingers)
+        }).catch(err => {
+          console.log(err)
+        })
+      },
       goSonglistDetail(id) {
         this.$router.push({
           path: '/songlistdetail',
@@ -619,9 +655,9 @@
 
         }
       }
-      .container_b4{
+      .container_b3{
         width: 100%
-        height:250px
+        height:auto
         padding-top:20px
         .introduction{
           box-sizing :border-box
@@ -644,6 +680,26 @@
             text-align :center
             font-size:$font-size-small-x
             color: $color-font4
+          }
+        }
+        .simi_singer{
+          .list{
+            display: inline-block
+            width:2000px
+            height:180px
+            overflow-x :scroll
+            overflow-y : hidden
+            white-space : nowrap
+            .item{
+              float: left
+              width:150px
+              height: 100%
+              img{
+                width:150px
+                height:150px
+
+              }
+            }
           }
         }
       }

@@ -32,6 +32,7 @@
     },
     created () {
       this._getSingerDesc()
+
     },
     computed:{
       ...mapGetters([
@@ -48,6 +49,7 @@
           console.log(err)
         })
       },
+
     }
   }
 </script>

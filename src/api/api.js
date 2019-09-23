@@ -5,7 +5,7 @@ import fetch from '@/axios/fetch'
 
 */
 // 获取轮播图
-/*let apiUrl = process.env.API_HOST*/
+// let apiUrl = process.env.API_HOST
 let apiUrl = '/api'
 
 export function getBanner(){
@@ -381,5 +381,18 @@ export function  getAlbum(id){
 export function  getMvDetail(id){
   return fetch({
     url: apiUrl + '/mv/detail?mvid=' + id ,
+  })
+}
+
+//MV地址
+export function  getMvUrl(id){
+  return fetch({
+    url: apiUrl + '/mv/url?id=' + id ,
+  })
+}
+//获取相似歌手
+export function getSimiSinger (id){
+  return fetch({
+    url: apiUrl + '/simi/artist?id=' + id ,
   })
 }

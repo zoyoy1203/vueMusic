@@ -1,6 +1,6 @@
 <template>
   <div class="container" :class="modeType ? '' : 'night'">
-    <back-head :title="videoDetail.title" ico_color="#fff" ico_display="none"></back-head>
+  <!--  <back-head :title="videoDetail.title" ico_color="#fff" ico_display="none"></back-head>-->
     <div class="video" v-if="videoUrl != null">
       <video
         id="myVideo"
@@ -17,7 +17,7 @@
         >
       </video>
     </div>
-    <div class="content" >
+  <!--  <div class="content" >
       <div class="video_info">
 
         <div class="title">
@@ -66,33 +66,6 @@
           </div>
         </div>
         <div class="line" :class="modeType ? '' : 'night'"></div>
-      <!--  <div class="comment">
-          <div class="title">精彩评论</div>
-          <div class="item" v-for="(item,index) in videoHotComment">
-            <div class="img">
-              <img :src="item.user.avatarUrl" alt="">
-            </div>
-            <div class="text">
-              <div class="text_t">
-                <div class="text_t_l">
-                  <p class="username">{{item.user.nickname}}</p>
-                  <p>{{item.time | formatDate}}</p>
-                </div>
-                <div class="text_t_r">
-                  <span>{{item.likedCount}}</span>
-                  <span class="icon iconfont icon-dianzan"></span>
-                </div>
-              </div>
-              <div class="text_c">
-                {{item.content}}
-              </div>
-              <p class="reply" @click="goReply(item)" v-if="item.beReplied.length>0">回复</p>
-            </div>
-          </div>
-          <div class="more_hot_comment">
-            <span >全部精彩评论》</span>
-          </div>
-        </div>-->
         <div class="comment_wrap">
           <div class="title">精彩评论</div>
           <comment-list :comment="videoHotComment" v-if="videoHotComment.length>0"></comment-list>
@@ -102,7 +75,7 @@
         </div>
 
       </div>
-    </div>
+    </div>-->
   </div>
 </template>
 
@@ -110,7 +83,7 @@
   import {mapGetters,mapMutations} from 'vuex'
   import BackHead from 'base/back-head/back-head'
   import CommentList from 'components/comment/comment-list'
-  import {getVideo,  getVideoDetail, getVideoComment,getAboutVideo} from 'api/api'
+  import {getVideo,  getVideoDetail, getVideoComment,getAboutVideo, getMvUrl} from 'api/api'
   export default {
     name: 'video',
     data() {
@@ -137,18 +110,37 @@
       ])
     },
     created() {
-      if(this.videoId == null){
-        this.setVideoId(this.$route.params.vid)
+      if(this.$route.params.tag === 'mv'){
+        if(this.$route.params.vid){
+          this.setVideoId(this.$route.params.vid)
+        }
+        this._getMvUrl(this.videoId)
+      }else{
+        if(this.$route.params.vid){
+          this.setVideoId(this.$route.params.vid)
+        }
+        this._getVideo(this.videoId)
+        this._getVideoComment(this.videoId,this.offset,this.limit)
+        this._getAboutVideo(this.videoId)
       }
-      this._getVideo(this.videoId)
-      this._getVideoComment(this.videoId,this.offset,this.limit)
-      this._getAboutVideo(this.videoId)
+
     },
     mounted() {
       this._getVideoDetail(this.videoId)
       document.addEventListener('scroll',this.scrollMoreData,false)
     },
     methods: {
+      _getMvUrl(vid) {
+        getMvUrl(vid).then(res => {
+          console.log(res)
+      /*    this.videoUrl = res.data.urls[0].url*/
+      /*    console.log( this.videoUrl)*/
+          /*  this.initVideo();*/
+          /*   this.initVideo()*/
+        }).catch(err => {
+          console.log(err)
+        })
+      },
       scrollMoreData() {
         const scrollTopHeight = document.documentElement.scrollTop || document.body.scrollTop //滚动高度
         const clientHeight = document.documentElement.clientHeight || window.screen.availHeight //屏幕可用工作区高度
@@ -187,12 +179,12 @@
         })
       },
       _getVideoDetail(vid) {
-        getVideoDetail(vid).then(res =>{
-          console.log(res)
-          this.videoDetail = res.data.data
-        }).catch(err => {
-          console.log(err)
-        })
+        // getVideoDetail(vid).then(res =>{
+        //   console.log(res)
+        //   this.videoDetail = res.data.data
+        // }).catch(err => {
+        //   console.log(err)
+        // })
       },
       _getVideo(vid) {
         getVideo(vid).then(res => {

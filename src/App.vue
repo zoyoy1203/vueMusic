@@ -38,8 +38,13 @@ export default {
 }
 </script>
 
-<style>
-#app {
-
+<style lang="stylus">
+#app,*{
+  box-sizing:border-box;
+}
+#app{
+  .night{
+    background: #000
+  }
 }
 </style>

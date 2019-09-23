@@ -2,38 +2,37 @@
     <div class="leaderboard" :class="modeType ? '' : 'night'">
       <back-head title="排行榜" ico_color="hFontColor" ico_display="none"></back-head>
       <div class="container">
-
-        <div class="c1">
-          <div class="title">官方榜</div>
-          <ul>
-            <li class="item" v-for="(item,index) in list1" :key="index" @click="goSonglistDetail(item.listId)">
-              <div class="img">
-                <img :src="item.coverImgUrl" alt="">
-              </div>
-              <div class="text">
-                <ul>
-                  <li class="text_list" v-for="(t,i) in item.tracks">
-                    {{i+1}}.{{t.first}}-{{t.second}}
-                  </li>
-                </ul>
-              </div>
-            </li>
-          </ul>
+        <div>
+          <div class="c1">
+            <div class="title">官方榜</div>
+            <ul>
+              <li class="item" v-for="(item,index) in list1" :key="index" @click="goSonglistDetail(item.listId)">
+                <div class="img">
+                  <img :src="item.coverImgUrl" alt="">
+                </div>
+                <div class="text">
+                  <ul>
+                    <li class="text_list" v-for="(t,i) in item.tracks">
+                      {{i+1}}.{{t.first}}-{{t.second}}
+                    </li>
+                  </ul>
+                </div>
+              </li>
+            </ul>
+          </div>
+          <div class="c2">
+            <div class="title">推荐榜</div>
+            <songs :songlist="list2" img="coverImgUrl"></songs>
+          </div>
+          <div class="c2">
+            <div class="title">全球榜</div>
+            <songs :songlist="list3" img="coverImgUrl"></songs>
+          </div>
+          <div class="c2">
+            <div class="title">更多榜单</div>
+            <songs :songlist="list4" img="coverImgUrl"></songs>
+          </div>
         </div>
-
-        <div class="c2">
-          <div class="title">推荐榜</div>
-          <songs :songlist="list2" img="coverImgUrl"></songs>
-        </div>
-        <div class="c2">
-          <div class="title">全球榜</div>
-          <songs :songlist="list3" img="coverImgUrl"></songs>
-        </div>
-        <div class="c2">
-          <div class="title">更多榜单</div>
-          <songs :songlist="list4" img="coverImgUrl"></songs>
-        </div>
-
       </div>
     </div>
 </template>
@@ -163,63 +162,83 @@
 </script>
 
 <style lang="stylus" scoped>
-.container{
-  margin-top:$main-margin-top
-  .c1{
-    .title{
-      width: 100%
-      height:80px
-      line-height:100px
-      padding-left:10px
+  .leaderboard{
+    position: fixed
+    top: 0
+    left: 0
+    bottom: 0
+    width: 100%
+    overflow :none
+    &.night{
+      background: $color-night-bg3!important
+      color: $color-night-font1!important
     }
-    ul{
-      width:700px
-      margin:0 auto
-      .item{
-        display: inline-block
-        width: 100%
-        height:200px
-        margin: 20px auto 0
-        .img{
-          float: left
-          width:200px
-          heihgt:200px
-          overflow:hidden
-          img{
-            width: 100%
-            height:auto
-          }
+    .container{
+      width: 100%
+      position: absolute
+      top: 0
+      left: 0
+      bottom: 0
+      margin-top:$main-margin-top
+      overflow-y :scroll
+      .c1{
+        .title{
+          width: 100%
+          height:80px
+          line-height:100px
+          padding-left:10px
         }
-        .text{
-          box-sizing:border-box
-          float: left;
-          width:450px
-          height: 100%
-          padding-left:20px
-          ul{
-            width:100%
-            .text_list{
-              width: 100%
-              height:66px
-              line-height:66px
+        ul{
+          width:700px
+          margin:0 auto
+          .item{
+            display: inline-block
+            width: 100%
+            height:200px
+            margin: 20px auto 0
+            .img{
+              float: left
+              width:200px
+              heihgt:200px
               overflow:hidden
-              text-overflow :ellipsis
-              white-space :nowrap
+              img{
+                width: 100%
+                height:auto
+              }
+            }
+            .text{
+              box-sizing:border-box
+              float: left;
+              width:450px
+              height: 100%
+              padding-left:20px
+              ul{
+                width:100%
+                .text_list{
+                  width: 100%
+                  height:66px
+                  line-height:66px
+                  overflow:hidden
+                  text-overflow :ellipsis
+                  white-space :nowrap
+                }
+              }
             }
           }
         }
       }
-    }
-  }
-  .c2{
-    margin-top:50px
-    .title{
-      width: 100%
-      height:80px
-      line-height:80px
-      padding-left:10px
+      .c2{
+        margin-top:50px
+        .title{
+          width: 100%
+          height:80px
+          line-height:80px
+          padding-left:10px
+        }
+      }
+
     }
   }
 
-}
+
 </style>
