@@ -35,7 +35,7 @@ Vue.use(VueLazyload, {
   loading: require('common/image/default.jpg')
 })
 
-Vue.prototype.$axios = axios
+// Vue.prototype.$axios = axios
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */

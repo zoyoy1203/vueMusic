@@ -8,8 +8,8 @@
                 @after-leave="afterLeave"
     >
       <div class="normal_player" v-show="fullScreen">
-        <div class="background">
-          <img :src="currentSong.al.picUrl" alt="">
+        <div class="background" v-if="currentSong.al.picUrl">
+          <img  :src="currentSong.al.picUrl" alt="">
         </div>
         <div class="top">
           <div class="icon_l iconfont icon-prev" @click="back"></div>
@@ -26,8 +26,8 @@
         >
           <div class="middle_l" ref="middleL">
             <div class="cd-wrapper" ref="cdWrapper">
-              <div class="cd" :class="cdCls">
-                <img class="image" :src="currentSong.al.picUrl">
+              <div class="cd" :class="cdCls" v-if="currentSong.al.picUrl">
+                <img  class="image" :src="currentSong.al.picUrl">
               </div>
             </div>
             <div class="playing-lyric-wrapper">
@@ -81,8 +81,8 @@
     </transition>
     <transition name="mini">
       <div class="mini-player" v-show="!fullScreen" @click="open" :class="modeType ? '' : 'night'">
-        <div class="icon">
-          <img :class="cdCls" width="40" height="40" :src="currentSong.al.picUrl">
+        <div class="icon" v-if="currentSong.al.picUrl">
+          <img :class="cdCls" width="40" height="40"  :src="currentSong.al.picUrl">
         </div>
         <div class="text">
           <h2 class="name">{{currentSong.name}}</h2>
@@ -144,7 +144,11 @@
     },
     created() {
       this.touch = {}
-      this._getSongUrl()
+
+      if(this.currentSong.id){
+        this._getSongUrl()
+      }
+
     },
     computed: {
       cdCls() {
@@ -220,8 +224,8 @@
         this.$refs.cdWrapper.style[transform] = ''
       },
       togglePlaying() {
-        console.log('this.songReady=' + this.songReady)
-        console.log('this.playing=' + this.playing)
+        // console.log('this.songReady=' + this.songReady)
+        // console.log('this.playing=' + this.playing)
         if (!this.songReady) {
           return
         }
@@ -314,10 +318,10 @@
      /*   this.duration = this.$refs.audio.duration
         console.log(this.duration)*/
         this.id = this.currentSong.id
-        console.log('id=========='+this.id)
+        // console.log('id=========='+this.id)
         getSongUrl(this.id).then(res => {
           this.songUrl = res.data.data[0].url
-          console.log('url======='+this.songUrl)
+          // console.log('url======='+this.songUrl)
         }).catch(err => {
           console.log(err)
         })
@@ -354,10 +358,10 @@
         const touch = e.touches[0]
         this.touch.startX = touch.pageX
         this.touch.startY = touch.pageY
-        console.log(this.touch.startX)
+        // console.log(this.touch.startX)
       },
       middleTouchMove(e) {
-        console.log('remove')
+        // console.log('remove')
         if (!this.touch.initiated) {
           return
         }
@@ -442,7 +446,7 @@
     watch: {
       currentSong(newSong, oldSong) {
 
-        console.log(newSong.id)
+        // console.log(newSong.id)
         if (!newSong.id) {
           return
         }
@@ -450,10 +454,10 @@
           return
         }
         this.id = this.currentSong.id
-        console.log('id=========='+this.id)
+        // console.log('id=========='+this.id)
         getSongUrl(this.id).then(res => {
           this.songUrl = res.data.data[0].url
-          console.log('url======='+this.songUrl)
+          // console.log('url======='+this.songUrl)
         }).catch(err => {
           console.log(err)
         })

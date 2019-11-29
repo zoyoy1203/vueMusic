@@ -239,5 +239,14 @@ export default new Router({
         keepAlive:false
       }
     },
+    {
+      path: "/404",
+      name: "notFound",
+      component:  resolve => require(['@/components/error-page/notFound'], resolve),
+    },
+    {
+      path: "*", // 此处需特别注意置于最底部
+      redirect: "/404"
+    }
   ]
 })

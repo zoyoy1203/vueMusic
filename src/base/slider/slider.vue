@@ -203,7 +203,6 @@
 <style lang="stylus" rel="stylesheet/stylus">
   .slide {
     min-height: 1px;
-
     .slide-group {
       position: relative;
       overflow: hidden;

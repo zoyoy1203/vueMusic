@@ -49,12 +49,12 @@
           <ul>
             <li class="nav" @click="goComment()">
               <div class="icon iconfont icon-xiaoxi"></div>
-              <div class="text" v-if="songlist.commentCount!=null">{{songlist.commentCount}}</div>
-              <div class="text" v-else>{{songlist.info.commentCount}}</div>
+              <div class="text " v-if="songlist">{{songlist.commentCount}}</div>
+              <div class="text " v-else>{{songlist.info.commentCount}}</div>
             </li>
             <li class="nav ">
               <div class="icon iconfont icon-fenxiang"></div>
-              <div class="text" v-if="songlist.shareCount!=null">{{songlist.shareCount}}</div>
+              <div class="text" v-if="songlist">{{songlist.shareCount}}</div>
               <div class="text" v-else>{{songlist.info.shareCount}}</div>
             </li>
             <li class="nav">
@@ -118,13 +118,13 @@ import BScroll from 'better-scroll'
 import Scroll from 'base/scroll/scroll'
 import {getSonglistDetail, getSongDetail,getToplistDetail,getRecommendSongs, getAlbum} from 'api/api'
 import {mapGetters, mapMutations, mapActions} from 'vuex'
-import {playlistMixin} from 'common/js/mixin'
+// import {playlistMixin} from 'common/js/mixin'
 import util from 'api/util'
 import BackHead from 'base/back-head/back-head'
 
 export default {
   name: 'songlist-detail',
-  mixins: [playlistMixin],
+  // mixins: [playlistMixin], //取消
   data() {
     return {
       songlist:[],
@@ -209,8 +209,8 @@ export default {
         this.listScroll = true
         this.isTop = true
       }else{
-        console.log(mainOffsetTop)
-        console.log(scrollTop)
+        // console.log(mainOffsetTop)
+        // console.log(scrollTop)
       }
 
      /* var text = document.getElementById("text")
@@ -250,11 +250,11 @@ export default {
     ...mapMutations({
       setSonglistId: 'SET_SONGLIST_ID',
     }),
-/*    handlePlaylist(playlist) {
-      const bottom = playlist.length > 0 ? '60px' : ''
-      this.$refs.list.$el.style.bottom = bottom
-      this.$refs.list.refresh()
-    },*/
+    // handlePlaylist(playlist) {
+    //   const bottom = playlist.length > 0 ? '60px' : ''
+    //   this.$refs.list.$el.style.bottom = bottom
+    //   this.$refs.list.refresh()
+    // },
     goSongPlayer(item,index){
       console.log('item='+item)
       console.log('index='+index)
@@ -670,7 +670,7 @@ export default {
             .song_title{
               float: left
               display:inline-block
-              width:490px
+              width:460px
               height:80px
               .song_title_t{
                 height:50px

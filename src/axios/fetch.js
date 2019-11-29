@@ -1,5 +1,6 @@
 import axios from 'axios'
-import router from '../router'                       // 路由配置文件
+import router from '../router'
+import * as Message from 'autoprefixer'                       // 路由配置文件
 
 const ENV = process.env.NODE_ENV
 

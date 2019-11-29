@@ -2,6 +2,7 @@ import {mapGetters, mapMutations, mapActions} from 'vuex'
 import {playMode} from 'common/js/config'
 import {shuffle} from 'common/js/util'
 
+//取消
 export const playlistMixin = {
   computed: {
     ...mapGetters([
