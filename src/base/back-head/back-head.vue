@@ -82,7 +82,6 @@
     .left{
       display: inline-block
       width: auto
-      heihgt: auto
       float: left
       margin: 20px
       .title{
@@ -100,7 +99,6 @@
     .right{
       display: inline-block
       width:130px
-      heihgt:auto
       float: right
       margin: 20px
       text-align:right
