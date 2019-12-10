@@ -1,13 +1,13 @@
 <template>
   <div class="phone_login">
     <back-head title="手机号登录" ico_display="none" ico_color="#000"></back-head>
-    <div class="container">
-      <input class="password"  v-model="password" type="password" placeholder="请输入密码">
-      <button @click="getLogin">登录</button>
+    <form class="container" @submit.prevent="getLogin">
+      <input class="password"  v-model="password" type="password" placeholder="请输入密码" autocomplete='off'>
+      <button type="submit">登录</button>
       <div class="message" v-if="message">
         用户名或者密码错误
       </div>
-    </div>
+    </form>
   </div>
 </template>
 

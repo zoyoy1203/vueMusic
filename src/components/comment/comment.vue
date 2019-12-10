@@ -66,6 +66,7 @@
 
 <style lang="stylus" scoped>
   .comment_wrap{
+    margin-top: 40px;
     width: 100%
     height:auto
     .title{

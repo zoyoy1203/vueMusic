@@ -8,8 +8,8 @@
                 @after-leave="afterLeave"
     >
       <div class="normal_player" v-show="fullScreen">
-        <div class="background" v-if="currentSong.al.picUrl">
-          <img  :src="currentSong.al.picUrl" alt="">
+        <div class="background" v-if="picUrl">
+          <img  :src="picUrl" alt="">
         </div>
         <div class="top">
           <div class="icon_l iconfont icon-prev" @click="back"></div>
@@ -26,8 +26,8 @@
         >
           <div class="middle_l" ref="middleL">
             <div class="cd-wrapper" ref="cdWrapper">
-              <div class="cd" :class="cdCls" v-if="currentSong.al.picUrl">
-                <img  class="image" :src="currentSong.al.picUrl">
+              <div class="cd" :class="cdCls" v-if="picUrl">
+                <img  class="image" :src="picUrl">
               </div>
             </div>
             <div class="playing-lyric-wrapper">
@@ -81,8 +81,8 @@
     </transition>
     <transition name="mini">
       <div class="mini-player" v-show="!fullScreen" @click="open" :class="modeType ? '' : 'night'">
-        <div class="icon" v-if="currentSong.al.picUrl">
-          <img :class="cdCls" width="40" height="40"  :src="currentSong.al.picUrl">
+        <div class="icon" v-if="picUrl">  <!--currentSong.al.picUrl-->
+          <img :class="cdCls" width="40" height="40"  :src="picUrl">
         </div>
         <div class="text">
           <h2 class="name">{{currentSong.name}}</h2>
@@ -134,7 +134,8 @@
         radius: 32,
         currentShow: 'cd',
         playingLyric: '',
-        duration:0
+        duration:0,
+        picUrl:null,
       }
     },
     components:{
@@ -454,6 +455,7 @@
           return
         }
         this.id = this.currentSong.id
+        this.picUrl = this.currentSong.al.picUrl
         // console.log('id=========='+this.id)
         getSongUrl(this.id).then(res => {
           this.songUrl = res.data.data[0].url
@@ -737,7 +739,7 @@
     }
     .icon{
       flex: 0 0 80px
-      width: 80px
+      width:120px
       padding: 0 10px 0 40px
       img{
         border-radius: 50%
@@ -758,6 +760,7 @@
       flex: 1
       line-height:40px
       overflow: hidden
+      padding-left: 10px
       .name{
         margin-bottom: 2px
         no-wrap(){

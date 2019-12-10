@@ -1,6 +1,6 @@
 <template>
   <div class="container" :class="modeType ? '' : 'night'">
-  <!--  <back-head :title="videoDetail.title" ico_color="#fff" ico_display="none"></back-head>-->
+    <back-head  ico_color="#fff" ico_display="none"></back-head>
     <div class="video" v-if="videoUrl != null">
       <video
         id="myVideo"

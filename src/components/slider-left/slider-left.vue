@@ -285,7 +285,7 @@
       }
       .usernav{
         display: inline-block
-        width:90%
+        width:100%
         padding: 0 5%
         padding-top:40px
         &.night{

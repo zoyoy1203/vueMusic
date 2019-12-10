@@ -3,8 +3,11 @@
       <back-head title="手机号登录" ico_display="none" ico_color="#000"></back-head>
       <div class="container">
         <p>未注册手机号登录后将自动创建账号</p>
-        <input class="phone"  v-model="number" type="number" placeholder="请输入手机号">
-        <button @click="phoneLogin">下一步</button>
+        <form @submit.prevent="phoneLogin">
+          <input class="phone"  v-model="number" type="text" placeholder="请输入手机号">
+          <button type="submit">下一步</button>
+        </form>
+
         <div class="message" v-if="message">
           请输入正确的手机号
         </div>
@@ -27,7 +30,6 @@
     },
     methods: {
       phoneLogin() {
-        console.log(this.number)
         var myreg=/^[1][3,4,5,7,8][0-9]{9}$/;
         if (!myreg.test(this.number)) {
           this.message = true

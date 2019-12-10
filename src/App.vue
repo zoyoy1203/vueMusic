@@ -7,7 +7,7 @@
     <router-view v-if="!$route.meta.keepAlive">
       <!-- 这里是不被缓存的视图组件 -->
     </router-view>
-    <player></player>
+    <player v-if="this.$route.path != '/'"></player>
   </div>
 </template>
 
