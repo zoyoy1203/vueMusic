@@ -1,14 +1,14 @@
 <template>
   <div class="user">
-    <back-head ico_color="#fff" ico1="" ico2="icon-fenxiang"></back-head>
-    <div class="background">
-      <img :src="userDetail.profile.backgroundUrl" alt="">
+    <back-head ico_color="#000" ico1="" ico2="icon-fenxiang"></back-head>
+    <div class="background" v-if="profile">
+      <img :src="profile.backgroundUrl" alt="">
     </div>
     <div class="container">
       <div class="container_t">
         <div class="container_t_t">
-          <div class="container_t_t_l">
-            <img :src="userDetail.profile.avatarUrl" alt="">
+          <div class="container_t_t_l"  v-if="profile">
+            <img :src="profile.avatarUrl" alt="">
           </div>
           <div class="container_t_t_r">
             <span class="attention">
@@ -18,15 +18,15 @@
             <span class="icon iconfont icon-xiaoxi1"></span>
           </div>
         </div>
-        <div class="container_t_b">
-          <p class="name">{{userDetail.profile.nickname}}</p>
-          <p v-if="userDetail.profile.allAuthTypes">{{userDetail.profile.allAuthTypes[0].desc}}</p>
+        <div class="container_t_b"  v-if="profile && allAuthTypes">
+          <p class="name">{{profile.nickname}}</p>
+          <p v-if="allAuthTypes">{{allAuthTypes[0].desc}}</p>
           <p class="num">
             <span>关注</span>
-            <span>{{userDetail.profile.follows}}</span>
+            <span>{{profile.follows}}</span>
             <span>|</span>
             <span>粉丝</span>
-            <span>{{userDetail.profile.followeds | formatNum}}</span>
+            <span>{{profile.followeds | formatNum}}</span>
           </p>
           <p class="level">
             <span>Lv.{{userDetail.level}}</span>
@@ -153,8 +153,8 @@
                       class="list-wrapper3" >
                 <div class="content">
                   <div class="title">认证信息</div>
-                  <ul v-if="userDetail.profile.allAuthTypes">
-                    <li v-for="(item, index) in userDetail.profile.allAuthTypes">
+                  <ul v-if="allAuthTypes">
+                    <li v-for="(item, index) in allAuthTypes">
                       {{item.desc}}
                     </li>
                   </ul>
@@ -167,8 +167,8 @@
                     </a>
                   </div>
                   <div class="title">个人介绍</div>
-                  <div class="text">
-                    {{userDetail.profile.signature}}
+                  <div class="text" v-if="profile">
+                    {{profile.signature}}
                   </div>
 
                 </div>
@@ -216,6 +216,8 @@
         pullup:true,
         offset:0,
         limit:20,
+        profile:null,
+        allAuthTypes:null,
       }
     },
     created () {
@@ -324,6 +326,8 @@
         getUserDetail(uid).then(res => {
           console.log(res)
           this.userDetail = res.data
+          this.profile = this.userDetail.profile
+          this.allAuthTypes = this.profile.allAuthTypes
           console.log(this.userDetail)
         }).catch(err => {
           console.log(err)
