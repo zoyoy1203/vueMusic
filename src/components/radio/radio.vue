@@ -23,14 +23,14 @@
                 <div class="icon iconfont icon-paixingbang" :class="modeType ? '' : 'night'"></div>
                 <div class="text">电台排行</div>
               </li>
-              <router-link tag="li" to="/leaderboard" class="nav">
+              <li class="nav">
                 <div class="icon iconfont icon-jingpin" :class="modeType ? '' : 'night'"></div>
                 <div class="text">付费精品</div>
-              </router-link>
-              <router-link tag="li" to="/radio" class="nav ">
+              </li>
+              <li class="nav ">
                 <div class="icon iconfont icon-diantai" :class="modeType ? '' : 'night'"></div>
                 <div class="text">音乐课堂</div>
-              </router-link>
+              </li>
             </ul>
           </div>
           <div class="list-content">
@@ -38,7 +38,7 @@
               <div class="list-title-left">
                 电台推荐
               </div>
-              <div class="list-title-right" @click="goSonglist()"  >
+              <div class="list-title-right"  >
                 换一换
               </div>
             </div>
@@ -57,7 +57,7 @@
               <div class="list-title-left">
                 精品推荐
               </div>
-              <div class="list-title-right" @click="goSonglist()"  >
+              <div class="list-title-right"   >
                 全部精品
               </div>
             </div>
@@ -132,7 +132,7 @@
       loadImage() {
         if (!this.checkloaded) {
           this.checkloaded = true
-          this.$refs.scroll.refresh()
+          // this.$refs.scroll.refresh()
         }
       },
       _getDjBanner () {
