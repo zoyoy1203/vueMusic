@@ -229,7 +229,7 @@
     }
 
     .dots {
-      position: absolute;
+      position: relative;
       right: 0;
       left: 0;
       bottom: 12px;
