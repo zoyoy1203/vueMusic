@@ -18,7 +18,7 @@ module.exports = {
       minPixelValue: 1,      // 小于或等于`1px`不转换为视窗单位，你也可以设置为你想要的值
       mediaQuery: false      // 允许在媒体查询中转换`px`
     },
-    "postcss-viewport-units":{},
+    // "postcss-viewport-units":{},   // 注释掉就不会出现警告了
     "cssnano": {
       preset: "default", // 设置成default将不会启用autoprefixer
       "postcss-zindex": false

@@ -13,8 +13,8 @@
         </div>
         <div class="top">
           <div class="icon_l iconfont icon-prev" @click="back"></div>
-          <div class="title">
-            <div class="title_t">{{currentSong.name}}</div>
+          <div class="title" v-if="currentSong.name">
+            <div class="title_t" >{{currentSong.name}}</div>
             <div class="title_b">{{currentSong.ar[0].name}}</div>
           </div>
           <div class="icon_r iconfont icon-fenxiang"></div>
@@ -84,7 +84,7 @@
         <div class="icon" v-if="picUrl">  <!--currentSong.al.picUrl-->
           <img :class="cdCls" width="40" height="40"  :src="picUrl">
         </div>
-        <div class="text">
+        <div class="text" v-if="currentSong.name">
           <h2 class="name">{{currentSong.name}}</h2>
           <p class="desc">{{currentSong.ar[0].name}}</p>
         </div>
