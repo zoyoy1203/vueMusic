@@ -52,7 +52,7 @@
             </li>
             <li class="item">
               <span class="icon iconfont icon-icon01"></span>
-              <span class="text">商城</span>
+              <router-link tag="span" to="/me" class="text">商城</router-link>
               <span class="text_r">真无线 59元</span>
             </li>
             <li class="item">

@@ -1,7 +1,7 @@
 <template>
-    <div class="phone_login">
+    <div class="phone_login" style="background: #fff;">
       <back-head title="手机号登录" ico_display="none" ico_color="#000"></back-head>
-      <div class="container">
+      <div class="container" :class="modeType ? '' : 'night'">
         <p>未注册手机号登录后将自动创建账号</p>
         <form @submit.prevent="phoneLogin">
           <input class="phone"  v-model="number" type="text" placeholder="请输入手机号">
@@ -17,6 +17,7 @@
 
 <script>
   import BackHead from 'base/back-head/back-head'
+  import {mapGetters} from 'vuex'
   export default {
     name: 'phone',
     components: {
@@ -27,6 +28,11 @@
         number:"",
         message:false
       }
+    },
+    computed: {
+      ...mapGetters([
+        'modeType'
+      ])
     },
     methods: {
       phoneLogin() {

@@ -43,6 +43,7 @@ export default {
   box-sizing:border-box;
 }
 #app{
+  height: 667px;
   .night{
     background: #000
   }
