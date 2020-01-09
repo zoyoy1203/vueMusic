@@ -25,8 +25,11 @@
           <span>同意</span>
         《用户协议》和《隐私政策》
         </div>
+        <div class="icp">
+          <p>ICP证:<a href="http://www.beian.miit.gov.cn">浙ICP备18046278号-1</a></p>
+        </div>
       </div>
-      </div>
+    </div>
 
 </template>
 
@@ -59,6 +62,12 @@
 </script>
 
 <style lang="stylus" scoped>
+  * { touch-action: pan-y; }
+  .icp{
+    width:100%;
+    text-align :center;
+    margin-top:100px;
+  }
 .home{
   width: 100%
   height:100vh
