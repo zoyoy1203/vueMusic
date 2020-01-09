@@ -3,7 +3,6 @@
 
 > vue仿网易云音乐APP
 
-#懒得写文档。。。。
 
 ## 学习vue而写的一个小项目    o(╥﹏╥)o 如果觉得不错的话，点个Star吧， 我会不断把这个项目修改补充完善。
 
@@ -11,10 +10,7 @@
 
 ## 慢慢来，不急不急。。。(～￣▽￣)～ 
 
-
-###部分截图如下：ε(罒ω罒)з        [项目演示地址](http://zyuanyuan.com)   演示效果不是实时更新的哦，因为最近经常修改补充这个项目，所以懒得实时更新服务器上的数据，一般个把天左右更新一下服务器的项目吧。
-
 ##里面的数据接口用的是这个：  [NeteaseCloudMusicApi](https://github.com/Binaryify/NeteaseCloudMusicApi)  超级感谢！！！
 
-
-<img src="https://github.com/zoyoy1203/vueMusic/blob/master/others/images/%E6%88%91%E7%9A%84%E9%A1%B5%E9%9D%A2.png" width="240" height="440" hspace="20" vspace="20"/>
+###部分截图如下：ε(罒ω罒)з     [项目演示地址](http://zyuanyuan.com)   [项目博客地址](https://blog.csdn.net/weixin_40693643/article/details/100586550) 
+<img src="https://github.com/zoyoy1203/vueMusic/blob/master/others/images/vue1.jpg" width="240" height="440" hspace="20" vspace="20"/><img src="https://github.com/zoyoy1203/vueMusic/blob/master/others/images/vue2.jpg" width="240" height="440" hspace="20" vspace="20"/><img src="https://github.com/zoyoy1203/vueMusic/blob/master/others/images/vue3.jpg" width="240" height="440" hspace="20" vspace="20"/><img src="https://github.com/zoyoy1203/vueMusic/blob/master/others/images/vue4.jpg" width="240" height="440" hspace="20" vspace="20"/><img src="https://github.com/zoyoy1203/vueMusic/blob/master/others/images/vue5.jpg" width="240" height="440" hspace="20" vspace="20"/><img src="https://github.com/zoyoy1203/vueMusic/blob/master/others/images/vue6.jpg" width="240" height="440" hspace="20" vspace="20"/><img src="https://github.com/zoyoy1203/vueMusic/blob/master/others/images/vue7.jpg" width="240" height="440" hspace="20" vspace="20"/><img src="https://github.com/zoyoy1203/vueMusic/blob/master/others/images/vue8.jpg" width="240" height="440" hspace="20" vspace="20"/><img src="https://github.com/zoyoy1203/vueMusic/blob/master/others/images/vue9.jpg" width="240" height="440" hspace="20" vspace="20"/><img src="https://github.com/zoyoy1203/vueMusic/blob/master/others/images/vue10.jpg" width="240" height="440" hspace="20" vspace="20"/><img src="https://github.com/zoyoy1203/vueMusic/blob/master/others/images/vue11.jpg" width="240" height="440" hspace="20" vspace="20"/><img src="https://github.com/zoyoy1203/vueMusic/blob/master/others/images/vue12.jpg" width="240" height="440" hspace="20" vspace="20"/><img src="https://github.com/zoyoy1203/vueMusic/blob/master/others/images/vue13.jpg" width="240" height="440" hspace="20" vspace="20"/><img src="https://github.com/zoyoy1203/vueMusic/blob/master/others/images/vue14.jpg" width="240" height="440" hspace="20" vspace="20"/><img src="https://github.com/zoyoy1203/vueMusic/blob/master/others/images/vue15.jpg" width="240" height="440" hspace="20" vspace="20"/><img src="https://github.com/zoyoy1203/vueMusic/blob/master/others/images/vue16.jpg" width="240" height="440" hspace="20" vspace="20"/>
