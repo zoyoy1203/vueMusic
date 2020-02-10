@@ -1,5 +1,5 @@
 <template>
-    <div class="m-header"  :class="modeType ? '' : 'night'">
+    <div class="m-header"  :class="head_color">
       <div class="left iconfont icon-liebiao" @click="handleIconClick"></div>
       <div class="center">
         <router-link tag="a" to="/me">我的</router-link>
@@ -14,6 +14,12 @@
 <script>
   import {mapGetters} from 'vuex'
 export default {
+  props: {
+    head_color: {
+      type: String,
+      default: ''
+    }
+  },
   computed: {
     ...mapGetters([
       'modeType'
@@ -29,8 +35,7 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-  .night{
-    background: #2c2c2c!important
+  .dark{
     .left{
       color: #fff!important
     }

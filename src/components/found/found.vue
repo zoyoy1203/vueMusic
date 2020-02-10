@@ -8,7 +8,7 @@
               <slider>
                 <div v-for="item in banners">
                   <a href="#">
-                    <img class="needsclick" @load="loadImage" :src="item.imageUrl">
+                    <img class="needsclick"  :src="item.imageUrl">
                   </a>
                 </div>
               </slider>
@@ -131,12 +131,6 @@
       handleMaskClick() {
         console.info('mask-click')
         this.$refs.drawerLayout.toggle(false)
-      },
-      loadImage() {
-        if (!this.checkloaded) {
-          this.checkloaded = true
-          this.$refs.scroll.refresh()
-        }
       },
       goSonglist() {
         this.$router.push({

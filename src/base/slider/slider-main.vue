@@ -2,7 +2,7 @@
 <template>
   <div class="wrapper">
     <!--头部-->
-    <slot name="head"  />
+    <slot name="head" />
     <!--背景-->
     <div class="background">
       <slot name="background" />
@@ -73,6 +73,7 @@
         width: 100%
         height:660px
         overflow: hidden;
+        z-index: -1;
       }
       .container{
         position: absolute

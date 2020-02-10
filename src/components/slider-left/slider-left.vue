@@ -4,125 +4,127 @@
     @mask-click="handleMaskClick"
   >
     // 侧边栏内容
-    <div slot="drawer" class="drawer">
-      <div class="user" :class="modeType ? '' : 'night'">
-        <div class="nologin" v-if="!isLogin">
-          <p>登录网易云音乐</p>
-          <p>手机电脑多端同步，尽享海量高品质音乐</p>
-          <router-link tag="button" to="/" :class="modeType ? '' : 'night'">立即登录</router-link>
-        </div>
-        <div class="login" v-if="isLogin">
-          <div class="avatar">
-            <img :src="avatarUrl" alt="">
+    <template v-slot:drawer >
+      <div class="drawer">
+        <div class="user" :class="modeType ? '' : 'night'">
+          <div class="nologin" v-if="!isLogin">
+            <p>登录网易云音乐</p>
+            <p>手机电脑多端同步，尽享海量高品质音乐</p>
+            <router-link tag="button" to="/" :class="modeType ? '' : 'night'">立即登录</router-link>
           </div>
-          <div class="info">
-            <div class="username">{{username}}</div>
-            <div class="info_l" :class="modeType ? '' : 'night'">Lv.1</div>
-            <div class="info_r">签到</div>
+          <div class="login" v-if="isLogin">
+            <div class="avatar">
+              <img :src="avatarUrl" alt="">
+            </div>
+            <div class="info">
+              <div class="username">{{username}}</div>
+              <div class="info_l" :class="modeType ? '' : 'night'">Lv.1</div>
+              <div class="info_r">签到</div>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="content">
-        <div class="usernav" :class="modeType ? '' : 'night'">
-          <ul>
-            <li class="nav ">
-              <div class="icon iconfont icon-xiaoxi1"></div>
-              <div class="text">我的消息</div>
-            </li>
-            <li class="nav ">
-              <div class="icon iconfont icon-haoyou"></div>
-              <div class="text">我的好友</div>
-            </li>
-            <li class="nav ">
-              <div class="icon iconfont icon-huanfu"></div>
-              <div class="text">个性换肤</div>
-            </li>
-            <li class="nav ">
-              <div class="icon iconfont icon-huatong"></div>
-              <div class="text">听歌识曲</div>
-            </li>
-          </ul>
-        </div>
-        <div class="line" :class="modeType ? '' : 'night'"></div>
-        <div class="list" :class="modeType ? '' : 'night'">
-          <ul>
-            <li class="item">
-              <span class="icon iconfont icon-huopiaotongxing"></span>
-              <span class="text">演出</span>
-              <span class="text_r">雅尼音乐会</span>
-            </li>
-            <li class="item">
-              <span class="icon iconfont icon-icon01"></span>
-              <router-link tag="span" to="/me" class="text">商城</router-link>
-              <span class="text_r">真无线 59元</span>
-            </li>
-            <li class="item">
-              <span class="icon iconfont icon-fujin"></span>
-              <span class="text">附近的人</span>
-            </li>
-            <li class="item">
-              <span class="icon iconfont icon-icon--"></span>
-              <span class="text">口袋铃声</span>
-            </li>
-            <li class="item">
-              <span class="icon iconfont icon-icon3"></span>
-              <span class="text">我的订单</span>
-            </li>
-          </ul>
+        <div class="content">
+          <div class="usernav" :class="modeType ? '' : 'night'">
+            <ul>
+              <li class="nav ">
+                <div class="icon iconfont icon-xiaoxi1"></div>
+                <div class="text">我的消息</div>
+              </li>
+              <li class="nav ">
+                <div class="icon iconfont icon-haoyou"></div>
+                <div class="text">我的好友</div>
+              </li>
+              <li class="nav ">
+                <div class="icon iconfont icon-huanfu"></div>
+                <div class="text">个性换肤</div>
+              </li>
+              <li class="nav ">
+                <div class="icon iconfont icon-huatong"></div>
+                <div class="text">听歌识曲</div>
+              </li>
+            </ul>
+          </div>
           <div class="line" :class="modeType ? '' : 'night'"></div>
-          <ul>
-            <li class="item">
-              <span class="icon iconfont icon-time"></span>
-              <span class="text">定时停止播放</span>
-            </li>
-            <li class="item">
-              <span class="icon iconfont icon-saoma"></span>
-              <span class="text">扫一扫</span>
-            </li>
-            <li class="item">
-              <span class="icon iconfont icon-paidui"></span>
-              <span class="text">音乐闹钟</span>
-            </li>
-            <li class="item">
-              <span class="icon iconfont icon-liuliang"></span>
-              <span class="text">在线听歌免流量</span>
-            </li>
-            <li class="item">
-              <span class="icon iconfont icon-youxi"></span>
-              <span class="text">游戏推荐</span>
-            </li>
-            <li class="item">
-              <span class="icon iconfont icon-wodeyouhuijuan"></span>
-              <span class="text">优惠券</span>
-            </li>
-            <li class="item">
-              <span class="icon iconfont icon-zhibo"></span>
-              <span class="text">我要直播</span>
-            </li>
-          </ul>
+          <div class="list" :class="modeType ? '' : 'night'">
+            <ul>
+              <li class="item">
+                <span class="icon iconfont icon-huopiaotongxing"></span>
+                <span class="text">演出</span>
+                <span class="text_r">雅尼音乐会</span>
+              </li>
+              <li class="item">
+                <span class="icon iconfont icon-icon01"></span>
+                <router-link tag="span" to="/me" class="text">商城</router-link>
+                <span class="text_r">真无线 59元</span>
+              </li>
+              <li class="item">
+                <span class="icon iconfont icon-fujin"></span>
+                <span class="text">附近的人</span>
+              </li>
+              <li class="item">
+                <span class="icon iconfont icon-icon--"></span>
+                <span class="text">口袋铃声</span>
+              </li>
+              <li class="item">
+                <span class="icon iconfont icon-icon3"></span>
+                <span class="text">我的订单</span>
+              </li>
+            </ul>
+            <div class="line" :class="modeType ? '' : 'night'"></div>
+            <ul>
+              <li class="item">
+                <span class="icon iconfont icon-time"></span>
+                <span class="text">定时停止播放</span>
+              </li>
+              <li class="item">
+                <span class="icon iconfont icon-saoma"></span>
+                <span class="text">扫一扫</span>
+              </li>
+              <li class="item">
+                <span class="icon iconfont icon-paidui"></span>
+                <span class="text">音乐闹钟</span>
+              </li>
+              <li class="item">
+                <span class="icon iconfont icon-liuliang"></span>
+                <span class="text">在线听歌免流量</span>
+              </li>
+              <li class="item">
+                <span class="icon iconfont icon-youxi"></span>
+                <span class="text">游戏推荐</span>
+              </li>
+              <li class="item">
+                <span class="icon iconfont icon-wodeyouhuijuan"></span>
+                <span class="text">优惠券</span>
+              </li>
+              <li class="item">
+                <span class="icon iconfont icon-zhibo"></span>
+                <span class="text">我要直播</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="footer" :class="modeType ? '' : 'night'">
+          <div class="item" @click="modeClick">
+            <span class="icon iconfont " :class="modeType ? 'icon-yejianmoshi' : 'icon-rijianmoshi'"></span>
+            <span v-if="modeType">夜间模式</span>
+            <span v-else>日间模式</span>
+          </div>
+          <div class="item">
+            <span class="icon iconfont icon-shezhi"></span>
+            <router-link tag="span" to="/setting">设置</router-link>
+          </div>
+          <div class="item">
+            <span class="icon iconfont icon-tuichu"></span>
+            <span>退出</span>
+          </div>
         </div>
       </div>
-      <div class="footer" :class="modeType ? '' : 'night'">
-        <div class="item" @click="modeClick">
-          <span class="icon iconfont " :class="modeType ? 'icon-yejianmoshi' : 'icon-rijianmoshi'"></span>
-          <span v-if="modeType">夜间模式</span>
-          <span v-else>日间模式</span>
-        </div>
-        <div class="item">
-          <span class="icon iconfont icon-shezhi"></span>
-          <router-link tag="span" to="/setting">设置</router-link>
-        </div>
-        <div class="item">
-          <span class="icon iconfont icon-tuichu"></span>
-          <span>退出</span>
-        </div>
-      </div>
-    </div>
+    </template>
     // 主体内容
-    <div slot="content">
-      <m-header  @icon-click="handleIconClick" :class="modeType ? '' : 'night'"></m-header>
+    <template v-slot:content>
+      <m-header  @icon-click="handleIconClick" :head_color="head_color"></m-header>
       <slot name="mainContainer" />
-    </div>
+    </template>
   </drawer-layout>
 </template>
 
@@ -133,9 +135,10 @@
   import {getUserDetail} from 'api/api'
   export default {
     name: 'slider-left',
-    data() {
-      return{
-
+    props: {
+      head_color: {
+        type: String,
+        default: 'light'
       }
     },
     components: {

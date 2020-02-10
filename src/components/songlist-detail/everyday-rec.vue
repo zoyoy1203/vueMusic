@@ -1,7 +1,7 @@
 <template>
   <slider-main :container_title_h="container_title_h">
 
-    <template v-slot:head="slotHead">
+    <template v-slot:head>
       <back-head title="歌单"
                  :ico_color="modeType ? '#fff' : ''"
                  :style="{'background': isTop ? backheadUrl : 'none'}"

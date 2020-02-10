@@ -1,11 +1,65 @@
 <template>
 <div>
-  <slider-left>
-    <div slot="mainContainer">
-      <slider-main>
+  <slider-left :head_color="head_color">
+    <template v-slot:mainContainer>
+      <slider-main :container_title_h="container_title_h">
+        <template v-slot:background>
+          <div class="background_color"  :class="modeType ? '' : 'night'" ></div>
+        </template>
+
+        <template v-slot:container_title>
+          <div class="user_info">
+            <img :src="avatarUrl" alt="" class="avatar">
+            <span class="username">{{username}}</span>
+          </div>
+          <div class="c_t_navbar">
+            <ul>
+              <li class="nav">
+                <div class="icon iconfont icon-yinyue"></div>
+                <div class="text">本地音乐</div>
+              </li>
+              <li class="nav ">
+                <div class="icon iconfont icon-xiazai"></div>
+                <div class="text">下载管理</div>
+              </li>
+              <li class="nav">
+                <div class="icon iconfont icon-diantai"></div>
+                <div class="text">我的电台</div>
+              </li>
+              <li class="nav ">
+                <div class="icon iconfont icon-yixianshi-"></div>
+                <div class="text">我的收藏</div>
+              </li>
+              <li class="nav ">
+                <div class="icon iconfont icon-huabankaobei-"></div>
+                <div class="text">关注新歌</div>
+              </li>
+            </ul>
+          </div>
+        </template>
+
+        <template v-slot:container_content>
+          <scroll  ref="scroll"
+                   :listenScroll="ifScroll"
+                   :preventDefault="preventDefault"
+                   :pulldown="pulldown"
+                   :pullup="pullup"
+                   id="wrapper" class="list-wrapper" >
+            <div class="content">
+              <div class="my_music">
+                <div class="my_music_t">
+                  <span class="left">我的音乐</span>
+                  <span class="right icon iconfont icon-arrow-right"></span>
+                  <span class="right icon iconfont icon-airudiantubiaohuizhi-zhuanqu_qinzichengchang"></span>
+                </div>
+                <slider-bar2></slider-bar2>
+              </div>
+            </div>
+          </scroll>
+        </template>
 
       </slider-main>
-    </div>
+    </template>
   </slider-left>
 </div>
 
@@ -15,6 +69,7 @@
   import SliderLeft from 'components/slider-left/slider-left'
   import SliderMain from 'base/slider/slider-main'
   import SliderBar from 'base/slider/slider-bar'
+  import SliderBar2 from 'base/slider/slider-bar2'
   import Songs from 'base/songs/songs'
   import Scroll from 'base/scroll/scroll'
   import {mapGetters, mapMutations} from 'vuex'
@@ -23,31 +78,36 @@
     name: 'me',
     data() {
       return {
-        songlist:[]
+        songlist:[],
+        ifScroll:true,
+        preventDefault:false,
+        pulldown: true,
+        pullup:true,
+        container_title_h:'180px',
+        head_color:"dark"
       }
     },
     components: {
       SliderLeft,
       SliderMain,
       SliderBar,
+      SliderBar2,
       Songs,
       Scroll
     },
     computed: {
       ...mapGetters([
         'modeType',
+        'userId',
+        'username',
+        'avatarUrl',
+        'isLogin'
       ])
     },
     created() {
       this._getDailySonglist()
     },
     methods: {
-      loadImage() {
-        if (!this.checkloaded) {
-          this.checkloaded = true
-          this.$refs.scroll.refresh()
-        }
-      },
       _getDailySonglist(){
         getDailySonglist().then(res => {
           this.songlist = res.data.recommend
@@ -64,93 +124,74 @@
 </script>
 
 <style lang="stylus" scoped>
-  .main_container{
+  .left{
+    float: left;
+  }
+  .right{
+    float :right;
+  }
+  .background_color{
+    width:100%;
+    height:100%;
+    background-color:#2a2a2b;
+  }
+  .user_info{
+    height: 200px;
+    line-height: 200px
+    padding: 0 20px;
+    .avatar{
+      width: 100px;
+      height: 100px;
+      border-radius:50px;
+      vertical-align: middle;
+      margin-right: 20px;
+    }
+    .username{
+      vertical-align: middle;
+    }
+  }
+
+  .c_t_navbar{
+    height:150
     width: 100%
-    height:1300px
-    .container{
+    .nav{
+      float: left
+      width: 20%
+      height:100px
+      text-align:center
+      margin:0
+      .icon{
+        width:100%
+        color:#fff
+        font-size: 54px
+      }
+      .text{
+        height 50px;
+        line-height: 50px
+        margin-top: 10px
+        font-size:$font-size-small
+      }
+    }
+  }
+
+  .list-wrapper{
+    width: 100%
+    height:1134px
+    overflow :hidden
+    .content{
       width: 100%
-      height:100%
-      overflow-y :scroll
-      &.night{
-        background: $color-night-bg3
-        color: $color-night-font1
-      }
-      .list{
-        width: 100%
-        height:auto
-        .item{
-          display :inline-block
-          width: 100%
-          height:90px
-          line-height:90px
-          .icon{
-            float: left
-            font-size:$icon-size-medium-x
-            width:150px
-            text-align :center
-          }
-          .text{
-            float: left
-            width:600px
-            border-bottom:1px solid #ccc
-            span{
-              font-size:$font-size-small-x
-
-            }
-          }
-        }
-      }
-      .my_songlist{
-        width: 100%
-        height:auto
-        .head{
-          width: 94%
-          height:80px
-          line-height:80px
-          margin:0 auto
-          .icon{
-            font-size:$icon-size-medium
-            &.i_r{
-              float: right
-            }
-          }
-
-        }
-      }
-      .recommend-list{
-        margin-bottom:300px
-        .list-title{
-          height:80px
+      height:auto
+      .my_music{
+        .my_music_t{
+          padding: 0 20px;
+          height: 80px;
           line-height :80px
-          width:100%
-          display: inline-block
-          span{
-            vertical-align :middle
-          }
-          .icon{
-            display: inline-block
-            font-size:$font-size-small
-            text-align :center
-            &.i_l{
-              box-sizing :border-box
-              width: 40px
-              height: 40px
-              line-height :40px
-              border-radius :20px
-              background:$color-icon
-              margin: 0 10px
-            }
-            &.i_r{
-              float: right
-              margin-right:20px
-              font-size:$font-size-medium-x
-            }
+          .right{
+            font-size: $icon-size-medium
           }
         }
       }
     }
   }
-
-
 
 </style>

@@ -1,7 +1,6 @@
 <template>
   <slider-main>
-
-    <template v-slot:head="slotHead">
+    <template v-slot:head>
       <back-head title="歌单"
                  :ico_color="modeType ? '#fff' : ''"
                  :style="{'background': isTop ? backheadUrl : 'none'}"
@@ -205,13 +204,14 @@ export default {
       this.$router.go(-1)
     },
     _getSonglist() {
-
       if(this.$route.params.flag === "leaderboard"){
+        console.log("leaderboard")
         this.scrolly=300
         getToplistDetail(this.songlistId).then((res) => {
           console.log(res)
           this.songlist = res.data.playlist
           this.backgroundImg = this.songlist.coverImgUrl
+          this.backheadUrl ='url(' + this.backgroundImg  + ')'
           let songid = ""
           this.songlist.tracks.forEach(function (item,index) {
             songid +=item.id+","
@@ -222,6 +222,7 @@ export default {
           console.log(err)
         })
       }else if(this.$route.params.flag === "album"){
+        console.log("album")
         getAlbum(this.songlistId).then(res => {
           console.log(res)
           this.songlist = res.data.album
@@ -237,6 +238,7 @@ export default {
         })
       }
       else{
+        console.log("其他")
         this.scrolly = 150
    /*     const id = this.$route.params.id*/
         console.log(this.backheadUrl)
