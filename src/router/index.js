@@ -240,6 +240,14 @@ export default new Router({
       }
     },
     {
+      path:'/everydayrec',
+      name:'everydayrec',
+      component: resolve => require(['@/components/songlist-detail/everyday-rec'], resolve),
+      meta: {
+        keepAlive:false
+      }
+    },
+    {
       path: "/404",
       name: "notFound",
       component:  resolve => require(['@/components/error-page/notFound'], resolve),

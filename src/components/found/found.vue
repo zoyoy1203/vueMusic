@@ -146,11 +146,8 @@
       },
       goRecommendSongs() {
         this.$router.push({
-          path: '/songlistdetail',
-          name: 'songlistdetail',
-          params: {
-            flag:"recommend"
-          }
+          path: '/everydayrec',
+          name: 'everydayrec',
         })
       },
       _getBanners() {

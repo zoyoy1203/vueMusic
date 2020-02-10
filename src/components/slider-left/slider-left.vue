@@ -3,6 +3,7 @@
     ref="drawerLayout"
     @mask-click="handleMaskClick"
   >
+    // 侧边栏内容
     <div slot="drawer" class="drawer">
       <div class="user" :class="modeType ? '' : 'night'">
         <div class="nologin" v-if="!isLogin">
@@ -117,6 +118,7 @@
         </div>
       </div>
     </div>
+    // 主体内容
     <div slot="content">
       <m-header  @icon-click="handleIconClick" :class="modeType ? '' : 'night'"></m-header>
       <slot name="mainContainer" />

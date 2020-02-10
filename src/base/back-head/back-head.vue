@@ -1,3 +1,4 @@
+// 返回头部模板
 <template>
   <div class="header"
        :style="{color:ico_color,head_style}"

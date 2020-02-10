@@ -70,6 +70,9 @@ const matutaions = {
   },
   [types.SET_FAVORITE_LIST](state, list) {
     state.favoriteList = list
+  },
+  [types.SET_IS_TOP](state, isTop) {
+    state.isTop = isTop
   }
 }
 

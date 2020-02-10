@@ -46,9 +46,12 @@ const state = {
   topList: {},
   //夜间日间背景模式
   modeType:true,
+
   searchHistory: loadSearch(),
   playHistory: loadPlay(),
-  favoriteList: loadFavorite()
+  favoriteList: loadFavorite(),
+  // 判断歌单列表是否滑动到顶部
+  isTop:false,
 }
 
 export default state

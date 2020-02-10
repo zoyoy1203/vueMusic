@@ -1,5 +1,5 @@
 <template>
-  <slider-main>
+  <slider-main :container_title_h="container_title_h">
 
     <template v-slot:head="slotHead">
       <back-head title="歌单"
@@ -10,59 +10,7 @@
     </template>
 
     <template v-slot:background>
-      <div class="background_color"  :class="modeType ? '' : 'night'" :style="{'background':'url('+backgroundImg+')' }"></div>
-    </template>
-
-    <template v-slot:container_title>
-      <div class="c_t_detail">
-        <div class="img gradient-wrap" >
-          <img ref="img" :src="backgroundImg"  >
-          <span class="playcount iconfont icon-bofang1 " v-if="songlist.playCount">{{songlist.playCount | formatNum}}</span>
-        </div>
-
-        <div class="text">
-          <div class="text_t">{{songlist.name}}</div>
-          <div class="text_c" v-if="songlist.creator" @click="goUser(songlist.creator.userId)">
-            <img :src="songlist.creator.avatarUrl" alt="">
-            <span>{{songlist.creator.nickname}}</span>
-            <span class="iconfont icon-arrow-right"></span>
-          </div>
-          <div class="text_c" v-if="songlist.artist" @click="goUser(songlist.artist.id)">
-            <img :src="songlist.artist.picUrl" alt="">
-            <span>{{songlist.artist.name}}</span>
-            <span class="iconfont icon-arrow-right"></span>
-          </div>
-          <div class="text_d">
-            <div class="text_d_t">
-              {{songlist.description}}
-            </div>
-            <div class="text_d_b iconfont icon-arrow-right">
-            </div>
-          </div>
-        </div>
-      </div>
-      <div id="navbar" class="c_t_navbar">
-        <ul>
-          <li class="nav" @click="goComment()">
-            <div class="icon iconfont icon-xiaoxi"></div>
-            <div class="text " v-if="songlist">{{songlist.commentCount}}</div>
-            <div class="text " v-else>{{songlist.info.commentCount}}</div>
-          </li>
-          <li class="nav ">
-            <div class="icon iconfont icon-fenxiang"></div>
-            <div class="text" v-if="songlist">{{songlist.shareCount}}</div>
-            <div class="text" v-else>{{songlist.info.shareCount}}</div>
-          </li>
-          <li class="nav">
-            <div class="icon iconfont icon-xiazai"></div>
-            <div class="text">下载</div>
-          </li>
-          <li class="nav ">
-            <div class="icon iconfont icon-duoxuan"></div>
-            <div class="text">多选</div>
-          </li>
-        </ul>
-      </div>
+      <div class="background_color"  :class="modeType ? '' : 'night'" :style="{'background':'url('+ require('../../common/img/bg.jpg') +')'}"></div>
     </template>
 
     <template v-slot:container_content>
@@ -104,150 +52,119 @@
   </slider-main>
 </template>
 <script>
-import BScroll from 'better-scroll'
-import Scroll from 'base/scroll/scroll'
-import SliderMain from 'base/slider/slider-main'
-import {getSonglistDetail, getSongDetail,getToplistDetail,getRecommendSongs, getAlbum} from 'api/api'
-import {mapGetters, mapMutations, mapActions} from 'vuex'
-// import {playlistMixin} from 'common/js/mixin'
-import util from 'api/util'
-import BackHead from 'base/back-head/back-head'
+  import BScroll from 'better-scroll'
+  import Scroll from 'base/scroll/scroll'
+  import SliderMain from 'base/slider/slider-main'
+  import {getSonglistDetail, getSongDetail,getToplistDetail,getRecommendSongs, getAlbum} from 'api/api'
+  import {mapGetters, mapMutations, mapActions} from 'vuex'
+  // import {playlistMixin} from 'common/js/mixin'
+  import util from 'api/util'
+  import BackHead from 'base/back-head/back-head'
 
-export default {
-  name: 'songlist-detail',
-  // mixins: [playlistMixin], //取消
-  data() {
-    return {
-      songlist:[],
-      backgroundImg:null,
-      backgroundColor:{},
-      ids:"",
-      songlistDetail:[],
-      songDetailS:"",
-      leaderboardFlag:false,
-      backheadUrl:"",
-      scrolly:null,
-      ifScroll:true,
-      preventDefault:false,
-      pulldown: true,
-      pullup:true,
-    }
-  },
-  components: {
-    BackHead,
-    BScroll,
-    Scroll,
-    SliderMain
-  },
-  computed: {
-    ...mapGetters([
-      'modeType',
-      'songlistId',
-      'isTop'
-    ])
-  },
-  created () {
-    if(this.$route.params.id){
-      this.setSonglistId(this.$route.params.id)
-    }
-    this._getSonglist()
-  },
-
-  methods: {
-    pullingUp() {
-      console.log("上拉加载啊")
-    },
-    pullingDown(){
-      this.setIsTop(false)
-    },
-
-    getElementToPageTop(el){
-      if(el.parentElement){
-        return this.getElementToPageTop(el.parentElement) + el.offsetTop
+  export default {
+    name: 'songlist-detail',
+    // mixins: [playlistMixin], //取消
+    data() {
+      return {
+        songlist:[],
+        backgroundImg:null,
+        backgroundColor:{},
+        ids:"",
+        songlistDetail:[],
+        songDetailS:"",
+        leaderboardFlag:false,
+        titleContent:true,
+        backheadUrl:"",
+        scrolly:null,
+        ifScroll:true,
+        preventDefault:false,
+        pulldown: true,
+        pullup:true,
+        container_title_h: '150px'
       }
-      return el.offsetTop
     },
-    goUser(uid) {
-      console.log(uid)
-      this.$router.push({
-        path:'/user',
-        name:'user',
-        params:{
-          uid:uid
-        }
-      })
+    components: {
+      BackHead,
+      BScroll,
+      Scroll,
+      SliderMain
     },
-    goComment() {
-      this.$router.push({
-        path:'/comment',
-        name:'comment',
-        params:{
-          id:this.songlistId,
-          type:"2",
-        }
-      })
+    computed: {
+      ...mapGetters([
+        'modeType',
+        'songlistId',
+        'isTop'
+      ])
     },
-    ...mapMutations({
-      setSonglistId: 'SET_SONGLIST_ID',
-      setIsTop: 'SET_IS_TOP'
-    }),
-
-    goSongPlayer(item,index){
-      console.log('item='+item)
-      console.log('index='+index)
-      util.setLocalData('songDetail',item)
-      this.selectPlay({
-        list: this.songlistDetail,
-        index
-      })
-    },
-    prev() {
-      this.$router.go(-1)
-    },
-    _getSonglist() {
-
-      if(this.$route.params.flag === "leaderboard"){
-        this.scrolly=300
-        getToplistDetail(this.songlistId).then((res) => {
-          console.log(res)
-          this.songlist = res.data.playlist
-          this.backgroundImg = this.songlist.coverImgUrl
-          let songid = ""
-          this.songlist.tracks.forEach(function (item,index) {
-            songid +=item.id+","
-          })
-          this.ids = songid.slice(0,songid.length-1)
-          this._getSongDetail()
-        }).catch(err => {
-          console.log(err)
-        })
-      }else if(this.$route.params.flag === "album"){
-        getAlbum(this.songlistId).then(res => {
-          console.log(res)
-          this.songlist = res.data.album
-          this.backgroundImg = this.songlist.blurPicUrl
-          let songid = ""
-          res.data.songs.forEach(function (item,index) {
-            songid +=item.al.id+","
-          })
-          this.ids = songid.slice(0,songid.length-1)
-          this._getSongDetail()
-        }).catch(err => {
-          console.log(err)
-        })
+    created () {
+      if(this.$route.params.id){
+        this.setSonglistId(this.$route.params.id)
       }
-      else{
-        this.scrolly = 150
-   /*     const id = this.$route.params.id*/
+      this._getSonglist()
+    },
+
+    methods: {
+      pullingUp() {
+        console.log("上拉加载啊")
+      },
+      pullingDown(){
+        this.setIsTop(false)
+      },
+
+      getElementToPageTop(el){
+        if(el.parentElement){
+          return this.getElementToPageTop(el.parentElement) + el.offsetTop
+        }
+        return el.offsetTop
+      },
+      goUser(uid) {
+        console.log(uid)
+        this.$router.push({
+          path:'/user',
+          name:'user',
+          params:{
+            uid:uid
+          }
+        })
+      },
+      goComment() {
+        this.$router.push({
+          path:'/comment',
+          name:'comment',
+          params:{
+            id:this.songlistId,
+            type:"2",
+          }
+        })
+      },
+      ...mapMutations({
+        setSonglistId: 'SET_SONGLIST_ID',
+        setIsTop: 'SET_IS_TOP'
+      }),
+
+      goSongPlayer(item,index){
+        console.log('item='+item)
+        console.log('index='+index)
+        util.setLocalData('songDetail',item)
+        this.selectPlay({
+          list: this.songlistDetail,
+          index
+        })
+      },
+      prev() {
+        this.$router.go(-1)
+      },
+      _getSonglist() {
+        console.log('recommend')
+        this.titleContent=false
+        this.scrolly=100
         console.log(this.backheadUrl)
-        getSonglistDetail(this.songlistId).then((res) => {
+        getRecommendSongs().then((res) => {
           console.log(res)
-          this.songlist = res.data.playlist
-          this.backheadUrl ='url(' + this.songlist.coverImgUrl + ')'
+          this.songlist = res.data.result
           this.backgroundImg = this.songlist.coverImgUrl
-          console.log(this.songlist)
           let songid = ""
-          this.songlist.tracks.forEach(function (item,index) {
+          this.songlist.forEach(function (item,index) {
             songid +=item.id+","
           })
           this.ids = songid.slice(0,songid.length-1)
@@ -255,41 +172,40 @@ export default {
         }).catch(err => {
           console.log(err)
         })
+
+      },
+      _getSongDetail() {
+        console.log(this.ids)
+        getSongDetail(this.ids).then((res) => {
+          this.songlistDetail = res.data.songs
+          console.log(res)
+
+          /* const options = {
+             scrollY:true,//默认， 可以省略
+             click:true
+           }
+           setTimeout(() => {
+             this.scroll = new BScroll(this.$refs.wrapper,options)
+           },20)
+   */
+        }).catch(err => {
+          console.log(err)
+        })
+      },
+      ...mapActions([
+        'selectPlay',
+        'randomPlay'
+      ])
+
+    },
+
+    filters: {
+      formatNum(num) {
+        num = num > 9999 ?  parseInt(num/10000) + "万" : num
+        return num
       }
-
-    },
-    _getSongDetail() {
-      console.log(this.ids)
-      getSongDetail(this.ids).then((res) => {
-        this.songlistDetail = res.data.songs
-        console.log(res)
-
-       /* const options = {
-          scrollY:true,//默认， 可以省略
-          click:true
-        }
-        setTimeout(() => {
-          this.scroll = new BScroll(this.$refs.wrapper,options)
-        },20)
-*/
-      }).catch(err => {
-        console.log(err)
-      })
-    },
-    ...mapActions([
-      'selectPlay',
-      'randomPlay'
-    ])
-
-  },
-
-  filters: {
-    formatNum(num) {
-      num = num > 9999 ?  parseInt(num/10000) + "万" : num
-      return num
     }
   }
-}
 </script>
 
 <style lang="stylus" scoped>

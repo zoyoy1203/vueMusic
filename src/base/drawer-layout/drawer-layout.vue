@@ -1,3 +1,5 @@
+// 侧边栏滑动模板
+
 <template>
   <div class="drawer-layout">
     <div class="drawer-wrap" :class="animateStyle" :style="drawerStyle">
