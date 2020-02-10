@@ -26,8 +26,6 @@
     components: {
       BackHead
     },
-    created() {
-    },
     computed: {
       ...mapGetters([
         'phone',
@@ -38,6 +36,7 @@
       ])
     },
     methods: {
+      // 获取登录用户信息并存储
       _getUserStatus() {
         getUserStatus().then(res => {
           var profile = res.data.profile
@@ -50,13 +49,25 @@
       },
       getLogin() {
         var phone = this.$route.params.number
-        console.log(phone)
+
         phoneLogin(phone,this.password).then(res => {
-          this.setPhone(phone)
-          this.setIsLogin(true)
-          this.$router.push({
-            path:'/found'
-          })
+          // 判断登录是否成功
+          if (res.data.code === 200){
+            this.setPhone(phone)
+            this.setIsLogin(true)
+            this.$router.push({
+              path:'/found'
+            })
+          }else{
+            // 设置登录状态
+            this.setIsLogin(false)
+            // 显示登录失败提示，3s后消失
+            this.message = true
+            setTimeout(() => {
+              this.message = false
+            },3000);
+          }
+
         }).catch(err => {
           console.log(err)
           this.setIsLogin(false)
