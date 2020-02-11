@@ -47,12 +47,34 @@
                    id="wrapper" class="list-wrapper" >
             <div class="content">
               <div class="my_music">
-                <div class="my_music_t">
-                  <span class="left">我的音乐</span>
-                  <span class="right icon iconfont icon-arrow-right"></span>
-                  <span class="right icon iconfont icon-airudiantubiaohuizhi-zhuanqu_qinzichengchang"></span>
-                </div>
+                <navbar :title="my_music_title" :icon1="icon1" :icon2="icon2"></navbar>
                 <slider-bar2></slider-bar2>
+              </div>
+              <div class="my_playmusic">
+                <navbar :title="my_playmusic_title" :icon1="icon1" :text1="my_playmusic_text1"></navbar>
+                <div class="my_playmusic_c">
+                  <songs-wrapper1
+                    :img=" song_wrapper1_img"
+                    :text1="song_wrapper1_text1"
+                    :text2="song_wrapper1_text2"
+                  ></songs-wrapper1>
+                  <songs-wrapper1
+                    :img=" song_wrapper1_img"
+                    :text1="song_wrapper1_text1"
+                    :text2="song_wrapper1_text2"
+                  ></songs-wrapper1>
+                </div>
+              </div>
+              <div class="rec_songs">
+                <navbar :title="rec_songs_title" :icon1="icon3"></navbar>
+                <songs-wrapper1
+                  v-for="(item, index) in songlist"
+                  :key="index"
+                  :img="item.picUrl"
+                  :text1="item.name"
+                  :text2="item.copywriter"
+                  :id="item.id"
+                ></songs-wrapper1>
               </div>
             </div>
           </scroll>
@@ -68,9 +90,9 @@
 <script>
   import SliderLeft from 'components/slider-left/slider-left'
   import SliderMain from 'base/slider/slider-main'
-  import SliderBar from 'base/slider/slider-bar'
   import SliderBar2 from 'base/slider/slider-bar2'
-  import Songs from 'base/songs/songs'
+  import SongsWrapper1 from 'base/songs/songs-wrapper1'
+  import Navbar from 'base/navbar/navbar'
   import Scroll from 'base/scroll/scroll'
   import {mapGetters, mapMutations} from 'vuex'
   import {getDailySonglist} from 'api/api'
@@ -84,15 +106,25 @@
         pulldown: true,
         pullup:true,
         container_title_h:'180px',
-        head_color:"dark"
+        head_color:"dark",
+        song_wrapper1_img: require('common/image/FM.jpg'),
+        song_wrapper1_text1:'全部已播歌曲全部已播歌曲全部已播歌曲全部已播歌曲全部已播歌曲',
+        song_wrapper1_text2:'2首',
+        my_music_title:'我的音乐',
+        icon1:'icon-arrow-right',//右箭头
+        icon2:'icon-airudiantubiaohuizhi-zhuanqu_qinzichengchang',
+        icon3:'icon-cross', //×
+        my_playmusic_title:'最近播放',
+        my_playmusic_text1:'更多',
+        rec_songs_title:'推荐歌单'
       }
     },
     components: {
       SliderLeft,
       SliderMain,
-      SliderBar,
       SliderBar2,
-      Songs,
+      SongsWrapper1,
+      Navbar,
       Scroll
     },
     computed: {
@@ -124,12 +156,7 @@
 </script>
 
 <style lang="stylus" scoped>
-  .left{
-    float: left;
-  }
-  .right{
-    float :right;
-  }
+
   .background_color{
     width:100%;
     height:100%;
@@ -176,20 +203,29 @@
 
   .list-wrapper{
     width: 100%
-    height:1134px
+    height:1300px;
     overflow :hidden
     .content{
+      display: inline-block
       width: 100%
-      height:auto
+      height:1400px;
       .my_music{
-        .my_music_t{
-          padding: 0 20px;
-          height: 80px;
-          line-height :80px
-          .right{
-            font-size: $icon-size-medium
-          }
+        width:100%;
+        padding:0 20px;
+        margin-top:30px;
+      }
+      .my_playmusic{
+        margin-top:30px;
+        padding: 0 20px;
+        .my_playmusic_c{
+          width:100%;
+          height: 130px;
         }
+      }
+      .rec_songs{
+        margin-top:30px;
+        width:100%;
+        padding:0 20px;
       }
     }
   }

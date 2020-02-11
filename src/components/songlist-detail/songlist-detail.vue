@@ -103,7 +103,6 @@
   </slider-main>
 </template>
 <script>
-import BScroll from 'better-scroll'
 import Scroll from 'base/scroll/scroll'
 import SliderMain from 'base/slider/slider-main'
 import {getSonglistDetail, getSongDetail,getToplistDetail,getRecommendSongs, getAlbum} from 'api/api'
@@ -134,7 +133,6 @@ export default {
   },
   components: {
     BackHead,
-    BScroll,
     Scroll,
     SliderMain
   },
@@ -266,14 +264,6 @@ export default {
         this.songlistDetail = res.data.songs
         console.log(res)
 
-       /* const options = {
-          scrollY:true,//默认， 可以省略
-          click:true
-        }
-        setTimeout(() => {
-          this.scroll = new BScroll(this.$refs.wrapper,options)
-        },20)
-*/
       }).catch(err => {
         console.log(err)
       })

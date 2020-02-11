@@ -22,6 +22,7 @@
 
 <script>
   import {mapGetters, mapMutations, mapActions} from 'vuex'
+  import Scroll from 'base/scroll/scroll'
   export default {
     name: 'slider-main',
     props: {
@@ -29,6 +30,9 @@
         type: String,
         default:'250px'
       }
+    },
+    components: {
+      Scroll,
     },
     computed: {
       ...mapGetters([
@@ -81,6 +85,8 @@
         top: 80px
         width: 100%
         color: $color-font1
+        height: 100%;
+        overflow:scroll;
         .container_title{
           filter:none
           width: 100%

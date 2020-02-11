@@ -2,27 +2,33 @@
 <template>
   <div class="wrapper" ref="personWrap">
     <ul class="my_music_nav">
-      <li class="nav">
-        <p class="icon iconfont icon-shixin" :class="modeType ? '' : 'night'" style="color:red"></p>
+      <li class="nav nav_like">
+        <p class="icon iconfont icon-shixin"  style="color:red"></p>
         <p class="text">我喜欢的音乐</p>
       </li>
-      <li class="nav ">
-        <p class="icon iconfont icon-mayi-diantai" :class="modeType ? '' : 'night'"></p>
-        <p class="text">私人FM</p>
-        <p class="desc">最懂你的推荐</p>
+      <li class="nav nav_fm" >
+        <div class="bg" :style="{backgroundImage:`url(${nav_fm_bg})`}"></div>
+        <div class="nav_fm_p">
+          <p class="icon iconfont icon-mayi-diantai" ></p>
+          <p class="text">私人FM</p>
+          <p class="desc">你的私人曲库</p>
+        </div>
       </li>
-      <router-link tag="li" to="/leaderboard" class="nav">
-        <p class="icon iconfont icon-meirituijian-" :class="modeType ? '' : 'night'"></p>
+      <li class="nav nav_rec">
+        <p class="rec">推荐</p>
+        <p class=" icon iconfont icon-meirituijian-" ></p>
         <p class="text">私藏推荐</p>
         <p class="desc">最懂你的推荐</p>
-      </router-link>
-      <li class="nav ">
-        <p class="icon iconfont icon-kongjian" :class="modeType ? '' : 'night'"></p>
+      </li>
+      <li class="nav nav_rec">
+        <p class="rec">推荐</p>
+        <p class=" icon iconfont icon-kongjian" ></p>
         <p class="text">Sati空间</p>
         <p class="desc">减压轻音乐</p>
       </li>
-      <li class="nav ">
-        <p class="icon iconfont icon-geshou" :class="modeType ? '' : 'night'"></p>
+      <li class="nav nav_rec">
+        <p class="rec">推荐</p>
+        <p class=" icon iconfont icon-geshou" ></p>
         <p class="text">歌手兴趣圈</p>
         <p class="desc">一起畅聊歌手</p>
       </li>
@@ -36,6 +42,11 @@
   import {getSimiSinger} from 'api/api'
   export default {
     name: 'slider-bar2',
+    data() {
+      return {
+        nav_fm_bg: require('common/image/FM.jpg'),
+      }
+    },
     created() {
       this.$nextTick(() => {
         this.personScroll();
@@ -81,21 +92,63 @@
       float: left;
       width: 220px;
       height:300px;
-      margin:10px 10px;
+      margin:10px 20px 0 0;
       line-height:100px;
       text-align:center;
-      background-color: #ccc;
-      color: #fff;
+      background-color: $color-bg1;
+      color: $color-font1;
       border-radius: 20px;
+      &.nav_like{
+        background-image: linear-gradient(to top left, #2c2c2c, #ccc)
+      }
+      &.nav_fm{
+        position: relative;
+        background:none;
+        .bg{
+          width:100%;
+          height:100%;
+          background-size:cover;
+          filter:brightness(60%);
+        }
+        .nav_fm_p{
+          position: absolute;
+          top:0;
+          left:0;
+          bottom:0;
+          right:0;
+        }
+      }
+      p{
+        z-index:111;
+      }
       .icon{
         margin:50px auto 0 auto;
-        font-size: $icon-size-large
+        font-size: $icon-size-large;
       }
       .text{
         margin-top:0;
         height: 30px;
         line-height :30px;
-        font-size: $font-size-small-x
+        font-size: $font-size-small-x;
+      }
+      .desc{
+        height: 30px;
+        line-height :30px;
+        margin-top:70px;
+        font-size: $font-size-small-x;
+      }
+      .rec{
+        height:50px;
+        line-height:50px;
+        font-size: $font-size-small
+        color: $color-font9;
+      }
+      &.nav_rec{
+        color: $color-font9;
+        .icon{
+          color: $color-font2;
+          margin:0 auto;
+        }
       }
     }
   }
