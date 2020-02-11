@@ -43,7 +43,19 @@
               <div class="list-title">
                 <navbar1 :path="path" t_text1="推荐歌单" b_text1="为你精挑细选" b_text2="查看更多"></navbar1>
               </div>
-              <songs :songlist="songlist" img="picUrl"></songs>
+              <div class="list-content">
+                <div class="list_content_c">
+                  <songs-wrapper2
+                    v-for="(item, index) in songlist"
+                    v-if="index<6"
+                    :key="index"
+                    :id="item.id"
+                    :img="item.picUrl"
+                    :text="item.name"
+                    class="item"
+                  ></songs-wrapper2>
+                </div>
+              </div>
             </div>
             <div class="recommend-list" :class="modeType ? '' : 'night'">
               <div class="list-title">
@@ -74,6 +86,7 @@
   import Scroll from 'base/scroll/scroll'
   import Loading from 'base/loading/loading'
   import Songs from 'base/songs/songs'
+  import SongsWrapper2 from 'base/songs/songs-wrapper2'
   import SliderLeft from 'components/slider-left/slider-left'
   import Navbar1 from '../../base/navbar/navbar1'
   import { getBanner, getNewDisc,getNewSong, getRecommendSonglist} from 'api/api'
@@ -94,6 +107,7 @@
       Scroll,
       Loading,
       Songs,
+      SongsWrapper2,
       SliderLeft,
       Navbar1
     },
@@ -264,4 +278,20 @@
             }
           }
         }
+        .list-content{
+          width:100%;
+          height:300px;
+          padding:0 20px;
+          overflow-x :scroll;
+          overflow-y : hidden;
+          white-space : nowrap;
+          .list_content_c{
+            width:1350px;
+            .item{
+              float:left;
+              margin-right:20px;
+            }
+          }
+        }
+        .list-content::-webkit-scrollbar {display:none}
 </style>

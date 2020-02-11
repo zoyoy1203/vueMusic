@@ -1,4 +1,4 @@
-// 歌单列表小模块
+// 歌单列表组件模块1
 
 <template>
   <div class="wrapper" @click="goSonglistDetail()">
