@@ -4,6 +4,7 @@
       <div class="recommend" ref="recommend" :class="modeType ? '' : 'night'">
         <scroll ref="scroll" class="recommend-content">
           <div>
+            <!--轮播图-->
             <div v-if="banners.length" class="slider-wrapper" :class="modeType ? '' : 'night'" ref="sliderWrapper">
               <slider>
                 <div v-for="item in banners">
@@ -13,6 +14,7 @@
                 </div>
               </slider>
             </div>
+            <!--导航栏-->
             <div class="navbar" :class="modeType ? '' : 'night'">
               <ul>
                 <li class="nav " @click="goRecommendSongs()">
@@ -39,29 +41,22 @@
             </div>
             <div class="recommend-list" :class="modeType ? '' : 'night'">
               <div class="list-title">
-                <div class="list-title-left">
-                  推荐歌单
-                </div>
-                <div class="list-title-right":class="modeType ? '' : 'night'" @click="goSonglist()"  >
-                  歌单广场
-                </div>
+                <navbar1 :path="path" t_text1="推荐歌单" b_text1="为你精挑细选" b_text2="查看更多"></navbar1>
               </div>
               <songs :songlist="songlist" img="picUrl"></songs>
             </div>
             <div class="recommend-list" :class="modeType ? '' : 'night'">
               <div class="list-title">
-                <div class="list-title-left" @click="discORsong=true" :class="discORsong ? (modeType ? 'active' : 'active_night') : ''">
-                  新碟
-                </div>
-                <div class="list-title-left" @click="discORsong=false" :class="!discORsong ? (modeType ? 'active' : 'active_night') : ''" >
-                  新歌
-                </div>
-                <router-link tag="div" to="/new-album" class="list-title-right" :class="modeType ? '' : 'night'" v-if="discORsong">
-                  更多新碟
-                </router-link>
-                <div class="list-title-right" :class="modeType ? '' : 'night'" v-else>
-                  新歌推荐
-                </div>
+                <navbar1  t_text1="2月11日"  :b_text2="discORsong ? '更多新歌' : '更多新碟'" :path="discORsong ? '/new-album' : null" >
+                  <template v-slot:select_tag>
+                    <span class="tag tag1" @click="discORsong=true" :class="discORsong ? 'active' : ''" >
+                      新歌
+                    </span>
+                    <span class="tag" @click="discORsong=false" :class="discORsong ? '' : 'active'">
+                      新碟
+                    </span>
+                  </template>
+                </navbar1>
               </div>
               <songs :songlist="discORsong ? discList : newSongList" :img="discORsong ? 'picUrl' : 'album.picUrl'"></songs>
             </div>
@@ -80,6 +75,7 @@
   import Loading from 'base/loading/loading'
   import Songs from 'base/songs/songs'
   import SliderLeft from 'components/slider-left/slider-left'
+  import Navbar1 from '../../base/navbar/navbar1'
   import { getBanner, getNewDisc,getNewSong, getRecommendSonglist} from 'api/api'
 
   export default {
@@ -90,6 +86,7 @@
         newSongList:[],
         discORsong:true,
         songlist:[],
+        path:'/songlist'
       }
     },
     components: {
@@ -97,7 +94,8 @@
       Scroll,
       Loading,
       Songs,
-      SliderLeft
+      SliderLeft,
+      Navbar1
     },
     computed: {
       ...mapGetters([
@@ -134,7 +132,7 @@
       },
       goSonglist() {
         this.$router.push({
-          path: '/b-songlist',
+          path: '/songlist',
           name: 'songlist'
         })
       },
@@ -217,7 +215,6 @@
         width: 100%
         height:250px
         padding-top:80px
-        border-bottom:1px solid #ccc
         &.night{
           background: $color-night-bg2!important
           border-bottom:1px solid $color-night-line1
@@ -250,37 +247,21 @@
         &.night{
           background :$color-night-bg3!important
         }
-        .list-title
-          height: 65px
-          line-height: 65px
-          text-align: center
-          width:100%
-          display: inline-block
-          margin:20px auto;
-          .list-title-left
-            float:left
-            font-size:$font-size-medium
-            color: $color-font4
-            margin:0 20px
+        .list-title{
+          width:100%;
+          padding:0 20px;
+          margin-bottom:10px;
+          .tag{
+            font-size:$font-size-medium-x;
+            color:$color-font4;
+            &.tag1{
+              margin-right:10px;
+              padding-right:10px;
+              border-right:1px solid $color-line;
+            }
             &.active{
-              font-size:$font-size-large-x
-              color: #000
+              color:$color-font2;
             }
-            &.active_night{
-              color: #ccc
-              font-size:$font-size-large-x
-            }
-          .list-title-right
-            float: right
-            font-size:$font-size-small
-            line-height: 40px
-            width:140px
-            heihgt:40px
-            border-radius:20px
-            border:1px solid $color-line
-            margin:15px 20px
-            &.night{
-              background:$color-night-bg3!important
-              border:1px solid $color-night-line1
-            }
+          }
+        }
 </style>

@@ -68,7 +68,7 @@ export default new Router({
       name: 'me',
       component: resolve => require(['@/components/me/me'], resolve),
       meta: {
-        keepAlive: false
+        keepAlive: true
       }
     },
     {
