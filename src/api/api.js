@@ -63,6 +63,13 @@ export function getSonglist(tag,offset,limit){
     })
   }
 
+//每日推荐歌曲
+export function getEverydayRecSongs(){
+  return fetch({
+    url: apiUrl +  '/recommend/songs'
+  })
+}
+
 //歌曲详情
 export function getSongDetail(ids){
   return fetch({

@@ -39,6 +39,7 @@
                 </li>
               </ul>
             </div>
+            <!--推荐歌单-->
             <div class="recommend-list" :class="modeType ? '' : 'night'">
               <div class="list-title">
                 <navbar1 :path="path" t_text1="推荐歌单" b_text1="为你精挑细选" b_text2="查看更多"></navbar1>
@@ -57,6 +58,26 @@
                 </div>
               </div>
             </div>
+            <!--风格推荐-->
+            <div class="recommend-list" :class="modeType ? '' : 'night'">
+              <div class="list-title">
+                <navbar1 t_text1="风格推荐" b_text1="每日推荐歌曲一览" b_text2="播放全部"></navbar1>
+              </div>
+              <div class="list-content1">
+                <div class="list-content1-c">
+                  <songs-wrapper3
+                    v-for="(item, index) in songs"
+                    v-if="index<12"
+                    :key="index"
+                    :img="item.album.picUrl"
+                    :title="item.name"
+                    :artists="item.album.artists[0].name"
+                    class="item"
+                  ></songs-wrapper3>
+                </div>
+              </div>
+            </div>
+            <!--新歌|新碟-->
             <div class="recommend-list" :class="modeType ? '' : 'night'">
               <div class="list-title">
                 <navbar1  t_text1="2月11日"  :b_text2="discORsong ? '更多新歌' : '更多新碟'" :path="discORsong ? '/new-album' : null" >
@@ -87,9 +108,10 @@
   import Loading from 'base/loading/loading'
   import Songs from 'base/songs/songs'
   import SongsWrapper2 from 'base/songs/songs-wrapper2'
+  import SongsWrapper3 from 'base/songs/songs-wrapper3'
   import SliderLeft from 'components/slider-left/slider-left'
   import Navbar1 from '../../base/navbar/navbar1'
-  import { getBanner, getNewDisc,getNewSong, getRecommendSonglist} from 'api/api'
+  import { getBanner, getNewDisc,getNewSong, getRecommendSonglist,getEverydayRecSongs} from 'api/api'
 
   export default {
     data() {
@@ -99,6 +121,7 @@
         newSongList:[],
         discORsong:true,
         songlist:[],
+        songs:[],
         path:'/songlist'
       }
     },
@@ -108,6 +131,7 @@
       Loading,
       Songs,
       SongsWrapper2,
+      SongsWrapper3,
       SliderLeft,
       Navbar1
     },
@@ -124,6 +148,7 @@
     created() {
       this._getBanners()
       this._getSonglist()
+      this._getEverydayRecSongs()
       this._getDiscList()
       this._getNewSong()
       console.log(this.mode)
@@ -167,18 +192,19 @@
       _getSonglist() {
         getRecommendSonglist(9).then((res) => {
           console.log(res)
-          /*let songslist = res.data.result
-          var that = this
-          songslist.forEach(function (item,index) {
-            that.b-songlist[index]={
-              id:item.id,
-              name:item.name,
-              img:item.picUrl
-            }
-          })*/
           this.songlist = res.data.result
           console.log('推荐歌单列表=')
           console.log(this.songlist)
+        }).catch(err => {
+          console.log(err)
+        })
+      },
+      _getEverydayRecSongs() {
+        getEverydayRecSongs().then((res) => {
+          console.log(res)
+          this.songs = res.data.data.dailySongs
+          console.log('每日推荐歌曲：')
+          console.log(this.songs)
         }).catch(err => {
           console.log(err)
         })
@@ -264,7 +290,7 @@
         .list-title{
           width:100%;
           padding:0 20px;
-          margin-bottom:10px;
+          margin: 20px 0 15px 0;
           .tag{
             font-size:$font-size-medium-x;
             color:$color-font4;
@@ -287,6 +313,7 @@
           white-space : nowrap;
           .list_content_c{
             width:1350px;
+            height:100%;
             .item{
               float:left;
               margin-right:20px;
@@ -294,4 +321,22 @@
           }
         }
         .list-content::-webkit-scrollbar {display:none}
+        .list-content1{
+          width:100%;
+          height:520px;
+          overflow-x :scroll;
+          overflow-y : hidden;
+          white-space : nowrap;
+          padding-left:20px;
+          .list-content1-c{
+            width:2800px;
+            height:100%;
+            .item{
+              width:700px;
+              float:left;
+              margin-bottom:20px;
+            }
+          }
+        }
+        .list-content1::-webkit-scrollbar {display:none}
 </style>
