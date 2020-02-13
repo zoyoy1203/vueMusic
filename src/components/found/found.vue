@@ -66,7 +66,7 @@
               <div class="list-content1">
                 <div class="list-content1-c">
 
-                  <slider :showDot="rec_showDot" :autoPlay="rec_autoPlay" :loop="rec_loop">
+                  <slider :showDot="rec_showDot" :autoPlay="rec_autoPlay" :loop="rec_loop" >
                     <div v-for="(items, index1) in songs"  class="songs_items">
                       <songs-wrapper3
                         v-for="(item, index) in items"
@@ -155,11 +155,11 @@
       }
     },
     created() {
-      this._getBanners()
-      this._getSonglist()
+      // this._getBanners()
+      // this._getSonglist()
       this._getEverydayRecSongs()
-      this._getDiscList()
-      this._getNewSong()
+      // this._getDiscList()
+      // this._getNewSong()
       console.log(this.mode)
 
     },
@@ -348,7 +348,6 @@
           .list-content1-c{
             height:100%;
             .songs_items{
-              width:700px;
               float:left;
               height:100%;
               .item{

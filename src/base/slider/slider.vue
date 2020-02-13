@@ -126,8 +126,6 @@
         this.children = this.$refs.slideGroup.children;
         let width = 0;
         let slideWidth = this.$refs.slide.clientWidth;
-        console.log(slideWidth)
-        console.log(this.children.length)
 
         setTimeout(() => {
           for (let i = 0; i < this.children.length; i++) {
@@ -155,7 +153,7 @@
             threshold: this.threshold,
             speed: this.speed
           },
-          bounce: false,
+          bounce: false, // 回弹动画
           stopPropagation: true,
           click: this.click
         });
