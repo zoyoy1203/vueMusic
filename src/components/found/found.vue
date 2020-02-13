@@ -65,15 +65,21 @@
               </div>
               <div class="list-content1">
                 <div class="list-content1-c">
-                  <songs-wrapper3
-                    v-for="(item, index) in songs"
-                    v-if="index<12"
-                    :key="index"
-                    :img="item.album.picUrl"
-                    :title="item.name"
-                    :artists="item.album.artists[0].name"
-                    class="item"
-                  ></songs-wrapper3>
+
+                  <slider :showDot="rec_showDot" :autoPlay="rec_autoPlay" :loop="rec_loop">
+                    <div v-for="(items, index1) in songs"  class="songs_items">
+                      <songs-wrapper3
+                        v-for="(item, index) in items"
+                        v-if="index<12"
+                        :key="index"
+                        :img="item.album.picUrl"
+                        :title="item.name"
+                        :artists="item.album.artists[0].name"
+                        class="item"
+                      ></songs-wrapper3>
+                    </div>
+                  </slider>
+
                 </div>
               </div>
             </div>
@@ -122,7 +128,10 @@
         discORsong:true,
         songlist:[],
         songs:[],
-        path:'/songlist'
+        path:'/songlist',
+        rec_showDot:false,
+        rec_autoPlay:false,
+        rec_loop:false,
       }
     },
     components: {
@@ -201,8 +210,11 @@
       },
       _getEverydayRecSongs() {
         getEverydayRecSongs().then((res) => {
-          console.log(res)
-          this.songs = res.data.data.dailySongs
+          let result = res.data.data.dailySongs
+          this.songs = [];
+          for(var i=0;i<12;i+=3){
+            this.songs.push(result.slice(i,i+3));
+          }
           console.log('每日推荐歌曲：')
           console.log(this.songs)
         }).catch(err => {
@@ -249,6 +261,11 @@
         padding-top:20px
         &.night{
           background:$color-night-bg1!important
+        }
+        img {
+          display: block;
+          width: 100%;
+          border-radius :20px
         }
 
       .navbar
@@ -329,13 +346,17 @@
           white-space : nowrap;
           padding-left:20px;
           .list-content1-c{
-            width:2800px;
             height:100%;
-            .item{
+            .songs_items{
               width:700px;
               float:left;
-              margin-bottom:20px;
+              height:100%;
+              .item{
+                float:left
+                margin-bottom:20px;
+              }
             }
+
           }
         }
         .list-content1::-webkit-scrollbar {display:none}

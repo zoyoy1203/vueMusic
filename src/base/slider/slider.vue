@@ -126,16 +126,23 @@
         this.children = this.$refs.slideGroup.children;
         let width = 0;
         let slideWidth = this.$refs.slide.clientWidth;
-        for (let i = 0; i < this.children.length; i++) {
-          let child = this.children[i];
-          addClass(child, "slide-item");
-          child.style.width = slideWidth + "px";
-          width += slideWidth;
-        }
-        if (this.loop && !isResize) {
-          width += 2 * slideWidth;
-        }
-        this.$refs.slideGroup.style.width = width + "px";
+        console.log(slideWidth)
+        console.log(this.children.length)
+
+        setTimeout(() => {
+          for (let i = 0; i < this.children.length; i++) {
+            let child = this.children[i];
+            console.log(child)
+            addClass(child, " slide-item");
+            child.style.width = slideWidth + "px";
+            width += slideWidth;
+          }
+          if (this.loop && !isResize) {
+            width += 2 * slideWidth;
+          }
+          this.$refs.slideGroup.style.width = width + "px";
+        },500)
+
       },
       _initSlide() {
         console.log(this.threshold);
@@ -220,11 +227,6 @@
           text-decoration: none;
         }
 
-        img {
-          display: block;
-          width: 100%;
-          border-radius :20px
-        }
       }
     }
 
