@@ -1,7 +1,6 @@
 // 歌曲列表组件模块2
-
 <template>
-  <div class="wrapper" @click="paly()">
+  <div class="wrapper" @click.once="play()">
     <img :src="img" alt="">
     <div class="content">
       <p class="title">
@@ -36,7 +35,7 @@
     },
     methods:{
       play(){
-
+        console.log('开发中。。。')
       }
     }
   }
@@ -48,6 +47,7 @@
   width:100%;
   height:150px;
   flex-direction:row;
+  margin:5px 0;
   img{
     width:150px;
     height:150px;

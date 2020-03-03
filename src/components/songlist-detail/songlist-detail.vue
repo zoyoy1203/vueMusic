@@ -165,7 +165,7 @@ export default {
       return el.offsetTop
     },
     goUser(uid) {
-      console.log(uid)
+      console.log('用户id:'+uid)
       this.$router.push({
         path:'/user',
         name:'user',
@@ -190,8 +190,8 @@ export default {
     }),
 
     goSongPlayer(item,index){
-      console.log('item='+item)
-      console.log('index='+index)
+      // console.log('item='+item)
+      // console.log('index='+index)
       util.setLocalData('songDetail',item)
       this.selectPlay({
         list: this.songlistDetail,
@@ -210,6 +210,7 @@ export default {
           this.songlist = res.data.playlist
           this.backgroundImg = this.songlist.coverImgUrl
           this.backheadUrl ='url(' + this.backgroundImg  + ')'
+          console.log(backheadUrl)
           let songid = ""
           this.songlist.tracks.forEach(function (item,index) {
             songid +=item.id+","
@@ -239,13 +240,14 @@ export default {
         console.log("其他")
         this.scrolly = 150
    /*     const id = this.$route.params.id*/
-        console.log(this.backheadUrl)
+        
         getSonglistDetail(this.songlistId).then((res) => {
           console.log(res)
           this.songlist = res.data.playlist
           this.backheadUrl ='url(' + this.songlist.coverImgUrl + ')'
           this.backgroundImg = this.songlist.coverImgUrl
           console.log(this.songlist)
+          console.log(this.backheadUrl)
           let songid = ""
           this.songlist.tracks.forEach(function (item,index) {
             songid +=item.id+","
@@ -259,7 +261,7 @@ export default {
 
     },
     _getSongDetail() {
-      console.log(this.ids)
+      // console.log(this.ids)
       getSongDetail(this.ids).then((res) => {
         this.songlistDetail = res.data.songs
         console.log(res)
@@ -298,7 +300,7 @@ export default {
   }
   .container_title1{
     position: relative
-    filter:none
+    filter: none
     width: 100%
     height:300px
     .text{

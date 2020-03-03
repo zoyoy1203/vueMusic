@@ -9,13 +9,17 @@
     </div>
     <!--主体内容-->
     <div class="container">
-      <div class="container_title" :style="{'height': container_title_h}">
-        <slot name="container_title" />
-      </div>
-      <div  id="main" class="container_content" :class=" isTop ? 'isFixed' :'isRelative'">
-        <slot name="container_content" />
+      <div class="container_c">
+        
+        <div class="container_title" :style="{'height': container_title_h}">
+          <slot name="container_title" />
+        </div>
+        <div  id="main" class="container_content" :class=" isTop ? 'isFixed' :'isRelative'">
+          <slot name="container_content" />
+        </div>
       </div>
     </div>
+    
 
   </div>
 </template>
@@ -80,37 +84,42 @@
         z-index: -1;
       }
       .container{
-        position: absolute
-        left: 0
-        top: 80px
-        width: 100%
-        color: $color-font1
-        height: 100%;
-        overflow:scroll;
-        .container_title{
-          filter:none
+        position:absolute;
+        width:100%;
+        top:80px;
+        bottom:0;
+        overflow:hidden;
+        .container_c{
           width: 100%
-        }
-        .container_content{
-          position:relative
-          left: 0
-          top: -30px
-          width: 100%
-          height:auto
-          border-top-left-radius:40px
-          border-top-right-radius:40px
-          border:1px solid $color-line
-          color: $color-font2
-          background: #fff
-          &.isRelative{
-            position: relative
+          color: $color-font1
+          height: 100%;
+          overflow:scroll;
+          .container_title{
+            filter:none
+            width: 100%
           }
-          &.isFixed{
-            position:fixed;
-            top:80px;
-            z-index:999;
+          .container_content{
+            position:relative
+            left: 0
+            top: -30px
+            width: 100%
+            height:auto
+            border-top-left-radius:40px
+            border-top-right-radius:40px
+            border:1px solid $color-line
+            color: $color-font2
+            background: #fff
+            &.isRelative{
+              position: relative
+            }
+            &.isFixed{
+              position:fixed;
+              top:80px;
+              z-index:999;
+            }
           }
         }
       }
+   
   }
 </style>

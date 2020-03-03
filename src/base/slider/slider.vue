@@ -1,6 +1,6 @@
 <template>
   <div class="slide" ref="slide">
-    <div class="slide-group" ref="slideGroup">
+    <div class="slide-group" ref="slideGroup" >
       <slot>
       </slot>
     </div>
@@ -79,6 +79,7 @@
       let pageIndex = this.slide.getCurrentPage().pageX;
       this.slide.goToPage(pageIndex, 0, 0);
       this.currentPageIndex = pageIndex;
+      // console.log(this.currentPageIndex)
       if (this.autoPlay) {
         this._play();
       }
@@ -126,24 +127,26 @@
         this.children = this.$refs.slideGroup.children;
         let width = 0;
         let slideWidth = this.$refs.slide.clientWidth;
+        // console.log(this.children.length)
 
         setTimeout(() => {
           for (let i = 0; i < this.children.length; i++) {
             let child = this.children[i];
-            console.log(child)
+            // console.log(child)
             addClass(child, " slide-item");
             child.style.width = slideWidth + "px";
             width += slideWidth;
           }
-          if (this.loop && !isResize) {
-            width += 2 * slideWidth;
-          }
+          // if (this.loop && !isResize) {
+          //   width +=  slideWidth;
+          //   // width += slideWidth;
+          // }
           this.$refs.slideGroup.style.width = width + "px";
         },500)
 
       },
       _initSlide() {
-        console.log(this.threshold);
+        // console.log(this.threshold);
         this.slide = new BScroll(this.$refs.slide, {
           scrollX: true,
           scrollY: false,
@@ -154,7 +157,7 @@
             speed: this.speed
           },
           bounce: false, // 回弹动画
-          stopPropagation: true,
+          stopPropagation: false,
           click: this.click
         });
 
@@ -173,6 +176,7 @@
       },
       _onScrollEnd() {
         let pageIndex = this.slide.getCurrentPage().pageX;
+        // console.log(pageIndex)
         this.currentPageIndex = pageIndex;
         if (this.autoPlay) {
           this._play();
@@ -180,6 +184,7 @@
       },
       _initDots() {
         this.dots = new Array(this.children.length);
+        // console.log(this.dots)
       },
       _play() {
         clearTimeout(this.timer);
@@ -212,7 +217,6 @@
       position: relative;
       overflow: hidden;
       white-space: nowrap;
-
       .slide-item {
         float: left;
         box-sizing: border-box;

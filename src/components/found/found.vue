@@ -1,13 +1,13 @@
 <template>
-  <slider-left>
+  <slider-left >
     <div slot="mainContainer">
       <div class="recommend" ref="recommend" :class="modeType ? '' : 'night'">
         <scroll ref="scroll" class="recommend-content">
           <div>
             <!--轮播图-->
-            <div v-if="banners.length" class="slider-wrapper" :class="modeType ? '' : 'night'" ref="sliderWrapper">
+            <div v-cloak v-if="banners.length" class="slider-wrapper" :class="modeType ? '' : 'night'" ref="sliderWrapper">
               <slider>
-                <div v-for="item in banners">
+                <div v-for="(item,index) in banners" :key="index">
                   <a href="#">
                     <img class="needsclick"  :src="item.imageUrl">
                   </a>
@@ -155,11 +155,11 @@
       }
     },
     created() {
-      // this._getBanners()
-      // this._getSonglist()
+      this._getBanners()
+      this._getSonglist()
       this._getEverydayRecSongs()
-      // this._getDiscList()
-      // this._getNewSong()
+      this._getDiscList()
+      this._getNewSong()
       console.log(this.mode)
 
     },
@@ -247,6 +247,7 @@
 </script>
 
 <style scoped lang="stylus" rel="stylesheet/stylus">
+
   .recommend
     position: fixed
     width: 100%
@@ -257,8 +258,9 @@
       overflow: hidden
       .slider-wrapper
         width: 100%
-        height:200px
+        height:300px
         padding-top:20px
+        overflow :hidden;
         &.night{
           background:$color-night-bg1!important
         }
@@ -270,8 +272,7 @@
 
       .navbar
         width: 100%
-        height:250px
-        padding-top:80px
+        height:180px
         &.night{
           background: $color-night-bg2!important
           border-bottom:1px solid $color-night-line1
