@@ -142,7 +142,8 @@
           //   // width += slideWidth;
           // }
           this.$refs.slideGroup.style.width = width + "px";
-        },500)
+          console.log(width)
+        },100)
 
       },
       _initSlide() {

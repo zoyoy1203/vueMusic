@@ -69,16 +69,14 @@
 
                   <slider :showDot="rec_showDot" :autoPlay="rec_autoPlay" :loop="rec_loop" >
                     <div v-for="(items, index1) in songs" :key="index1"  class="songs_items">
-                      <template   v-for="(item, index) in items">
-                        <songs-wrapper3
-                          v-if="index<12"
-                          :key="index"
-                          :img="item.album.picUrl"
-                          :title="item.name"
-                          :artists="item.album.artists[0].name"
-                          class="item"
-                        ></songs-wrapper3>
-                      </template>
+                      <songs-wrapper3
+                        v-for="(item, index) in items"
+                        :key="index"
+                        :img="item.album.picUrl"
+                        :title="item.name"
+                        :artists="item.album.artists[0].name"
+                        class="item"
+                      ></songs-wrapper3>
                       
                     </div>
                   </slider>
