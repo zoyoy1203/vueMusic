@@ -17,7 +17,7 @@
             </div>
             <div class="list">
               <ul>
-                <li class="item" v-for="(item,index) in djPaygift.freePrograms">
+                <li class="item" v-for="(item,index) in djPaygift.freePrograms" :key="index">
                   <div class="item_l">
                     <div class="name">
                       {{item.name}}
@@ -41,7 +41,7 @@
           <div class="content_c2">
             <div class="title">精彩评论</div>
             <ul>
-              <li class="item" v-for="(item,index) in djPaygift.commentDatas">
+              <li class="item" v-for="(item,index) in djPaygift.commentDatas" :key="index">
                 <div class="img">
                   <img :src="item.userProfile.avatarUrl" alt="">
                 </div>

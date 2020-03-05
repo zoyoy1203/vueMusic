@@ -15,40 +15,41 @@
           <div class="swiper-container">
             <div class="swiper-wrapper">
               <div class="swiper-slide" v-for="(item, index) in title" :key="index">
-
-                <div class="videos" v-for="(video, i) in videolist" v-if="index === isActive">
-                  <div class="line" :class="modeType ? '' : 'night'"></div>
-                  <div class="content1">
-                    <div class="coverImg">
-                      <img :src="video.data.coverUrl" alt="" v-if="i != videoIndex" @click="playVideo(i,video.data.vid)">
-                      <div class="video" v-if="i === videoIndex && videoUrl != null" >
-                        <video
-                          id="myVideo"
-                          class="video-js"
-                          autoplay='false'
-                          controls='true'
-                          data-setup='{}'
-                        >
-                          <source
-                            :src="videoUrl"
-                            type="video/mp4"
+                <template v-for="(video, i) in videolist" >
+                  <div class="videos" v-if="index === isActive" :key="i">
+                    <div class="line" :class="modeType ? '' : 'night'"></div>
+                    <div class="content1">
+                      <div class="coverImg">
+                        <img :src="video.data.coverUrl" alt="" v-if="i != videoIndex" @click="playVideo(i,video.data.vid)">
+                        <div class="video" v-if="i === videoIndex && videoUrl != null" >
+                          <video
+                            id="myVideo"
+                            class="video-js"
+                            autoplay='false'
+                            controls='true'
+                            data-setup='{}'
                           >
-                        </video>
+                            <source
+                              :src="videoUrl"
+                              type="video/mp4"
+                            >
+                          </video>
+                        </div>
+                      </div>
+                      <div class="desc" v-if="video.data.description">
+                        {{video.data.description}}
+                      </div>
+                      <div class="content_b">
+                        <img :src="video.data.creator.avatarUrl" alt="">
+                        <span class="name">{{video.data.creator.nickname}}</span>
+                        <div class="icon iconfont icon-more-vertical"></div>
+                        <div class="icon iconfont icon-xiaoxi" @click="goVideo(video.data.vid)"><span>{{video.data.commentCount}}</span></div>
+                        <div class="icon iconfont icon-dianzan"><span>{{video.data.praisedCount}}</span></div>
                       </div>
                     </div>
-                    <div class="desc" v-if="video.data.description">
-                      {{video.data.description}}
-                    </div>
-                    <div class="content_b">
-                      <img :src="video.data.creator.avatarUrl" alt="">
-                      <span class="name">{{video.data.creator.nickname}}</span>
-                      <div class="icon iconfont icon-more-vertical"></div>
-                      <div class="icon iconfont icon-xiaoxi" @click="goVideo(video.data.vid)"><span>{{video.data.commentCount}}</span></div>
-                      <div class="icon iconfont icon-dianzan"><span>{{video.data.praisedCount}}</span></div>
-                    </div>
                   </div>
-
-                </div>
+                </template>
+                
 
               </div>
             </div>

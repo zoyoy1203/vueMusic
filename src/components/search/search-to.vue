@@ -7,11 +7,11 @@
           <span class="title_r iconfont icon-bofang">播放全部</span>
         </div>
         <ul>
-          <li class="item" v-for="(item, index) in songlist">
+          <li class="item" v-for="(item, index) in songlist" :key="index">
             <div class="item_l" @click="goSongPlayer(item,index)">
               <p class="name" v-html="item.name"></p>
               <p class="text">
-                <span v-for="(artist, i) in item.artists">
+                <span v-for="(artist, i) in item.artists" :key="i">
                   {{artist.name}}
                   <i v-if="i < item.artists.length-1">/</i>
                 </span>

@@ -95,7 +95,7 @@
                     <span class="navbar_r">MV</span>
                   </div>
                   <ul id="list_mv" class="list_mv">
-                    <li @click="" class="item"
+                    <li class="item"
                         v-for="(item, index) in singerMvDetail"
                         @click="goVideo(item.id)"
                         :key="index">

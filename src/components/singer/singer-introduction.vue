@@ -8,7 +8,7 @@
             {{singerDesc.briefDesc}}
           </div>
         </div>
-        <div class="container_c" v-for="(item, index) in singerDesc.introduction">
+        <div class="container_c" v-for="(item, index) in singerDesc.introduction" :key="index">
           <div class="title">{{item.ti}}</div>
           <div class="text">{{item.txt}}</div>
         </div>

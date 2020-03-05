@@ -15,7 +15,7 @@
         <div class="search_hot">
           <div class="title">热搜榜</div>
           <ul>
-            <li v-for="(item, index) in searchHotList" @click="keyDown(item.searchWord)">
+            <li v-for="(item, index) in searchHotList" @click="keyDown(item.searchWord)" :key="index">
               <div class="li_l" :class="index<3 ? 'index_top':''">
                 {{index+1}}
               </div>

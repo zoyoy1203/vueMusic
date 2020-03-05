@@ -82,7 +82,7 @@ export default new Router({
     {
       path: '/videolist',
       name: 'videolist',
-      component: resolve => require(['@/components/video/video-list'], resolve),
+      component: resolve => require(['@/components/more-video/video-list'], resolve),
       meta: {
         keepAlive: true
       }
@@ -90,7 +90,7 @@ export default new Router({
     {
       path: '/video',
       name: 'video',
-      component: resolve => require(['@/components/video/video'], resolve),
+      component: resolve => require(['@/components/more-video/video'], resolve),
       meta: {
         keepAlive: false
       }
@@ -129,8 +129,8 @@ export default new Router({
     },
     {
       path:'/setting',
-      name:'setting',
-      component: resolve => require(['@/components/setting/setting'], resolve),
+      name:'more-setting',
+      component: resolve => require(['@/components/more-setting/more-setting'], resolve),
       meta: {
         keepAlive:false
       }

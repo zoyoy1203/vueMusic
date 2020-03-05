@@ -4,22 +4,20 @@
     <div class="content">
       <div class="title" >热门分类</div>
       <ul>
-        <li class="item" v-for="(item, index) in djClass" v-if="index<6">
+        <li class="item" v-for="(item, index) in djClassHot" :key="index">
           <div class="item_c">
             <div class="item_cc">
               <div class="img" :style="{'background': 'url('+item.picWebUrl+')' }"></div>
               <!--    <img :src="item.picWebUrl" alt="">-->
               <span>{{item.name}}</span>
             </div>
-
           </div>
-
         </li>
       </ul>
 
       <li class="title">更多分类</li>
       <ul>
-        <li class="item" v-for="(item, index) in djClass" v-if="index>5">
+        <li class="item" v-for="(item, index) in djClass" :key="index">
           <div class="item_c">
             <div class="item_cc">
               <div class="img" :style="{'background': 'url('+item.picWebUrl+')' }"></div>
@@ -50,6 +48,7 @@
     data() {
       return{
         djClass:[],
+        djClassHot:[]
       }
     },
     created () {
@@ -63,8 +62,10 @@
     methods: {
       _getDjCatelist() {
         getDjCatelist().then(res => {
-          console.log(res)
           this.djClass = res.data.categories
+          this.djClassHot = this.djClass.splice(0,6)
+          console.log(this.djClassHot)
+          console.log(this.djClass)
         }).catch(err => {
           console.log(err)
         })

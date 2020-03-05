@@ -296,7 +296,7 @@
   import BackHead from 'base/back-head/back-head'
   import Vswitch from 'base/switch/switch'
   export default {
-    name: 'setting',
+    name: 'more-setting',
     components: {
       BackHead,
       Vswitch

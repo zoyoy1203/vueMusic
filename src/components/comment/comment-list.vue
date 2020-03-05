@@ -1,6 +1,6 @@
 <template>
   <div class="comment">
-    <div class="item" v-for="(item,index) in comment">
+    <div class="item" v-for="(item,index) in comment" :key="index">
       <div class="img">
         <img :src="item.user.avatarUrl" alt="">
       </div>

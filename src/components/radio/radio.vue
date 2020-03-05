@@ -43,7 +43,7 @@
               </div>
             </div>
             <ul class="list-center">
-              <li @click="goRadiolistDetail(item.id)" v-for="(item, index) in djRecommend" v-if="index<3" :key="index" class="item">
+              <li @click="goRadiolistDetail(item.id)" v-for="(item, index) in djRecommend" :key="index" class="item">
                 <div class="img">
                   <img v-lazy="item.picUrl" >
                 </div>
@@ -145,8 +145,8 @@
       },
       _getDjRecommend(){
         getDjRecommend(3).then(res => {
-          console.log(res)
-          this.djRecommend = res.data.djRadios
+          this.djRecommend = res.data.djRadios.slice(0,3)
+          console.log(this.djRecommend)
         }).catch(err => {
           console.log(err)
         })

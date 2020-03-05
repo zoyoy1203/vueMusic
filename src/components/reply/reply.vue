@@ -24,7 +24,7 @@
     <div class="line"></div>
     <div class="reply">
       <div class="title">全部回复</div>
-      <div class="item" v-for="(item,index) in comment.beReplied">
+      <div class="item" v-for="(item,index) in comment.beReplied" :key="index">
         <div class="img">
           <img :src="item.user.avatarUrl" alt="">
         </div>

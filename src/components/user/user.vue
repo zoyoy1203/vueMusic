@@ -37,7 +37,7 @@
 
         <div class="navlist">
           <ul>
-            <li class="navli"  v-for="(item,index) in navList" @click="tabClick(index)"><i :class="{'activeT':nowIndex===index}" >{{item.name}}</i>
+            <li class="navli"  v-for="(item,index) in navList" @click="tabClick(index)" :key="index"><i :class="{'activeT':nowIndex===index}" >{{item.name}}</i>
             </li>
           </ul>
         </div>
@@ -59,7 +59,7 @@
                       <span class="num">{{djList .length}}</span>
                     </div>
                     <ul>
-                      <li class="item" v-for="(item, index) in djList ">
+                      <li class="item" v-for="(item, index) in djList " :key="index">
                         <div class="item_l">
                           <img :src="item.coverUrl" alt="">
                         </div>
@@ -78,7 +78,7 @@
                       <span  class="num">{{songList.length}}</span>
                     </div>
                     <ul>
-                      <li class="item" v-for="(item, index) in songList">
+                      <li class="item" v-for="(item, index) in songList" :key="index">
                         <div class="item_l">
                           <img :src="item.coverImgUrl" alt="">
                         </div>
@@ -105,7 +105,7 @@
                       @pullingUp="pullingUp"
                       class="list-wrapper2" >
                     <ul>
-                      <li class="item" v-for="(item, index) in userEvent">
+                      <li class="item" v-for="(item, index) in userEvent" :key="index">
                         <div class="item_l">
                           <img :src="item.user.avatarUrl" alt="">
                         </div>
@@ -154,18 +154,21 @@
                 <div class="content">
                   <div class="title">认证信息</div>
                   <ul v-if="allAuthTypes">
-                    <li v-for="(item, index) in allAuthTypes">
+                    <li v-for="(item, index) in allAuthTypes" :key="index">
                       {{item.desc}}
                     </li>
                   </ul>
                   <div class="title">个人信息</div>
                   <p>等级 {{userDetail.level}}</p>
-                  <div class="social_account" v-if="item.url.length>0" v-for="(item, index) in userDetail.bindings">
-                    <span>社交账号</span>
-                    <a :href="item.url" >
-                      链接
-                    </a>
-                  </div>
+                  <template v-for="(item, index) in userDetail.bindings">
+                    <div class="social_account" v-if="item.url.length>0"  :key="index" >
+                      <span>社交账号</span>
+                      <a :href="item.url" >
+                        链接
+                      </a>
+                    </div>
+                  </template>
+                 
                   <div class="title">个人介绍</div>
                   <div class="text" v-if="profile">
                     {{profile.signature}}
