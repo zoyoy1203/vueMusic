@@ -6,7 +6,7 @@
         <div>
           <div v-if="banners.length" class="slider-wrapper" ref="sliderWrapper">
             <slider>
-              <div v-for="item in banners">
+              <div v-for="(item,index) in banners" :key="index">
                 <a href="#">
                   <img class="needsclick" @load="loadImage" :src="item.imageUrl">
                 </a>
@@ -15,11 +15,11 @@
           </div>
           <div class="navbar">
             <ul>
-              <router-link tag="li" to="/djclass" class="nav " @click="">
+              <router-link tag="li" to="/djclass" class="nav " >
                 <div class="icon iconfont icon-leimupinleifenleileibie2" :class="modeType ? '' : 'night'"></div>
                 <div class="text">电台分类</div>
               </router-link>
-              <li class="nav " @click="">
+              <li class="nav ">
                 <div class="icon iconfont icon-paixingbang" :class="modeType ? '' : 'night'"></div>
                 <div class="text">电台排行</div>
               </li>

@@ -46,15 +46,16 @@
               </div>
               <div class="list-content">
                 <div class="list_content_c">
-                  <songs-wrapper2
-                    v-for="(item, index) in songlist"
-                    v-if="index<6"
-                    :key="index"
-                    :id="item.id"
-                    :img="item.picUrl"
-                    :text="item.name"
-                    class="item"
-                  ></songs-wrapper2>
+                  <template  v-for="(item, index) in songlist">
+                    <songs-wrapper2
+                      v-if="index<6"
+                      :key="index"
+                      :id="item.id"
+                      :img="item.picUrl"
+                      :text="item.name"
+                      class="item"
+                    ></songs-wrapper2>
+                  </template>>
                 </div>
               </div>
             </div>
@@ -67,16 +68,18 @@
                 <div class="list-content1-c">
 
                   <slider :showDot="rec_showDot" :autoPlay="rec_autoPlay" :loop="rec_loop" >
-                    <div v-for="(items, index1) in songs"  class="songs_items">
-                      <songs-wrapper3
-                        v-for="(item, index) in items"
-                        v-if="index<12"
-                        :key="index"
-                        :img="item.album.picUrl"
-                        :title="item.name"
-                        :artists="item.album.artists[0].name"
-                        class="item"
-                      ></songs-wrapper3>
+                    <div v-for="(items, index1) in songs" :key="index1"  class="songs_items">
+                      <template   v-for="(item, index) in items">
+                        <songs-wrapper3
+                          v-if="index<12"
+                          :key="index"
+                          :img="item.album.picUrl"
+                          :title="item.name"
+                          :artists="item.album.artists[0].name"
+                          class="item"
+                        ></songs-wrapper3>
+                      </template>
+                      
                     </div>
                   </slider>
 

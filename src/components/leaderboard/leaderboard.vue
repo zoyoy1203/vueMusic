@@ -12,7 +12,7 @@
                 </div>
                 <div class="text">
                   <ul>
-                    <li class="text_list" v-for="(t,i) in item.tracks">
+                    <li class="text_list" v-for="(t,i) in item.tracks" :key="i">
                       {{i+1}}.{{t.first}}-{{t.second}}
                     </li>
                   </ul>

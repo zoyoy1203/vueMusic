@@ -61,7 +61,7 @@ export default {
     }
     .center{
       float:left
-      width:430px
+      width:480px
       height:auto
       padding:20px 25px
       a{
