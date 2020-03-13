@@ -12,7 +12,7 @@
 </template>
 
 <script>
-  import {mapGetters} from 'vuex'
+import {mapGetters} from 'vuex'
 import Player from 'components/player/player'
 export default {
   name: 'app',

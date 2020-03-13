@@ -1,7 +1,7 @@
 // 歌曲列表组件模块2
 <template>
   <div class="wrapper" @click.once="play()">
-    <img :src="img" alt="">
+    <img v-lazy="img" alt="">
     <div class="content">
       <p class="title">
         {{title}}

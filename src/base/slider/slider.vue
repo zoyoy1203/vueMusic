@@ -125,25 +125,30 @@
       },
       _setSlideWidth(isResize) {
         this.children = this.$refs.slideGroup.children;
+        console.log(this.children)
         let width = 0;
         let slideWidth = this.$refs.slide.clientWidth;
         // console.log(this.children.length)
 
-        setTimeout(() => {
-          for (let i = 0; i < this.children.length; i++) {
-            let child = this.children[i];
-            // console.log(child)
-            addClass(child, " slide-item");
-            child.style.width = slideWidth + "px";
-            width += slideWidth;
-          }
-          // if (this.loop && !isResize) {
-          //   width +=  slideWidth;
-          //   // width += slideWidth;
-          // }
-          this.$refs.slideGroup.style.width = width + "px";
-          console.log(width)
-        },100)
+        // setTimeout(() => {
+ 
+            for (let i = 0; i < this.children.length; i++) {
+              let child = this.children[i];
+              // console.log(child)
+              addClass(child, " slide-item");
+              child.style.width = slideWidth + "px";
+              width += slideWidth;
+            }
+            // if (this.loop && !isResize) {
+            //   width +=  slideWidth;
+            //   // width += slideWidth;
+            // }
+            console.log(width)
+            this.$refs.slideGroup.style.width = width + "px";
+            console.log(width)
+
+         
+        // },100)
 
       },
       _initSlide() {

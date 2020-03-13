@@ -5,7 +5,7 @@
         <scroll ref="scroll" class="recommend-content">
           <div>
             <!--轮播图-->
-            <div v-cloak v-if="banners.length" class="slider-wrapper" :class="modeType ? '' : 'night'" ref="sliderWrapper">
+            <div v-cloak v-if="banners" class="slider-wrapper" :class="modeType ? '' : 'night'">
               <slider>
                 <div v-for="(item,index) in banners" :key="index">
                   <a href="#">
@@ -55,7 +55,7 @@
                       :text="item.name"
                       class="item"
                     ></songs-wrapper2>
-                  </template>>
+                  </template>
                 </div>
               </div>
             </div>
@@ -65,8 +65,7 @@
                 <navbar1 t_text1="风格推荐" b_text1="每日推荐歌曲一览" b_text2="播放全部"></navbar1>
               </div>
               <div class="list-content1">
-                <div class="list-content1-c">
-
+                <div class="list-content1-c" v-if="songs">
                   <slider :showDot="rec_showDot" :autoPlay="rec_autoPlay" :loop="rec_loop" >
                     <div v-for="(items, index1) in songs" :key="index1"  class="songs_items">
                       <songs-wrapper3
@@ -76,8 +75,7 @@
                         :title="item.name"
                         :artists="item.album.artists[0].name"
                         class="item"
-                      ></songs-wrapper3>
-                      
+                      ></songs-wrapper3>   
                     </div>
                   </slider>
 
@@ -123,12 +121,12 @@
   export default {
     data() {
       return {
-        banners:[],
+        banners:null,
         discList: [],
         newSongList:[],
         discORsong:true,
         songlist:[],
-        songs:[],
+        songs:null,
         path:'/songlist',
         rec_showDot:false,
         rec_autoPlay:false,

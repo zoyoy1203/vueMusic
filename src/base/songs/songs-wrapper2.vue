@@ -2,7 +2,7 @@
 
 <template>
   <div class="wrapper" @click="goSonglistDetail()">
-    <img :src="img" alt="">
+    <img v-lazy="img" alt="">
     <div class="text">{{text}}</div>
   </div>
 </template>
