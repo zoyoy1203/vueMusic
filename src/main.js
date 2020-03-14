@@ -32,7 +32,8 @@ Vue.use(axios)
 */
 
 Vue.use(VueLazyload, {
-  loading: require('common/image/default.jpg')
+  loading: require('common/image/default.jpg'),
+  error: require('common/image/error.jpg')
 })
 
 // Vue.prototype.$axios = axios

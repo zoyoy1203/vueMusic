@@ -44,7 +44,7 @@ export default new Router({
       name: 'found',
       component: resolve => require(['@/components/found/found'], resolve),
       meta: {
-        keepAlive: true
+        keepAlive: false
       },
     },
     {

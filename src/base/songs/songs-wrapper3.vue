@@ -1,6 +1,6 @@
 // 歌曲列表组件模块2
 <template>
-  <div class="wrapper" @click.once="play()">
+  <div class="wrapper"  @click.once="goSongPlayer()">
     <img v-lazy="img" alt="">
     <div class="content">
       <p class="title">
@@ -17,26 +17,51 @@
 </template>
 
 <script>
+import {mapGetters, mapMutations, mapActions} from 'vuex'
+import {getSongDetail} from 'api/api'
+import util from 'api/util'
   export default {
     name: 'songs-wrapper3',
-    props:{
-      img:{
-        type:String,
-        default: require('common/image/default.jpg')
-      },
-      title:{
-        type:String,
-        default:'暂无信息！'
-      },
-      artists:{
-        type:String,
-        default:'未知'
+    data(){
+      return {
+        img:null,
+        title:'',
+        artists:'',
+        songDetail:null,
+        id:null,
       }
     },
+    props:{
+      song:null
+    },
+    created(){
+      this.getSong()
+    },
     methods:{
-      play(){
-        console.log('开发中。。。')
-      }
+      goSongPlayer() {
+        // util.setLocalData('songDetail',this.song)
+        console.log(this.id)
+        getSongDetail(this.id).then(res=>{
+          this.songDetail=res.data.songs[0]
+          console.log(this.songDetail)
+          this.insertSong({
+            song:this.songDetail
+          })
+        }).catch(err => {
+          console.log(err)
+        })
+      
+        
+      },
+      getSong(){
+        this.img = this.song.album.picUrl
+        this.title = this.song.name
+        this.artists = this.song.album.artists[0].name
+        this.id = this.song.id
+      },
+      ...mapActions([
+        'insertSong'
+      ])
     }
   }
 </script>
@@ -52,6 +77,7 @@
     width:150px;
     height:150px;
     border-radius:15px;
+    border:1px solid #ccc
   }
   .content{
     width:400px;

@@ -71,6 +71,7 @@
                       <songs-wrapper3
                         v-for="(item, index) in items"
                         :key="index"
+                        :song="item"
                         :img="item.album.picUrl"
                         :title="item.name"
                         :artists="item.album.artists[0].name"

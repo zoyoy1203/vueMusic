@@ -6,26 +6,29 @@ import {playMode} from 'common/js/config'
 import {shuffle} from 'common/js/util'
 import {saveSearch, clearSearch, deleteSearch, savePlay, saveFavorite, deleteFavorite} from 'common/js/cache'
 
+// 查询song歌曲在list列表中的索引
 function findIndex(list, song) {
   return list.findIndex((item) => {
     return item.id === song.id
   })
 }
 
+// 列表播放，指定歌曲
 export const selectPlay = function ({commit, state}, {list, index}) {
-  commit(types.SET_SEQUENCE_LIST, list)
-  if (state.mode === playMode.random) {
-    let randomList = shuffle(list)
-    commit(types.SET_PLAYLIST, randomList)
-    index = findIndex(randomList, list[index])
+  commit(types.SET_SEQUENCE_LIST, list)        // 设置veux顺序播放列表：sequenceList
+  if (state.mode === playMode.random) {        // 随机播放模式
+    let randomList = shuffle(list)             // 打乱播放列表顺序
+    commit(types.SET_PLAYLIST, randomList)     // 将打乱的播放列表放入vuex的playlist中
+    index = findIndex(randomList, list[index]) // 查询当前播放歌曲在随机列表中的索引
   } else {
-    commit(types.SET_PLAYLIST, list)
+    commit(types.SET_PLAYLIST, list)           // 其他播放模式：循环，顺序；直接把播放列表存入vuex的playlist
   }
-  commit(types.SET_CURRENT_INDEX, index)
-  commit(types.SET_FULL_SCREEN, true)
-  commit(types.SET_PLAYING_STATE, true)
+  commit(types.SET_CURRENT_INDEX, index)       // 设置当前播放索引：currentIndex
+  commit(types.SET_FULL_SCREEN, true)          // 设置全屏模式：fullScreen 为true
+  commit(types.SET_PLAYING_STATE, true)        // 设置是否播放：playing 为true
 }
 
+// 随机播放列表歌曲
 export const randomPlay = function ({commit}, {list}) {
   commit(types.SET_PLAY_MODE, playMode.random)
   commit(types.SET_SEQUENCE_LIST, list)
@@ -36,21 +39,28 @@ export const randomPlay = function ({commit}, {list}) {
   commit(types.SET_PLAYING_STATE, true)
 }
 
-export const insertSong = function ({commit, state}, song) {
+// 插入播放歌曲
+export const insertSong = function ({commit, state}, {song}) {
+
+  // 处理当前播放列表
+  console.log(state)
   let playlist = state.playlist.slice()
   let sequenceList = state.sequenceList.slice()
   let currentIndex = state.currentIndex
   // 记录当前歌曲
   let currentSong = playlist[currentIndex]
+  
   // 查找当前列表中是否有待插入的歌曲并返回其索引
+  console.log(playlist)
   let fpIndex = findIndex(playlist, song)
   // 因为是插入歌曲，所以索引+1
   currentIndex++
   // 插入这首歌到当前索引位置
   playlist.splice(currentIndex, 0, song)
+  console.log(fpIndex)
   // 如果已经包含了这首歌
   if (fpIndex > -1) {
-    // 如果当前插入的序号大于列表中的序号
+    // 判断这首歌曲的索引在当前索引的前面还是后面，把它去掉
     if (currentIndex > fpIndex) {
       playlist.splice(fpIndex, 1)
       currentIndex--
@@ -59,12 +69,10 @@ export const insertSong = function ({commit, state}, song) {
     }
   }
 
+  // 处理顺序播放列表
   let currentSIndex = findIndex(sequenceList, currentSong) + 1
-
   let fsIndex = findIndex(sequenceList, song)
-
   sequenceList.splice(currentSIndex, 0, song)
-
   if (fsIndex > -1) {
     if (currentSIndex > fsIndex) {
       sequenceList.splice(fsIndex, 1)
@@ -73,6 +81,7 @@ export const insertSong = function ({commit, state}, song) {
     }
   }
 
+  // 处理后的相关数据存入vuex
   commit(types.SET_PLAYLIST, playlist)
   commit(types.SET_SEQUENCE_LIST, sequenceList)
   commit(types.SET_CURRENT_INDEX, currentIndex)

@@ -40,7 +40,11 @@
                 <p ref="lyricLine"
                    class="text"
                    :class="{'current': currentLineNum ===index}"
-                   v-for="(line,index) in currentLyric.lines">{{line.txt}}</p>
+                   v-for="(line,index) in currentLyric.lines"
+                   :key="index">{{line.txt}}</p>
+              </div>
+              <div v-else>
+                歌词失踪了！！！
               </div>
             </div>
           </scroll>
@@ -85,13 +89,11 @@
           <img :class="cdCls" width="40" height="40"  :src="picUrl">
         </div>
         <div class="text" v-if="currentSong.name">
-          <h2 class="name">{{currentSong.name}}</h2>
+          <div class="name">{{currentSong.name}}</div>
           <p class="desc">{{currentSong.ar[0].name}}</p>
         </div>
         <div class="control">
-        <!--  <progress-circle :radius="radius" :percent="percent">-->
-            <i @click.stop="togglePlaying" class="iconfont" :class="miniIcon"></i>
-         <!-- </progress-circle>-->
+          <i @click.stop="togglePlaying" class="iconfont" :class="miniIcon"></i>
         </div>
         <div class="control" @click.stop="showPlaylist">
           <i class="iconfont icon-bofangliebiao"></i>
@@ -145,11 +147,9 @@
     },
     created() {
       this.touch = {}
-
       if(this.currentSong.id){
         this._getSongUrl()
       }
-
     },
     computed: {
       cdCls() {
@@ -171,7 +171,8 @@
         'currentIndex',
         'fullScreen',
         'playing',
-        'modeType'
+        'modeType',
+        'currentSong'
       ])
     },
     methods: {
@@ -322,7 +323,7 @@
         // console.log('id=========='+this.id)
         getSongUrl(this.id).then(res => {
           this.songUrl = res.data.data[0].url
-          // console.log('url======='+this.songUrl)
+          console.log('url======='+this.songUrl)
         }).catch(err => {
           console.log(err)
         })
@@ -446,7 +447,7 @@
     },
     watch: {
       currentSong(newSong, oldSong) {
-
+        console.log('歌曲改变。。。。。。。。。')
         // console.log(newSong.id)
         if (!newSong.id) {
           return
@@ -456,10 +457,11 @@
         }
         this.id = this.currentSong.id
         this.picUrl = this.currentSong.al.picUrl
-        // console.log('id=========='+this.id)
+        
+        console.log('id=========='+this.id)
         getSongUrl(this.id).then(res => {
           this.songUrl = res.data.data[0].url
-          // console.log('url======='+this.songUrl)
+          console.log('url======='+this.songUrl)
         }).catch(err => {
           console.log(err)
         })
@@ -513,10 +515,6 @@
       width: 100%
       height: 100%
       z-index: -1
-    /*  opacity: 0.6*/
-     /* filter: blur(10px)*/
-    /*  filter:grayscale(100%);*/
-      /*filter:sepia(100%)*/
       filter:brightness(30%);
       img{
         width: 100%
@@ -524,8 +522,7 @@
       }
     }
     .top{
-      position: relative
-      margin-bottom: 25px
+      display:inline-block
       margin-top:20px
       .iconfont{
         width: 100px
@@ -540,6 +537,14 @@
       .title{
         float: left
         width:550px
+        .title_t{
+          width:550px
+          height:40px
+          line-height:40px
+          overflow:hidden
+          text-overflow:ellipsis
+          white-space:nowrap
+        }
       }
       .icon_r{
         float: right
@@ -729,7 +734,7 @@
     width: 100%
     height: 120px
     background: #fff
-    border-top:1px solid #ccc
+    // border-top:1px solid #ccc
     box-shadow:0 -1px 1px #ccc
     &.mini-enter-active, &.mini-leave-active{
       transition: all 0.4s
@@ -740,9 +745,10 @@
     .icon{
       flex: 0 0 80px
       width:120px
-      padding: 0 10px 0 40px
+      padding: 0 10px
       img{
         border-radius: 50%
+        border:1px solid #ccc
         &.play{
           animation: rotate 10s linear infinite
         }
@@ -762,17 +768,19 @@
       overflow: hidden
       padding-left: 10px
       .name{
-        margin-bottom: 2px
-        no-wrap(){
-          font-size: $font-size-medium
-          color: $color-text
-        }
+        width:500px
+        height:40px
+        line-height:40px
+        overflow:hidden
+        text-overflow:ellipsis
+        white-space:nowrap
+        font-size: $font-size-medium
+        color: $color-text
+
       }
       .desc{
-        no-wrap(){
-          font-size: $font-size-small
-          color: $color-text-d
-        }
+        font-size: $font-size-small
+        color: $color-font9
       }
     }
     .control{
