@@ -1,41 +1,52 @@
 <template>
  <div class="songlist">
-   <div class="background">
-     <img :src="background" alt="">
+   <div class="background" :style="{'background':'url('+background+')'}">
    </div>
-   <back-head title="歌单广场" ico_display="none" :ico_color="modeType ? '#000' : '#fff'" style="border:none"
-              :styleClass="topColor ? 'topColor' : ''" ></back-head>
-   <div class="songlist_container">
-     <div id="lao" class="warp">
-       <!--导航-->
-       <div class="navList" :class="[modeType ? '' : 'night',topColor ? 'topColor' : '']">
-         <ul>
-           <li  v-for="(item, index) in title" :key="index"  @click="liseGo(index)">
-          <span class="tag" :class="{myColor:index==isActive}">
-            {{item.name}}
-          </span>
-           </li>
-         </ul>
-       </div>
-       <div class="slider">
-         <slider3d :piclist="sliderImg" @getImgIndex="getImgIndex" class="slider3d"> </slider3d>
-       </div>
-       <!--内容-->
-       <div class="mainContent" :class="modeType ? '' : 'night'">
-         <div class="swiper-container">
-           <div class="swiper-wrapper">
-             <div class="swiper-slide" v-for="(item, index) in title" :key="index">
-               <songs :songlist="songlist" img="coverImgUrl"></songs>
-             </div>
-           </div>
-         </div>
-       </div>
-     </div>
-   </div>
+   <back-head title="歌单广场" ico_display="none" :ico_color="modeType ? '#000' : '#fff'" style="border:none;background:none;">
+   </back-head>
+
+  <!--导航-->
+    <div class="navList" :class="[modeType ? '' : 'night']">
+      <ul>
+        <li  v-for="(item, index) in title" :key="index"  @click="liseGo(index)">
+      <span class="tag" :class="{myColor:index==isActive}">
+        {{item.name}}
+      </span>
+        </li>
+      </ul>
+    </div>
+    <scroll  ref="scroll"
+          :listenScroll="false"
+          :preventDefault="false"
+          :pulldown="false"
+          :pullup="true"
+          @pullingUp="pullingUp"
+          id="wrapper" class="list-wrapper" >
+
+      <div id="lao" class="warp">
+        <div class="slider">
+          <slider3d :piclist="sliderImg" @getImgIndex="getImgIndex" class="slider3d"> </slider3d>
+        </div>
+        <!--内容-->
+        <div class="mainContent" :class="modeType ? '' : 'night'">
+          <div class="swiper-container">
+            <div class="swiper-wrapper">
+              <div class="swiper-slide" v-for="(item, index) in title" :key="index">
+                <songs :songlist="songlist" img="coverImgUrl"></songs>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+ 
+
+    </scroll>
+
  </div>
 </template>
 
 <script>
+  import Scroll from 'base/scroll/scroll'
   import BackHead from 'base/back-head/back-head'
   import Swiper from 'swiper'
   import Songs from 'base/songs/songs'
@@ -47,7 +58,6 @@
     name: 'songlist',
     data() {
       return{
-        topColor:false,
         mySwiper: '',
         isActive: 0,
         title: [], //热门歌单类型
@@ -68,7 +78,8 @@
     components: {
       BackHead,
       Songs,
-      Slider3d
+      Slider3d,
+      Scroll
     },computed: {
       ...mapGetters([
         'modeType'
@@ -80,11 +91,19 @@
     mounted: function () {
       // 初始化swiper
       /*   this.getSwiper()*/
-
-      document.addEventListener('scroll', this.scrollMoreData, false)
-
     },
     methods: {
+       pullingUp() {
+        console.log("上拉加载啊")
+        console.log(this.isScroll)
+        if (this.isScroll) {
+          this.isScroll = false
+      /*    this.loadingMore = true*/
+          this.offset +=20
+          console.log('请求刷新------------')
+          this._getSonglist(this.isActive,this.offset,this.limit)
+        }
+      },
       getImgIndex(index) {
         this.imgIndex = index
         console.log(this.imgIndex)
@@ -157,27 +176,7 @@
         }).catch(err => {
           console.log(err)
         })
-      },
-      scrollMoreData() {
-        const scrollTopHeight = document.documentElement.scrollTop || document.body.scrollTop //滚动高度
-        const clientHeight = document.documentElement.clientHeight || window.screen.availHeight //屏幕可用工作区高度
-        const offsetHeight = document.documentElement.offsetHeight || document.body.offsetHeight //网页可见区域高(包括边线的宽)
-        // console.log(scrollTopHeight, clientHeight, scrollTopHeight + clientHeight + 50, offsetHeight)
-        if ((scrollTopHeight + clientHeight) + 50 >= offsetHeight && this.isScroll) {
-          this.isScroll = false
-      /*    this.loadingMore = true*/
-          this.offset +=20
-          console.log('请求刷新------------')
-          this._getSonglist(this.isActive,this.offset,this.limit)
-        }
-
-        if(scrollTopHeight  > 50){
-          this.topColor = true
-        }else{
-          this.topColor = false
-        }
-      },
-
+      }
     },
     watch: {
       isActive(index){
@@ -190,7 +189,6 @@
     destroyed() {
       document.removeEventListener('scroll', this.scrollMoreData, false)
     }
-
   }
 </script>
 
@@ -207,37 +205,30 @@
       left: 0
       width: 100%
       height:500px
-      z-index: 1
       filter blur(20px)
-      img{
-        width: 100%
-        height:auto
-      }
+      background-size:cover
+      z-index:-1
     }
-    .songlist_container{
-      margin-top:$main-margin-top
-    }
-  }
-  .warp{
-    width: 100%
-    height: 100%
     .navList{
-      position: fixed
       width: 100%
       overflow:hidden
-      margin-bottom:40px
+      margin-top:80px
       z-index:111
-      &.topColor{
-        background: #FFFAFA
-      }
       &.night{
         background: none!important
         color: #ccc!important
       }
       ul{
         display: -webkit-box
-        overflow-x scroll
+        -webkit-overflow-scrolling: touch;
+        overflow-x: auto;
+        overflow-y: hidden;
         white-space:nowrap
+        padding-bottom:20px
+        border-bottom:1px solid #ccc
+        &::-webkit-scrollbar{
+          display: none;
+        }
         li{
           width:150px
           text-align :center
@@ -245,7 +236,6 @@
           padding:5px 10px
           height:50px
           line-height:50px
-          border-bottom: 1px solid #ccc
           text-align: center
           z-index: 333
           .myColor{
@@ -255,16 +245,27 @@
         }
       }
     }
-
-    .slider{
-      padding-top:70px
-    }
-    .mainContent{
-      margin-top:50px
-      &.night{
-        background: #333
+  }
+  .list-wrapper{
+    width: 100%
+    height:1134px
+    overflow :hidden
+    .warp{
+      display:inline-block
+      width: 100%
+      height:auto
+      .slider{
+        padding-top:70px
+      }
+      .mainContent{
+        padding-top:50px
+        background-image:linear-gradient(180deg,rgba(255,255,255,0.5),rgba(255,255,255,0.9))
+        &.night{
+          background: #333
+        }
       }
     }
   }
+  
 
 </style>

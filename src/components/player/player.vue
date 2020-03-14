@@ -734,8 +734,7 @@
     width: 100%
     height: 120px
     background: #fff
-    // border-top:1px solid #ccc
-    box-shadow:0 -1px 1px #ccc
+    border-top:1px solid #ccc
     &.mini-enter-active, &.mini-leave-active{
       transition: all 0.4s
     }
