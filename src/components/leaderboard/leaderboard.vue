@@ -6,7 +6,7 @@
           <div class="c1">
             <div class="title">官方榜</div>
             <ul>
-              <li class="item" v-for="(item,index) in list1" :key="index" @click="goSonglistDetail(item.listId)">
+              <li class="item" v-for="(item,index) in list1" :key="index" @click="goSonglistDetail(item.id)">
                 <div class="img">
                   <img :src="item.coverImgUrl" alt="">
                 </div>
@@ -126,7 +126,7 @@
           name: 'songlistdetail',
           params: {
             id:id,
-            flag:"leaderboard"
+            // flag:"leaderboard"
           }
         })
       },

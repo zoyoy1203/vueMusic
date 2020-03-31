@@ -47,9 +47,12 @@
       }
     },
     mounted() {
-      setTimeout(() => {
+      // setTimeout(() => {
+      //   this._initScroll()
+      // }, 20)
+      this.$nextTick(function() {
         this._initScroll()
-      }, 20)
+      })
     },
     methods: {
       _initScroll() {

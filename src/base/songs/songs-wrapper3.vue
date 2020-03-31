@@ -42,6 +42,7 @@ import util from 'api/util'
         // util.setLocalData('songDetail',this.song)
         console.log(this.id)
         getSongDetail(this.id).then(res=>{
+          console.log(res)
           this.songDetail=res.data.songs[0]
           console.log(this.songDetail)
           this.insertSong({
@@ -54,9 +55,9 @@ import util from 'api/util'
         
       },
       getSong(){
-        this.img = this.song.album.picUrl
+        this.img = this.song.picUrl
         this.title = this.song.name
-        this.artists = this.song.album.artists[0].name
+        this.artists = this.song.song.artists[0].name
         this.id = this.song.id
       },
       ...mapActions([

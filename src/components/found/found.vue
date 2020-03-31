@@ -72,9 +72,9 @@
                         v-for="(item, index) in items"
                         :key="index"
                         :song="item"
-                        :img="item.album.picUrl"
+                        :img="item.picUrl"
                         :title="item.name"
-                        :artists="item.album.artists[0].name"
+                        :artists="item.song.artists[0].name"
                         class="item"
                       ></songs-wrapper3>   
                     </div>
@@ -117,7 +117,7 @@
   import SongsWrapper3 from 'base/songs/songs-wrapper3'
   import SliderLeft from 'components/slider-left/slider-left'
   import Navbar1 from '../../base/navbar/navbar1'
-  import { getBanner, getNewDisc,getNewSong, getRecommendSonglist,getEverydayRecSongs} from 'api/api'
+  import { getBanner, getNewDisc,getNewSong, getRecommendSonglist,getRecommendSongs} from 'api/api'
 
   export default {
     data() {
@@ -157,10 +157,10 @@
     created() {
       this._getBanners()
       this._getSonglist()
-      this._getEverydayRecSongs()
+      this._getRecommendSongs()
       this._getDiscList()
       this._getNewSong()
-      console.log(this.mode)
+      // console.log(this.mode)
 
     },
     methods: {
@@ -168,14 +168,14 @@
         this.setModeType(!this.modeType)
       },
       handleIconClick() {
-        console.info('icon-click')
+        // console.info('icon-click')
         this.$refs.drawerLayout.toggle(true)
       },
       handleSlideStart() {
-        console.info('slide-start')
+        // console.info('slide-start')
       },
       handleMaskClick() {
-        console.info('mask-click')
+        // console.info('mask-click')
         this.$refs.drawerLayout.toggle(false)
       },
       goSonglist() {
@@ -192,7 +192,7 @@
       },
       _getBanners() {
         getBanner().then((res) => {
-          console.log(res)
+          // console.log(res)
           this.banners = res.data.banners
         }).catch(err => {
           console.log(err)
@@ -202,17 +202,18 @@
         getRecommendSonglist(9).then((res) => {
           console.log(res)
           this.songlist = res.data.result
-          console.log('推荐歌单列表=')
-          console.log(this.songlist)
+          // console.log('推荐歌单列表=')
+          // console.log(this.songlist)
         }).catch(err => {
           console.log(err)
         })
       },
-      _getEverydayRecSongs() {
-        getEverydayRecSongs().then((res) => {
-          let result = res.data.data.dailySongs
+      _getRecommendSongs() {
+        getRecommendSongs().then((res) => {
+          console.log(res)
+          let result = res.data.result;
           this.songs = [];
-          for(var i=0;i<12;i+=3){
+          for(var i=0;i<9;i+=3){
             this.songs.push(result.slice(i,i+3));
           }
           console.log('每日推荐歌曲：')

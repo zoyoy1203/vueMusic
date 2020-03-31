@@ -240,14 +240,14 @@ export default {
         console.log("其他")
         this.scrolly = 150
    /*     const id = this.$route.params.id*/
-        
+        // console.log('songlistId',this.songlistId)
         getSonglistDetail(this.songlistId).then((res) => {
-          console.log(res)
+          // console.log(res)
           this.songlist = res.data.playlist
           this.backheadUrl ='url(' + this.songlist.coverImgUrl + ')'
           this.backgroundImg = this.songlist.coverImgUrl
-          console.log(this.songlist)
-          console.log(this.backheadUrl)
+          // console.log(this.songlist)
+          // console.log(this.backheadUrl)
           let songid = ""
           this.songlist.tracks.forEach(function (item,index) {
             songid +=item.id+","
