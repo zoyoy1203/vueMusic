@@ -7,6 +7,8 @@ import axios from 'axios'
 Vue.prototype.$axios = axios
 
 
+axios.defaults.headers.post['Content-Type'] = 'application/json;charset=UTF-8';
+
 import VueLazyload from 'vue-lazyload'
 import store from './store'
 import VueAwesomeSwiper from 'vue-awesome-swiper'

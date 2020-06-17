@@ -261,12 +261,12 @@
         width: 100%
         height:300px
         padding-top:20px
-        overflow :hidden;
+        overflow :hidden
         &.night{
           background:$color-night-bg1!important
         }
         img {
-          display: block;
+          display: block
           width: 100%;
           border-radius :20px
         }
